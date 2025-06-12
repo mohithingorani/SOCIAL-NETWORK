@@ -95,8 +95,8 @@ export default function Home() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="grid grid-cols-6 max-h-screen">
-      <div className="grid grid-col-1">
+    <div className="grid grid-cols-1 md:grid-cols-6">
+      <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
       <div className="flex-grow col-span-5 m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
@@ -114,7 +114,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className=" col-span-1 rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 grid grid-rows-2">
+          <div className=" col-span-1 hidden  rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
             <div className="row-span-1">
             <div className="font-medium text-xl ">Messages</div>
             <div className=" bg-[#161616] border border-white/20 rounded-[8px] w-full flex mt-4">

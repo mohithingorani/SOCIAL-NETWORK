@@ -10,19 +10,19 @@ export const ContactCard = ({
   time: string;
 }) => {
   return (
-    <button className="flex hover:bg-[#242627] w-full px-2 py-3 rounded-xl">
+    <button className="flex items-center w-full px-2 py-3 rounded-xl hover:bg-[#242627] transition">
       <Image
-        className="rounded-full "
+        className="rounded-full"
         src={`/avatars/${avatar}.png`}
-        width="50"
-        height="50"
+        width={40}
+        height={40}
         alt="profile image"
       />
-      <div className="flex flex-col justify-center items-start pl-4">
-        <div className="text-lg">{name}</div>
-        <div className="flex text-sm text-gray-300 gap-2">
-          <div>liked your story</div>
-          <div className="text-gray-400">{time}</div>
+      <div className="flex flex-col justify-center items-start pl-3 sm:pl-4">
+        <div className="text-base sm:text-lg font-medium truncate">{name}</div>
+        <div className="flex flex-wrap text-sm sm:text-sm text-gray-300 gap-1 sm:gap-2">
+          <span>liked your story</span>
+          <span className="text-gray-400 whitespace-nowrap">{time}</span>
         </div>
       </div>
     </button>
