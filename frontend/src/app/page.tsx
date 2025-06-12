@@ -12,6 +12,7 @@ import { useRecoilState } from "recoil";
 import { isOnlineAtom, userDataAtom, userNameAtom } from "./atoms";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Post from "./components/Post";
 
 export interface userData {
   email: string;
@@ -98,14 +99,18 @@ export default function Home() {
       <div className="grid grid-col-1">
         <NavBar userName={userNameValue} />
       </div>
-      <div className="flex-grow col-span-5 m-6 border border-white/20 text-white rounded-3xl bg-gradient-to-t from-[#18181A] to-[#202020]">
-        <div className="h-full w-full grid grid-cols-3 rounded-3xl">
-          <div className=" col-span-2  rounded-l-3xl p-8 flex flex-col">
+      <div className="flex-grow col-span-5 m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
+        <div className="w-full grid grid-cols-3 rounded-3xl">
+          <div className="col-span-2  rounded-l-3xl p-8 flex h-[92vh] flex-col overflow-y-scroll">
             <div className="mb-8">
               <StoriesCard />
             </div>
             <div>
               <AddPost />
+            </div>
+            {/* Posts */}
+            <div className="mt-6 overflow-y-scroll">
+              <Post />
             </div>
           </div>
 
@@ -152,10 +157,6 @@ const Stories = [
     image: "avatar_07",
     name: "Jordan",
   },
-  {
-    image: "avatar_08",
-    name: "Karen",
-  },
 ];
 
 const StoriesCard = () => {
@@ -163,7 +164,7 @@ const StoriesCard = () => {
     <>
       <div className="flex">
         <div className="flex justify-center flex-col w-fit items-center gap-2 text-sm mr-12">
-          <div className="w-20 h-20 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
+          <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
             +
           </div>
           <div>Add Story</div>
@@ -172,7 +173,7 @@ const StoriesCard = () => {
           {Stories.map((story) => {
             return (
               <div className="flex mr-12 justify-center flex-col w-fit items-center gap-2 text-sm">
-                <div className="w-20 h-20 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
+                <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
                   <Image
                     className="rounded-full "
                     src={`/avatars/${story.image}.png`}
@@ -194,7 +195,7 @@ const StoriesCard = () => {
 const AddPost = () => {
   return (
     <>
-      <div className="bg-[#101010] p-12 rounded-xl w-full text-white">
+      <div className="bg-[#101010] p-6 rounded-3xl shadow-md w-full text-white">
         <div className="flex justify-start w-full">
           <Image
             className="rounded-full "
@@ -204,23 +205,31 @@ const AddPost = () => {
             alt="profile image"
           />
           <div className="ml-6 bg-[#161616] border border-white/20 rounded-[8px] w-full flex">
-          <input
-            type="text"
-            placeholder="What is happening?"
-            className="w-full  px-6 bg-transparent outline-none"
-          />
-          <button>
-            <Image src={"/mic_logo.png"} className="mr-6" width={"25"} height={"25"} alt="mic"/>
-          </button>
+            <input
+              type="text"
+              placeholder="What is happening?"
+              className="w-full  px-6 bg-transparent outline-none"
+            />
+            <button>
+              <Image
+                src={"/mic_logo.png"}
+                className="mr-6 opacity-50 hover:opacity-100"
+                width={"25"}
+                height={"25"}
+                alt="mic"
+              />
+            </button>
           </div>
         </div>
-        <div className="mt-8 flex justify-between items-center">
+        <div className="mt-4 flex justify-between items-center">
           <div className=" flex justify-start gap-6">
             <div>Media Content</div>
             <div>Hashtags</div>
             <div>Schedule</div>
           </div>
-          <button className="bg-[#9B9B9B] text-xl  rounded-xl px-8 py-2 hover:bg-blue-400">Post</button>
+          <button className="bg-[#9B9B9B] text-xl  rounded-xl px-8 py-2 hover:bg-blue-400">
+            Post
+          </button>
         </div>
       </div>
     </>
