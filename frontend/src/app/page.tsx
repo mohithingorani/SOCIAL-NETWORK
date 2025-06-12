@@ -100,9 +100,15 @@ export default function Home() {
       </div>
       <div className="flex-grow col-span-5 m-6 border border-white/20 text-white rounded-3xl bg-gradient-to-t from-[#18181A] to-[#202020]">
         <div className="h-full w-full grid grid-cols-3 rounded-3xl">
-          <div className=" col-span-2  rounded-l-3xl p-8">
-            <StoryCard />
+          <div className=" col-span-2  rounded-l-3xl p-8 flex flex-col">
+            <div className="mb-8">
+              <StoriesCard />
+            </div>
+            <div>
+              <AddPost />
+            </div>
           </div>
+
           <div className=" col-span-1 rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0"></div>
         </div>
       </div>
@@ -142,13 +148,21 @@ const Stories = [
     image: "avatar_06",
     name: "Fiona",
   },
+  {
+    image: "avatar_07",
+    name: "Jordan",
+  },
+  {
+    image: "avatar_08",
+    name: "Karen",
+  },
 ];
 
-const StoryCard = () => {
+const StoriesCard = () => {
   return (
     <>
       <div className="flex">
-        <div className="flex justify-center flex-col w-fit items-center gap-2 text-sm mr-8">
+        <div className="flex justify-center flex-col w-fit items-center gap-2 text-sm mr-12">
           <div className="w-20 h-20 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
             +
           </div>
@@ -157,7 +171,7 @@ const StoryCard = () => {
         <div className="flex justify-start ">
           {Stories.map((story) => {
             return (
-              <div className="flex mr-8 justify-center flex-col w-fit items-center gap-2 text-sm">
+              <div className="flex mr-12 justify-center flex-col w-fit items-center gap-2 text-sm">
                 <div className="w-20 h-20 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
                   <Image
                     className="rounded-full "
@@ -171,6 +185,42 @@ const StoryCard = () => {
               </div>
             );
           })}
+        </div>
+      </div>
+    </>
+  );
+};
+
+const AddPost = () => {
+  return (
+    <>
+      <div className="bg-[#101010] p-12 rounded-xl w-full text-white">
+        <div className="flex justify-start w-full">
+          <Image
+            className="rounded-full "
+            src={`/avatars/avatar_01.png`}
+            width="60"
+            height="60"
+            alt="profile image"
+          />
+          <div className="ml-6 bg-[#161616] border border-white/20 rounded-[8px] w-full flex">
+          <input
+            type="text"
+            placeholder="What is happening?"
+            className="w-full  px-6 bg-transparent outline-none"
+          />
+          <button>
+            <Image src={"/mic_logo.png"} className="mr-6" width={"25"} height={"25"} alt="mic"/>
+          </button>
+          </div>
+        </div>
+        <div className="mt-8 flex justify-between items-center">
+          <div className=" flex justify-start gap-6">
+            <div>Media Content</div>
+            <div>Hashtags</div>
+            <div>Schedule</div>
+          </div>
+          <button className="bg-[#9B9B9B] text-xl  rounded-xl px-8 py-2 hover:bg-blue-400">Post</button>
         </div>
       </div>
     </>

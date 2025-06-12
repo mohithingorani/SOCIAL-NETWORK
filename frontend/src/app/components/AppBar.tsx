@@ -153,11 +153,9 @@ export default function NavBar({ userName }: { userName: string }) {
             <div className="text-sm ">Following</div>
           </div>
         </div>
-        
       </div>
 
-      <div className="row-span-1 flex flex-col justify-center items-start w-full text-lg">
-        
+      <div className="row-span-1 flex flex-col justify-center items-start w-full text-md">
         <button className="hover:bg-[#242627] px-3 py-4 rounded-xl w-full text-start">
           Feed
         </button>
@@ -171,34 +169,36 @@ export default function NavBar({ userName }: { userName: string }) {
           Settings
         </button>
       </div>
-      <div className="row-span-1">
+      <div className="row-span-1 flex flex-col ">
         <div className="font-bold text-lg mb-4">Contacts</div>
-        <ContactCard avatar="avatar_01" time="3s" name="Jack Lozano" />
-        <ContactCard avatar="avatar_09" time="24m" name="Vanessa Mecann"  />
-        <ContactCard avatar="avatar_03" time="2h" name="Samson Clay" />
+        <div className="overflow-y-scroll">
+          <ContactCard avatar="avatar_01" time="3s" name="Jack Lozano" />
+          <ContactCard avatar="avatar_09" time="24m" name="Vanessa Mecann" />
+          <ContactCard avatar="avatar_03" time="2h" name="Samson Clay" />
+          <ContactCard avatar="avatar_04" time="2h" name="Samson Clay" />
+          <ContactCard avatar="avatar_05" time="2h" name="Samson Clay" />
+        </div>
       </div>
     </div>
   );
 }
 
-const ContactCard = (
-  {
-    name,
-    avatar,
-    time
-  }:{
-    name:string,
-    avatar:string,
-    time : string
-  }
-) => {
+const ContactCard = ({
+  name,
+  avatar,
+  time,
+}: {
+  name: string;
+  avatar: string;
+  time: string;
+}) => {
   return (
     <button className="flex hover:bg-[#242627] w-full px-2 py-3 rounded-xl">
       <Image
         className="rounded-full "
         src={`/avatars/${avatar}.png`}
-        width="60"
-        height="60"
+        width="50"
+        height="50"
         alt="profile image"
       />
       <div className="flex flex-col justify-center items-start pl-4">
