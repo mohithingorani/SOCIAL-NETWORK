@@ -4,11 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
-import FriendCard from "./FriendCard";
-import FriendSearchCard from "./FriendSearchCard";
 import axios from "axios";
-import AddFriendCard from "./AddFriends";
-import RecivedRequestsCard from "./RecievedRequests";
 import { useRecoilState } from "recoil";
 import { ContactCard } from "./ContactCard";
 
