@@ -2,9 +2,6 @@
 
 import "./globals.css";
 import NavBar from "./components/AppBar";
-import { WelcomeCard } from "./components/WelcomCard";
-import Sidebar from "./components/SideBar";
-import ImageComponent from "./components/ImageComponent";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
@@ -13,6 +10,9 @@ import { isOnlineAtom, userDataAtom, userNameAtom } from "./atoms";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Post from "./components/Post";
+import { Stories } from "@/data/avatars";
+import { AddPost } from "./components/AddPost";
+import { MessageCard } from "./components/MessageCard";
 
 export interface userData {
   email: string;
@@ -114,50 +114,54 @@ export default function Home() {
             </div>
           </div>
 
-          <div className=" col-span-1 rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0"></div>
+          <div className=" col-span-1 rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 grid grid-rows-2">
+            <div className="row-span-1">
+            <div className="font-medium text-xl ">Messages</div>
+            <div className=" bg-[#161616] border border-white/20 rounded-[8px] w-full flex mt-4">
+              <input
+                type="text"
+                placeholder="Search...."
+                className="w-full py-4  px-6 bg-transparent outline-none"
+              />
+              <button>
+                <Image
+                  src={"/mic_logo.png"}
+                  className=" mr-4 opacity-50 hover:opacity-100"
+                  width={"22"}
+                  height={"22"}
+                  alt="mic"
+                />
+              </button>
+            </div>
+            <div className="mt-6 overflow-y-scroll max-h-[30vh]">
+              <MessageCard name="Mohit" location="Delhi, India" avatar="avatar_03"/>
+              <MessageCard name="Karen" location="Delhi, India" avatar="avatar_04"/>
+              <MessageCard name="Neekunj" location="Delhi, India" avatar="avatar_05"/>
+              <MessageCard name="Dev" location="Delhi, India" avatar="avatar_06"/>
+            </div>
+          </div>
+
+
+            <div className="row-span-1 pt-8">
+            <div className="font-medium text-xl">Suggestions</div>
+       
+            <div className="mt-6 overflow-y-scroll max-h-[30vh]">
+              <MessageCard name="Mohit" location="Delhi, India" avatar="avatar_03"/>
+              <MessageCard name="Karen" location="Delhi, India" avatar="avatar_04"/>
+              <MessageCard name="Neekunj" location="Delhi, India" avatar="avatar_05"/>
+              <MessageCard name="Dev" location="Delhi, India" avatar="avatar_06"/>
+            </div>
+          </div>
+          </div>
         </div>
       </div>
 
-      {/* <div className="col-span-1 p-2  ">
-          <div className="h-full w-full md:border md:shadow-md rounded-[30px] bg-transparent md:bg-white flex flex-col justify-evenly gap-6  items-center p-6">
-            <WelcomeCard />
-            <Sidebar userId={userData?.id } />
-          </div>
-        </div> */}
+
     </div>
   );
 }
 
-const Stories = [
-  {
-    image: "avatar_09",
-    name: "Alice",
-  },
-  {
-    image: "avatar_02",
-    name: "Ben",
-  },
-  {
-    image: "avatar_03",
-    name: "Charlie",
-  },
-  {
-    image: "avatar_04",
-    name: "Diana",
-  },
-  {
-    image: "avatar_05",
-    name: "Ethan",
-  },
-  {
-    image: "avatar_06",
-    name: "Fiona",
-  },
-  {
-    image: "avatar_07",
-    name: "Jordan",
-  },
-];
+
 
 const StoriesCard = () => {
   return (
@@ -192,46 +196,3 @@ const StoriesCard = () => {
   );
 };
 
-const AddPost = () => {
-  return (
-    <>
-      <div className="bg-[#101010] p-6 rounded-3xl shadow-md w-full text-white">
-        <div className="flex justify-start w-full">
-          <Image
-            className="rounded-full "
-            src={`/avatars/avatar_01.png`}
-            width="60"
-            height="60"
-            alt="profile image"
-          />
-          <div className="ml-6 bg-[#161616] border border-white/20 rounded-[8px] w-full flex">
-            <input
-              type="text"
-              placeholder="What is happening?"
-              className="w-full  px-6 bg-transparent outline-none"
-            />
-            <button>
-              <Image
-                src={"/mic_logo.png"}
-                className="mr-6 opacity-50 hover:opacity-100"
-                width={"25"}
-                height={"25"}
-                alt="mic"
-              />
-            </button>
-          </div>
-        </div>
-        <div className="mt-4 flex justify-between items-center">
-          <div className=" flex justify-start gap-6">
-            <div>Media Content</div>
-            <div>Hashtags</div>
-            <div>Schedule</div>
-          </div>
-          <button className="bg-[#9B9B9B] text-xl  rounded-xl px-8 py-2 hover:bg-blue-400">
-            Post
-          </button>
-        </div>
-      </div>
-    </>
-  );
-};
