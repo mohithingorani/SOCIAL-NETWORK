@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { isOnlineAtom, userDataAtom, userNameAtom } from "./atoms";
+import { isOnlineAtom, pageAtom, userDataAtom, userNameAtom } from "./atoms";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Post from "./components/Post";
@@ -30,6 +30,7 @@ export default function Home() {
   const [userDataValue, setUserDataValue] = useRecoilState(userDataAtom);
   const [userNameValue, setUserNameValue] = useRecoilState(userNameAtom);
   const [isOnline, setIsOnline] = useRecoilState(isOnlineAtom);
+  const [currPage, setCurrPage] = useRecoilState(pageAtom);
   const router = useRouter();
   const session = useSession();
   const { friends, loading } = useFriends();
@@ -97,7 +98,7 @@ export default function Home() {
   }, [session.data?.user?.email, setUserNameValue, setUserDataValue]);
 
   if (session.data === undefined) {
-    return <div>Loading...</div>;
+    return <div className="text-white flex h-screen w-full justify-center items-center">Loading...</div>;
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
@@ -107,18 +108,61 @@ export default function Home() {
       <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
         <div className="w-full grid grid-cols-3 rounded-3xl">
           <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
-            <div className="mb-8">
-              <StoriesCard />
-            </div>
-            <div>
-              <AddPost />
-            </div>
-            {/* Posts */}
-            <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
-              <Post />
-              <Post />
-              <Post />
-            </div>
+            {currPage === "home" && (
+              <div>
+                <div className="mb-8">
+                  <StoriesCard />
+                </div>
+                <div>
+                  <AddPost />
+                </div>
+                {/* Posts */}
+                <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
+                  <Post />
+                  <Post />
+                  <Post />
+                </div>
+              </div>
+            )}
+            {currPage === "messages" && (
+              <>
+                <div>
+                  <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
+                    <input
+                      type="text"
+                      placeholder="Search Friends"
+                      className="w-full py-4  px-6 bg-transparent outline-none"
+                    />
+                    <button>
+                      <Image
+                        src={"/mic_logo.png"}
+                        className=" mr-4 opacity-50 hover:opacity-100"
+                        width={"22"}
+                        height={"22"}
+                        alt="mic"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-6 ">
+                  {loading ? (
+                    <div className="text-white flex justify-center items-center">Loading...</div>
+                  ) : (
+                    friends.map((friend: any, index: number) => (
+                      <div onClick={() => openChat(friend)}>
+                        <MessageCard
+                          key={index}
+                          name={friend.username || "Unknown"}
+                          location="Jaipur"
+                          avatar={friend.picture}
+                          // avatar={`avatar_0${(index % 6) + 1}`} // Just an example to rotate avatars
+                        />
+                      </div>
+                    ))
+                  )}
+                </div>
+              </>
+            )}
           </div>
 
           <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">

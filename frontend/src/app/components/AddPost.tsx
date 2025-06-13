@@ -69,7 +69,7 @@ export const AddPost = () => {
               <div className="hidden lg:block">Schedule</div>
             </button>
           </div>
-          <button className="bg-[#9B9B9B]   rounded-[10px] px-4 py-1 hover:bg-blue-400">
+          <button className="bg-blue-400 md:bg-[#9B9B9B]   rounded-[10px] px-4 py-1 hover:bg-blue-400">
             Post
           </button>
         </div>

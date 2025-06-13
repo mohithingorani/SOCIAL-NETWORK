@@ -10,6 +10,12 @@ export const isOnlineAtom = atom({
   default: false,
 });
 
+export const pageAtom = atom({
+  key: 'pageVal', // Unique key
+  default: "home",
+});
+
+
 
 export const userDataAtom = atom({
   key: 'userData', // Updated to a unique key

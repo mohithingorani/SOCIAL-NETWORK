@@ -10,7 +10,7 @@ export const MessageCard = ({
   location: string;
 }) => {
   return (
-    <button className="flex hover:bg-[#242627] w-full px-2 py-3 rounded-xl">
+    <div className="flex border  border-x-0 border-y-1 border-gray-300/10  hover:bg-[#242627] w-full px-2 py-3 rounded-xl">
       <Image
         className="rounded-full "
         src={avatar}
@@ -24,6 +24,6 @@ export const MessageCard = ({
           <div className="text-gray-400">{location}</div>
         </div>
       </div>
-    </button>
+    </div>
   );
 };

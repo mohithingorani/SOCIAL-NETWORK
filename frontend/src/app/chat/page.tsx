@@ -155,7 +155,7 @@ export default function Chats() {
   }
 
   if (isLoading) {
-    return <div>Loading.....</div>;
+    return <div className="h-screen w-full text-white flex justify-center items-center">Loading.....</div>;
   }
 
   return (

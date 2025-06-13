@@ -5,13 +5,17 @@ import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { ContactCard } from "./ContactCard";
 import { Menu, X } from "lucide-react";
+import { pageAtom } from "../atoms";
+import { useRecoilState } from "recoil";
 
 export default function NavBar({ userName }: { userName: string }) {
   const [searchFriend, setSearchFriend] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const session = useSession();
+  const [currPage, setCurrPage] = useRecoilState(pageAtom);
 
+  const[currKey, setCurrKey] = useState(0);
   // Debounce search input (if used later – you can keep original logic)
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearch(searchFriend), 1500);
@@ -98,13 +102,23 @@ export default function NavBar({ userName }: { userName: string }) {
                 <button
                   onClick={() => {
                     if (window.innerWidth < 768) setMenuOpen(false);
+                    setCurrKey(key);
+                    if(key ==0){
+                      setCurrPage("home");
+                    }
                     if(key== 2 ){
                       signOut();
+                    }
+                    if(key==1){
+                      setCurrPage("messages");
+                    }
+                    if(key==3){
+                      setCurrPage("settings");
                     }
                   }}
                   key={key}
                   className={`hover:bg-[#242627] ${
-                    key == 0 && "bg-[#242627]"
+                    key == currKey && "bg-[#242627]"
                   }  flex items-center gap-2  px-3 py-2 rounded-xl w-full text-start`}
                 >
                   <div>
