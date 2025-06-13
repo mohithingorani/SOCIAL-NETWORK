@@ -101,7 +101,7 @@ export default function Home() {
       </div>
       <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
         <div className="w-full grid grid-cols-3 rounded-3xl">
-          <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:p-8 flex h-[92vh] flex-col overflow-y-scroll">
+          <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
             <div className="mb-8">
               <StoriesCard />
             </div>
