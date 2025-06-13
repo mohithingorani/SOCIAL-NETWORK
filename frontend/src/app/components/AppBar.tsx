@@ -72,17 +72,17 @@ export default function NavBar({ userName }: { userName: string }) {
             </div>
 
             {/* Stats */}
-            <div className="flex justify-around text-sm mt-6 mb-4">
+            <div className="flex justify-around text-sm md:ml-3 mt-6 mb-4">
               <div className="text-center">
-                <div className="font-bold text-xl">368</div>
+                <div className="font-bold text-xl">30</div>
                 <div>Posts</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-xl">184.3K</div>
+                <div className="font-bold text-xl">92</div>
                 <div>Followers</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-xl">1.04M</div>
+                <div className="font-bold text-xl">56</div>
                 <div>Following</div>
               </div>
             </div>
