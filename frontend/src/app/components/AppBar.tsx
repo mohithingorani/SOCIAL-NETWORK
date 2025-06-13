@@ -47,7 +47,7 @@ export default function NavBar({ userName }: { userName: string }) {
       <div className={drawerClasses} onClick={() => setMenuOpen(false)}>
         <div
           onClick={(e) => e.stopPropagation()}
-          className="bg-[#18181A] md:bg-transparent text-white md:text-white w-64 md:w-auto h-full md:py-0 p-6 md:p-0 flex flex-col justify-between"
+          className="bg-[#18181A] md:ml-6 md:bg-transparent text-white md:text-white w-64 md:w-auto h-full md:py-0 p-6 md:p-0 flex flex-col justify-between"
         >
           <div>
             {/* Profile Section */}
@@ -72,7 +72,7 @@ export default function NavBar({ userName }: { userName: string }) {
             </div>
 
             {/* Stats */}
-            <div className="flex justify-around text-sm md:ml-3 mt-6 mb-4">
+            <div className="flex justify-around text-sm  mt-6 mb-4">
               <div className="text-center">
                 <div className="font-bold text-xl">30</div>
                 <div>Posts</div>
@@ -88,7 +88,7 @@ export default function NavBar({ userName }: { userName: string }) {
             </div>
 
             {/* Navigation Links */}
-            <div className="space-y-2 text-start">
+            <div className="space-y-2 border border-y-1 border-x-0 py-4 border-gray-500 text-start">
               {[
                 { name: "Feed", image: "icon_01" },
                 { name: "Messages", image: "icon_02" },
@@ -102,7 +102,7 @@ export default function NavBar({ userName }: { userName: string }) {
                   key={key}
                   className={`hover:bg-[#242627] ${
                     key == 0 && "bg-[#242627]"
-                  } md:ml-2 flex items-center gap-2  px-3 py-2 rounded-xl w-full text-start`}
+                  }  flex items-center gap-2  px-3 py-2 rounded-xl w-full text-start`}
                 >
                   <div>
                     <Image
@@ -118,7 +118,7 @@ export default function NavBar({ userName }: { userName: string }) {
             </div>
 
             {/* Contacts */}
-            <div className="mt-6 md:ml-3">
+            <div className="mt-6 ">
               <div className="font-bold text-lg mb-2 md:ml-2">Contacts</div>
               <div className="space-y-3 max-h-[30vh] overflow-y-auto">
                 <ContactCard avatar="avatar_01" time="3s" name="Jack Lozano" />
