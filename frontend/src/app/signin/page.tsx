@@ -17,13 +17,14 @@ export default function Signin() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-t from-[#18181A] to-[#202020] xl:px-24">
-      <div className="w-full h-full py-20 px-5 md:px-[50px] lg:px-[60px] xl:px-[100px] 2xl:px-[300px]">
+      <div className="w-full h-full py-10 px-5 md:px-[50px] lg:px-[60px] xl:px-[100px] 2xl:px-[300px]">
         <div className="bg-[#161616] text-white border border-white/20 h-full grid grid-cols-1 md:grid-cols-2 items-center p-4 md:p-6 rounded-[50px] shadow-2xl">
           {/* LEFT FORM SIDE */}
           <div className="w-full h-full p-5 lg:p-10 overflow-hidden">
+            <div className="w-10 h-10 md:w-full">
             <Image src="/newlogo.svg" width={50} height={50} alt="logo" />
-
-            <div className="font-bold text-6xl mt-8">Get started</div>
+</div>
+            <div className="font-bold text-lg md:text-6xl mt-4 md:mt-8">Get started</div>
 
             <div className="flex gap-1 text-sm md:text-lg text-gray-300 mt-2">
               {formState === "signup" ? (
@@ -49,7 +50,7 @@ export default function Signin() {
               )}
             </div>
 
-            <div className="mt-8 flex flex-col p-4 rounded-[10px] h-fit">
+            <div className="mt-4 md:mt-8 flex flex-col pl-0 p-4 rounded-[10px] h-fit">
               {/* Email Input */}
               <label className="mt-2">
                 <div>Email</div>
@@ -91,7 +92,7 @@ export default function Signin() {
               </label>
 
               {/* Action Button */}
-              <button className="bg-orange-400 hover:bg-orange-500 w-full py-2 rounded-[10px] mt-8 text-white font-semibold">
+              <button className="bg-orange-400 hover:bg-orange-500 w-full py-[8px] md:py-[10px] rounded-[10px] mt-8 text-white ">
                 {formState === "signup" ? "Sign up" : "Sign in"}
               </button>
 
@@ -100,7 +101,7 @@ export default function Signin() {
               {/* Google Button */}
               <button
                 onClick={handleGoogleAuth}
-                className="w-full hover:bg-gray-200 text-center border py-[8px] border-gray-300 rounded-[10px] bg-gray-50 flex justify-center items-center gap-3 mt-4"
+                className="w-full hover:bg-gray-200 text-center border py-[4px] md:py-[8px] border-gray-300 rounded-[10px] bg-gray-50 flex justify-center items-center gap-3 mt-4"
               >
                 <Image
                   src="/logo.svg"
@@ -108,7 +109,7 @@ export default function Signin() {
                   height={30}
                   alt="Google logo"
                 />
-                <span className="text-black">
+                <span className="text-black text-sm ">
                   {formState === "signup"
                     ? "Sign up with Google"
                     : "Sign in with Google"}
