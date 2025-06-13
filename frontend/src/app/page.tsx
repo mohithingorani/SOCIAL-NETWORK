@@ -167,7 +167,7 @@ const StoriesCard = () => {
   return (
     <>
       <div className="flex">
-        <div className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-12">
+        <div className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12">
           <div className="w-16 h-16 border text-center border-dashed bg-[#1E1E1D] border-white/50 rounded-full  text-sm md:text-3xl text-white/50   flex justify-center items-center">
             +
           </div>
@@ -176,7 +176,7 @@ const StoriesCard = () => {
         <div className="flex justify-start ">
           {Stories.map((story) => {
             return (
-              <div className="flex mr-12 justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm">
+              <div className="flex mr-6 md:mr-12 justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm">
                 <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-sm md:text-3xl text-white/50   flex justify-center items-center">
                   <Image
                     className="rounded-full "
