@@ -99,9 +99,9 @@ export default function Home() {
       <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
-      <div className="flex-grow col-span-5 m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
+      <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
         <div className="w-full grid grid-cols-3 rounded-3xl">
-          <div className="col-span-2  rounded-l-3xl p-8 flex h-[92vh] flex-col overflow-y-scroll">
+          <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:p-8 flex h-[92vh] flex-col overflow-y-scroll">
             <div className="mb-8">
               <StoriesCard />
             </div>
@@ -109,12 +109,12 @@ export default function Home() {
               <AddPost />
             </div>
             {/* Posts */}
-            <div className="mt-6 overflow-y-scroll">
+            <div className="mt-6 md:overflow-y-scroll">
               <Post />
             </div>
           </div>
 
-          <div className=" col-span-1 hidden  rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
+          <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
             <div className="row-span-1">
             <div className="font-medium text-xl ">Messages</div>
             <div className=" bg-[#161616] border border-white/20 rounded-[8px] w-full flex mt-4">
@@ -167,17 +167,17 @@ const StoriesCard = () => {
   return (
     <>
       <div className="flex">
-        <div className="flex justify-center flex-col w-fit items-center gap-2 text-sm mr-12">
-          <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
+        <div className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-12">
+          <div className="w-16 h-16 border text-center border-dashed bg-[#1E1E1D] border-white/50 rounded-full  text-sm md:text-3xl text-white/50   flex justify-center items-center">
             +
           </div>
-          <div>Add Story</div>
+          <div className="text-xs text-center">Add Story</div>
         </div>
         <div className="flex justify-start ">
           {Stories.map((story) => {
             return (
-              <div className="flex mr-12 justify-center flex-col w-fit items-center gap-2 text-sm">
-                <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-3xl text-white/50   flex justify-center items-center">
+              <div className="flex mr-12 justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm">
+                <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-sm md:text-3xl text-white/50   flex justify-center items-center">
                   <Image
                     className="rounded-full "
                     src={`/avatars/${story.image}.png`}
@@ -186,7 +186,7 @@ const StoriesCard = () => {
                     alt="profile image"
                   />
                 </div>
-                <div>{story.name}</div>
+                <div className="text-xs  ">{story.name}</div>
               </div>
             );
           })}
