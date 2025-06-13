@@ -29,7 +29,7 @@ export default function Post() {
           width={"500"}
           height={"500"}
         />
-        <div className=" mt-4 text-md max-w-lg">
+        <div className=" mt-4 text-sm max-w-lg">
           Amidst the endless dunes and burning skies, the desert reminds us —
           even in silence and stillness, there is power. A place untouched by
           time, where every grain of sand holds a story, and every horizon dares

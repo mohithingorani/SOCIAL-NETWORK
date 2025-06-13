@@ -36,12 +36,19 @@ export default function NavBar({ userName }: { userName: string }) {
       <div className="md:hidden flex justify-between items-center p-4 text-white bg-[#18181A]">
         <div className="font-semibold text-lg">{session.data?.user?.name}</div>
         <button onClick={() => setMenuOpen((o) => !o)}>
-          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {menuOpen ? (
+            <X className="w-6 h-6 z-10" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
-      <div className={drawerClasses}>
-        <div className="bg-[#18181A] md:bg-transparent text-white md:text-white w-64 md:w-auto h-full md:py-0 p-6 md:p-0 flex flex-col justify-between">
+      <div className={drawerClasses} onClick={() => setMenuOpen(false)}>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="bg-[#18181A] md:bg-transparent text-white md:text-white w-64 md:w-auto h-full md:py-0 p-6 md:p-0 flex flex-col justify-between"
+        >
           <div>
             {/* Profile Section */}
             <div className="flex flex-col items-center text-center">
@@ -59,7 +66,8 @@ export default function NavBar({ userName }: { userName: string }) {
               </div>
               <div className="text-sm text-white/70">College Student</div>
               <p className="text-xs text-white/60 mt-2 px-4">
-                Guiding the next generation through the journey of health and knowledge!
+                Guiding the next generation through the journey of health and
+                knowledge!
               </p>
             </div>
 
@@ -82,41 +90,53 @@ export default function NavBar({ userName }: { userName: string }) {
             {/* Navigation Links */}
             <div className="space-y-2 text-start">
               {[
-                {name:"Feed",image:"icon_01"},
-                {name:"Messages",image:"icon_02"},
-                {name:"Notifications",image:"icon_03"},
-                {name:"Settings",image:"icon_04"},
-               
-                ].map((label,key) => (
+                { name: "Feed", image: "icon_01" },
+                { name: "Messages", image: "icon_02" },
+                { name: "Notifications", image: "icon_03" },
+                { name: "Settings", image: "icon_04" },
+              ].map((label, key) => (
                 <button
+                  onClick={() => {
+                    if (window.innerWidth < 768) setMenuOpen(false);
+                  }}
                   key={key}
-                  className={`hover:bg-[#242627] ${key==0&&"bg-[#242627]"} ml-2 flex items-center gap-2  px-3 py-2 rounded-xl w-full text-start`}
+                  className={`hover:bg-[#242627] ${
+                    key == 0 && "bg-[#242627]"
+                  } md:ml-2 flex items-center gap-2  px-3 py-2 rounded-xl w-full text-start`}
                 >
                   <div>
-                    <Image src={`/${label.image}.png`} alt={label.name} width={"35"} height={"35"}/>
+                    <Image
+                      src={`/${label.image}.png`}
+                      alt={label.name}
+                      width={"35"}
+                      height={"35"}
+                    />
                   </div>
-                  <div>
-                  {label.name}
-
-                  </div>
+                  <div>{label.name}</div>
                 </button>
               ))}
             </div>
 
             {/* Contacts */}
-            <div className="mt-6 ml-3">
-              <div className="font-bold text-lg mb-2 ml-2">Contacts</div>
+            <div className="mt-6 md:ml-3">
+              <div className="font-bold text-lg mb-2 md:ml-2">Contacts</div>
               <div className="space-y-3 max-h-[30vh] overflow-y-auto">
                 <ContactCard avatar="avatar_01" time="3s" name="Jack Lozano" />
-                <ContactCard avatar="avatar_09" time="24m" name="Vanessa Mecann" />
+                <ContactCard
+                  avatar="avatar_09"
+                  time="24m"
+                  name="Vanessa Mecann"
+                />
                 <ContactCard avatar="avatar_03" time="2h" name="Samson Clay" />
                 <ContactCard avatar="avatar_04" time="2h" name="Another User" />
-                <ContactCard avatar="avatar_05" time="2h" name="Extra Contact" />
+                <ContactCard
+                  avatar="avatar_05"
+                  time="2h"
+                  name="Extra Contact"
+                />
               </div>
             </div>
           </div>
-
-       
         </div>
       </div>
     </>

@@ -109,7 +109,9 @@ export default function Home() {
               <AddPost />
             </div>
             {/* Posts */}
-            <div className="mt-6 md:overflow-y-scroll">
+            <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
+              <Post />
+              <Post />
               <Post />
             </div>
           </div>

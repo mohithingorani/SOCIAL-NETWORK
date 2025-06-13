@@ -16,7 +16,7 @@ export const AddPost = () => {
             <input
               type="text"
               placeholder="What is happening?"
-              className="w-full py-1 px-2  md:py-3 md:px-6 bg-transparent outline-none"
+              className="w-full py-1 px-4  md:py-3 md:px-6 bg-transparent outline-none"
             />
             <button>
               <Image
@@ -30,7 +30,7 @@ export const AddPost = () => {
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
-          <div className=" flex justify-start text-sm gap-1 md:gap-6">
+          <div className=" flex justify-start text-sm gap-4 md:gap-6">
             <button className="flex gap-1 opacity-70 hover:opacity-100">
               <Image
                 src={"/image_05.png"}
