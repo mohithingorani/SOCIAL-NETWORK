@@ -16,13 +16,11 @@ export interface MessageObject {
   roomName: string;
 }
 
-
 export default function Chats() {
   const { data: session } = useSession(); // Use destructured session data
   const searchParams = useSearchParams();
   const roomName = searchParams.get("room") || "";
   const name = searchParams.get("name") || "";
-  
 
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
   const [inbox, setInbox] = useState<MessageObject[]>([]);
@@ -33,24 +31,22 @@ export default function Chats() {
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const friendName = roomName
-    .split("-")
-    .filter((user) => user !== name)[0] || "Friend";
+  const friendName =
+    roomName.split("-").filter((user) => user !== name)[0] || "Friend";
 
+  function convertDateToTime(date: Date) {
+    // Create a Date object from the given date string
+    const dateObj = new Date(date);
 
-    function convertDateToTime(date:Date) {
-      // Create a Date object from the given date string
-      const dateObj = new Date(date);
-    
-      // Get hours, minutes, and seconds
-      const hours = dateObj.getHours();
-      const minutes = dateObj.getMinutes();
-    
-      // Format the time string
-      const timeString = `${hours}:${minutes}`;
-    
-      return timeString;
-    }
+    // Get hours, minutes, and seconds
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+
+    // Format the time string
+    const timeString = `${hours}:${minutes}`;
+
+    return timeString;
+  }
 
   // Fetch messages when the component mounts
   useEffect(() => {
@@ -95,7 +91,14 @@ export default function Chats() {
     if (message.trim() === "" || !socket) return;
 
     // Emit message to the server
-    socket.emit("message", message, roomName, name ,convertDateToTime(new Date()), name);
+    socket.emit(
+      "message",
+      message,
+      roomName,
+      name,
+      convertDateToTime(new Date()),
+      name
+    );
     setMessage("");
 
     // Save message to the database
@@ -108,7 +111,9 @@ export default function Chats() {
 
   // Initialize socket connection
   useEffect(() => {
-    const socketInstance = io(process.env.NEXT_PUBLIC_BACKEND_WEBSOCKET_URL || "ws://localhost:3000");
+    const socketInstance = io(
+      process.env.NEXT_PUBLIC_BACKEND_WEBSOCKET_URL || "ws://localhost:3000"
+    );
 
     socketInstance.on("connect", () => {
       setIsLoading(false);
@@ -120,7 +125,10 @@ export default function Chats() {
 
     socketInstance.on("message", (message, id, time, userName) => {
       if (message.trim() !== "") {
-        setInbox((prevInbox) => [...prevInbox, { message, id, time:time, userName:userName, roomName:roomName }]);
+        setInbox((prevInbox) => [
+          ...prevInbox,
+          { message, id, time: time, userName: userName, roomName: roomName },
+        ]);
       }
     });
 
@@ -155,7 +163,11 @@ export default function Chats() {
   }
 
   if (isLoading) {
-    return <div className="h-screen w-full text-white flex justify-center items-center">Loading.....</div>;
+    return (
+      <div className="h-screen w-full text-white flex justify-center items-center">
+        Loading.....
+      </div>
+    );
   }
 
   return (
@@ -183,6 +195,7 @@ export default function Chats() {
 
         <div className="flex justify-between gap-3 p-4 bg-[#0D0D0D] shadow-md rounded-xl mt-4 mx-4">
           <input
+            autoFocus
             type="text"
             value={message}
             className="w-full outline-none px-3 py-1.5 text-white bg-[#0D0D0D] rounded-xl"
@@ -195,7 +208,7 @@ export default function Chats() {
             }}
           />
           <button className="text-white">
-            <Image src={"/upload.png"} width="50" height="50" alt="upload"/>
+            <Image src={"/upload.png"} width="50" height="50" alt="upload" />
           </button>
           <button
             onClick={handleSendMessage}
