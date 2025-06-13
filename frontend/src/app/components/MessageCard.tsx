@@ -13,7 +13,7 @@ export const MessageCard = ({
     <button className="flex hover:bg-[#242627] w-full px-2 py-3 rounded-xl">
       <Image
         className="rounded-full "
-        src={`/avatars/${avatar}.png`}
+        src={avatar}
         width="50"
         height="50"
         alt="profile image"

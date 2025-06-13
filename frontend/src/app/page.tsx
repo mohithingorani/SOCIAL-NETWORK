@@ -13,6 +13,7 @@ import Post from "./components/Post";
 import { AddPost } from "./components/AddPost";
 import { MessageCard } from "./components/MessageCard";
 import { StoriesCard } from "./components/StoriesCard";
+import { useFriends } from "@/hooks/useFriends";
 
 export interface userData {
   email: string;
@@ -31,6 +32,7 @@ export default function Home() {
   const [isOnline, setIsOnline] = useRecoilState(isOnlineAtom);
   const router = useRouter();
   const session = useSession();
+  const { friends, loading } = useFriends();
 
   useEffect(() => {
     const updateLastActive = async () => {
@@ -41,8 +43,6 @@ export default function Home() {
             email: userData?.email,
           }
         );
-        console.log("Sent last active ping");
-
         return data;
       } catch (err) {
         console.log("Error updating last active");
@@ -118,52 +118,69 @@ export default function Home() {
 
           <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
             <div className="row-span-1">
-            <div className="font-medium text-xl ">Messages</div>
-            <div className=" bg-[#161616] border border-white/20 rounded-[8px] w-full flex mt-4">
-              <input
-                type="text"
-                placeholder="Search...."
-                className="w-full py-4  px-6 bg-transparent outline-none"
-              />
-              <button>
-                <Image
-                  src={"/mic_logo.png"}
-                  className=" mr-4 opacity-50 hover:opacity-100"
-                  width={"22"}
-                  height={"22"}
-                  alt="mic"
+              <div className="font-medium text-xl ">Messages</div>
+              <div className=" bg-[#161616] border border-white/20 rounded-[8px] w-full flex mt-4">
+                <input
+                  type="text"
+                  placeholder="Search...."
+                  className="w-full py-4  px-6 bg-transparent outline-none"
                 />
-              </button>
+                <button>
+                  <Image
+                    src={"/mic_logo.png"}
+                    className=" mr-4 opacity-50 hover:opacity-100"
+                    width={"22"}
+                    height={"22"}
+                    alt="mic"
+                  />
+                </button>
+              </div>
+              <div className="mt-6 overflow-y-scroll max-h-[30vh]">
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  friends.map((friend: any, index: number) => (
+                    <MessageCard
+                      key={index}
+                      name={friend.username || "Unknown"}
+                      location="Jaipur"
+                      avatar={friend.picture}
+                      // avatar={`avatar_0${(index % 6) + 1}`} // Just an example to rotate avatars
+                    />
+                  ))
+                )}
+              </div>
             </div>
-            <div className="mt-6 overflow-y-scroll max-h-[30vh]">
-              <MessageCard name="Mohit" location="Delhi, India" avatar="avatar_03"/>
-              <MessageCard name="Karen" location="Delhi, India" avatar="avatar_04"/>
-              <MessageCard name="Neekunj" location="Delhi, India" avatar="avatar_05"/>
-              <MessageCard name="Dev" location="Delhi, India" avatar="avatar_06"/>
-            </div>
-          </div>
-
 
             <div className="row-span-1 pt-8">
-            <div className="font-medium text-xl">Suggestions</div>
-       
-            <div className="mt-6 overflow-y-scroll max-h-[30vh]">
-              <MessageCard name="Mohit" location="Delhi, India" avatar="avatar_03"/>
-              <MessageCard name="Karen" location="Delhi, India" avatar="avatar_04"/>
-              <MessageCard name="Neekunj" location="Delhi, India" avatar="avatar_05"/>
-              <MessageCard name="Dev" location="Delhi, India" avatar="avatar_06"/>
+              <div className="font-medium text-xl">Suggestions</div>
+
+              <div className="mt-6 overflow-y-scroll max-h-[30vh]">
+                <MessageCard
+                  name="Mohit"
+                  location="Delhi, India"
+                  avatar="/avatars/avatar_03.png"
+                />
+                <MessageCard
+                  name="Karen"
+                  location="Delhi, India"
+                  avatar="/avatars/avatar_04.png"
+                />
+                <MessageCard
+                  name="Neekunj"
+                  location="Delhi, India"
+                  avatar="/avatars/avatar_05.png"
+                />
+                <MessageCard
+                  name="Dev"
+                  location="Delhi, India"
+                  avatar="/avatars/avatar_06.png"
+                />
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }
-
-
-
-
-
