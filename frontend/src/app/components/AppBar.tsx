@@ -108,8 +108,8 @@ export default function NavBar({ userName }: { userName: string }) {
                     <Image
                       src={`/${label.image}.png`}
                       alt={label.name}
-                      width={"35"}
-                      height={"35"}
+                      width={"30"}
+                      height={"30"}
                     />
                   </div>
                   <div>{label.name}</div>

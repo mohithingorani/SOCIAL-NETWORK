@@ -1,22 +1,29 @@
+"use client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 export const AddPost = () => {
+  const session = useSession();
   return (
     <>
       <div className="bg-[#101010] p-6 rounded-3xl shadow-md w-full text-white">
-        <div className="flex justify-start w-full">
-          <Image
-            className="rounded-full w-fit "
-            src={`/avatars/avatar_01.png`}
-            width="40"
-            height="40"
-            alt="profile image"
-          />
+        <div className="flex justify-start items-center w-full">
+          <div className="w-fit shrink-0">
+          {session.data?.user?.image && (
+            <Image
+              src={session.data.user.image}
+              alt="profile"
+              width={35}
+              height={35}
+              className="rounded-full w-fit"
+            />
+          )}
+          </div>
           <div className="ml-6 bg-[#161616] border text-sm md:text-lg border-white/20 rounded-[8px] w-full flex">
             <input
               type="text"
               placeholder="What is happening?"
-              className="w-full py-1 px-4  md:py-3 md:px-6 bg-transparent outline-none"
+              className="w-full py-3 px-4  md:py-3 md:px-6 bg-transparent outline-none"
             />
             <button>
               <Image
