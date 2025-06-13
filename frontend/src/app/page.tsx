@@ -10,9 +10,9 @@ import { isOnlineAtom, userDataAtom, userNameAtom } from "./atoms";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Post from "./components/Post";
-import { Stories } from "@/data/avatars";
 import { AddPost } from "./components/AddPost";
 import { MessageCard } from "./components/MessageCard";
+import { StoriesCard } from "./components/StoriesCard";
 
 export interface userData {
   email: string;
@@ -57,15 +57,15 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (session.status === "loading") {
-    } else if (session.data?.user) {
-      console.log("Session data:", session.data);
-    } else {
-      console.log("No session data found");
-      router.push("/signin");
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session.status === "loading") {
+  //   } else if (session.data?.user) {
+  //     console.log("Session data:", session.data);
+  //   } else {
+  //     console.log("No session data found");
+  //     router.push("/signin");
+  //   }
+  // }, [session]);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -163,36 +163,5 @@ export default function Home() {
 
 
 
-const StoriesCard = () => {
-  return (
-    <>
-      <div className="flex">
-        <div className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12">
-          <div className="w-16 h-16 border text-center border-dashed bg-[#1E1E1D] border-white/50 rounded-full  text-sm md:text-3xl text-white/50   flex justify-center items-center">
-            +
-          </div>
-          <div className="text-xs text-center">Add Story</div>
-        </div>
-        <div className="flex justify-start ">
-          {Stories.map((story) => {
-            return (
-              <div className="flex mr-6 md:mr-12 justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm">
-                <div className="w-16 h-16 border border-dashed bg-[#1E1E1D] border-white/50 rounded-full border-spacing-5 text-sm md:text-3xl text-white/50   flex justify-center items-center">
-                  <Image
-                    className="rounded-full "
-                    src={`/avatars/${story.image}.png`}
-                    width="76"
-                    height="76"
-                    alt="profile image"
-                  />
-                </div>
-                <div className="text-xs  ">{story.name}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </>
-  );
-};
+
 
