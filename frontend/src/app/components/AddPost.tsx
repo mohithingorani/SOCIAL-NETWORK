@@ -46,7 +46,7 @@ export const AddPost = () => {
                 width={"30"}
                 height={"30"}
               />
-              <div className="hidden md:block">Media Content</div>
+              <div className="hidden lg:block">Media Content</div>
             </button>
             <button className="flex gap-1 opacity-70 hover:opacity-100">
               <Image
@@ -56,7 +56,7 @@ export const AddPost = () => {
                 width={"30"}
                 height={"30"}
               />
-              <div className="hidden md:block">Hashtags</div>
+              <div className="hidden lg:block">Hashtags</div>
             </button>
             <button className="flex gap-1 opacity-70 hover:opacity-100">
               <Image
@@ -66,7 +66,7 @@ export const AddPost = () => {
                 width={"30"}
                 height={"30"}
               />
-              <div className="hidden md:block">Schedule</div>
+              <div className="hidden lg:block">Schedule</div>
             </button>
           </div>
           <button className="bg-[#9B9B9B]   rounded-[10px] px-4 py-1 hover:bg-blue-400">

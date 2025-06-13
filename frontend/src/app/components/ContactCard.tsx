@@ -10,7 +10,7 @@ export const ContactCard = ({
   time: string;
 }) => {
   return (
-    <button className="flex items-center w-full px-2 py-3 rounded-xl hover:bg-[#242627] transition">
+    <button className="flex items-center w-full px-2 py-1 rounded-xl hover:bg-[#242627] transition">
       <Image
         className="rounded-full"
         src={`/avatars/${avatar}.png`}
@@ -22,7 +22,7 @@ export const ContactCard = ({
         <div className="text-base sm:text-lg font-medium truncate">{name}</div>
         <div className="flex flex-wrap text-sm sm:text-sm text-gray-300 gap-1 sm:gap-2">
           <span>liked your story</span>
-          <span className="text-gray-400 whitespace-nowrap">{time}</span>
+          {/* <span className="text-gray-400 whitespace-nowrap">{time}</span> */}
         </div>
       </div>
     </button>

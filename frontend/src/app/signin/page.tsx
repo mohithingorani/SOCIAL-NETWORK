@@ -17,14 +17,14 @@ export default function Signin() {
     <div>
       
       <div
-        className="flex flex-col justify-center items-center h-screen bg-slate-300 xl:px-24"
-        style={{
-          backgroundImage: "url(background.jpg)",
-          backgroundSize: "cover",
-        }}
+        className="flex flex-col justify-center items-center h-screen bg-gradient-to-t from-[#18181A]  to-[#202020] xl:px-24"
+        // style={{
+        //   backgroundImage: "url(background.jpg)",
+        //   backgroundSize: "cover",
+        // }}
       >
         <div className="w-full h-full py-20 px-[20px]  md:px-[50px]   lg:px-[60px] xl:px-[100px] 2xl:px-[300px]">
-          <div className=" bg-white  h-full grid grid-cols-1 md:grid-cols-2 items-center p-[15px] rounded-[50px] shadow-2xl">
+          <div className="  bg-[#161616]  text-white border border-white/20  h-full grid grid-cols-1 md:grid-cols-2 items-center p-[15px] rounded-[50px] shadow-2xl">
             <div className="w-full h-full p-5  lg:p-10 grid-cols-1 overflow-y-hidden overflow-x-hidden ">
               <div>
                 <Image src="/newlogo.svg" width="50" height="50" alt="logo" />
@@ -32,26 +32,26 @@ export default function Signin() {
 
               <div className=" font-bold  text-6xl mt-8 ">Get started</div>
               {formState == "signup" && (
-                <div className="flex gap-1 text-sm md:text-lg text-gray-600 mt-2 ">
+                <div className="flex gap-1 text-sm md:text-lg text-gray-300 mt-2 ">
                   <div>Already have an account? </div>
                   <button
                     onClick={() => {
                       setFormState("signin");
                     }}
-                    className="text-orange-600 hover:underline font-semibold"
+                    className="text-orange-400 hover:underline font-semibold"
                   >
                     Sign in
                   </button>
                 </div>
               )}
               {formState == "signin" && (
-                <div className="flex gap-1 text-sm md:text-lg text-gray-600 mt-2 ">
+                <div className="flex gap-1 text-sm md:text-lg text-gray-300 mt-2 ">
                   <div>Create an account? </div>
                   <button
                     onClick={() => {
                       setFormState("signup");
                     }}
-                    className="text-orange-600 hover:underline font-semibold"
+                    className="text-orange-400 hover:underline font-semibold"
                   >
                     Sign up
                   </button>
@@ -118,7 +118,7 @@ export default function Signin() {
                       </button>
                     </div>
                   </div>
-                  <button className="bg-orange-600 hover:bg-orange-500 w-full  py-2 rounded-[10px] mt-8 text-white font-semibold">
+                  <button className="bg-orange-400 hover:bg-orange-500 w-full  py-2 rounded-[10px] mt-8 text-white font-semibold">
                     Sign up
                   </button>
                   <div className="flex justify-center w-full mt-4">or</div>
@@ -137,7 +137,7 @@ export default function Signin() {
                         height="30"
                         alt="google logo"
                       />
-                      <div>Sign in with Google</div>
+                      <div className="text-black">Sign in with Google</div>
                     </button>
                   </div>
                 </div>
@@ -207,10 +207,10 @@ export default function Signin() {
                         height="30"
                         alt="google logo"
                       />
-                      <div>Sign in with Google</div>
+                      <div className="text-black">Sign in with Google</div>
                     </button>
                   </div>
-                  <button className="bg-orange-600 hover:bg-orange-500 w-full  py-2 rounded-[10px] mt-8 text-white font-semibold">
+                  <button className="bg-orange-400 hover:bg-orange-500 w-full  py-2 rounded-[10px] mt-8 text-white font-semibold">
                     Sign in
                   </button>
                 </div>

@@ -160,16 +160,16 @@ export default function Chats() {
 
   return (
     <div
-      className="flex justify-center h-screen bg-[#222222]"
-      style={{
-        backgroundImage: `url(/background.jpg)`,
-        backgroundSize: "cover",
-      }}
+      className="flex justify-center h-screen bg-[#18181A]"
+      // style={{
+      //   backgroundImage: `url(/background.jpg)`,
+      //   backgroundSize: "cover",
+      // }}
     >
       <div className="flex flex-col max-w-2xl w-full h-[90vh] mt-8">
-        <div className="px-1 text-4xl ml-4">{friendName}</div>
+        <div className="px-1 text-4xl ml-4 text-white">{friendName}</div>
 
-        <div className="flex flex-col flex-grow bg-[#0D0D0D] p-8 overflow-y-auto shadow-lg rounded-xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 mx-4">
+        <div className="flex flex-col flex-grow bg-[#0D0D0D] border border-gray-400 border-opacity-30 p-8 overflow-y-auto shadow-lg rounded-xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 mx-4">
           {inbox.map((messageObject, index) => (
             // console.log(messageObject.userName),
             <TextMessage

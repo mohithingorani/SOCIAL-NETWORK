@@ -77,13 +77,13 @@ export default function NavBar({ userName }: { userName: string }) {
                 <div className="font-bold text-xl">30</div>
                 <div>Posts</div>
               </div>
-              <div className="text-center">
+              {/* <div className="text-center">
                 <div className="font-bold text-xl">92</div>
                 <div>Followers</div>
-              </div>
+              </div> */}
               <div className="text-center">
                 <div className="font-bold text-xl">56</div>
-                <div>Following</div>
+                <div>Friends</div>
               </div>
             </div>
 
@@ -92,12 +92,15 @@ export default function NavBar({ userName }: { userName: string }) {
               {[
                 { name: "Feed", image: "icon_01" },
                 { name: "Messages", image: "icon_02" },
-                { name: "Notifications", image: "icon_03" },
+                { name: "Sign Out", image: "icon_03" },
                 { name: "Settings", image: "icon_04" },
               ].map((label, key) => (
                 <button
                   onClick={() => {
                     if (window.innerWidth < 768) setMenuOpen(false);
+                    if(key== 2 ){
+                      signOut();
+                    }
                   }}
                   key={key}
                   className={`hover:bg-[#242627] ${
@@ -120,7 +123,7 @@ export default function NavBar({ userName }: { userName: string }) {
             {/* Contacts */}
             <div className="mt-6 ">
               <div className="font-bold text-lg mb-2 md:ml-2">Contacts</div>
-              <div className="space-y-3 max-h-[30vh] overflow-y-auto">
+              <div className="space-y-3 max-h-[18vh] lg:max-h-[27vh] overflow-y-auto">
                 <ContactCard avatar="avatar_01" time="3s" name="Jack Lozano" />
                 <ContactCard
                   avatar="avatar_09"
