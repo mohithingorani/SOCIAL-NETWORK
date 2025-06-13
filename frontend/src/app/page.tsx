@@ -56,7 +56,7 @@ export default function Home() {
     }, 2500);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [userData?.email]);
 
   function openChat(friend: any) {
     const room = [userDataValue.username, friend.username].sort().join("-");
@@ -71,7 +71,7 @@ export default function Home() {
       console.log("No session data found");
       router.push("/signin");
     }
-  }, [session]);
+  }, [session, router]);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -149,9 +149,9 @@ export default function Home() {
                     <div className="text-white flex justify-center items-center">Loading...</div>
                   ) : (
                     friends.map((friend: any, index: number) => (
-                      <div onClick={() => openChat(friend)}>
+                      <div key={index} onClick={() => openChat(friend)}>
                         <MessageCard
-                          key={index}
+                          
                           name={friend.username || "Unknown"}
                           location="Jaipur"
                           avatar={friend.picture}
@@ -189,9 +189,8 @@ export default function Home() {
                   <div>Loading...</div>
                 ) : (
                   friends.map((friend: any, index: number) => (
-                    <div onClick={() => openChat(friend)}>
+                    <div key={index}  onClick={() => openChat(friend)}>
                       <MessageCard
-                        key={index}
                         name={friend.username || "Unknown"}
                         location="Jaipur"
                         avatar={friend.picture}
