@@ -26,6 +26,8 @@ const logger = winston.createLogger({
 });
 var cors = require("cors");
 
+
+// WebSocket Implementation
 import { Server as SocketIOServer, Socket } from "socket.io";
 import { PrismaClient } from "@prisma/client";
 // Create an Express application
@@ -48,7 +50,7 @@ const io = new SocketIOServer(server, {
 const prisma = new PrismaClient();
 
 
-
+// user Authentication
 app.get("/user", async (req, res) => {
   const userEmail = req.query.email as string;
   const userExists = await prisma.user.findUnique({
@@ -112,6 +114,7 @@ app.post("/friend/request", async (req, res) => {
     }
   }
 });
+
 
 //show friend requests
 app.get("/friend/requests", async (req, res) => {
@@ -200,9 +203,11 @@ app.post("/friend/accept", async (req, res) => {
   }
 });
 
-app.get("/users/search", async (req, res) => {
-  const username = req.query.username as string;
-  const selfUsername = req.query.selfUsername as string;
+
+
+app.post("/users/search", async (req, res) => {
+  const username = req.body.username as string;
+  const selfUsername = req.body.selfUsername as string;
   logger.info("username is " + username);
   logger.info("self username is " + selfUsername);
   try {

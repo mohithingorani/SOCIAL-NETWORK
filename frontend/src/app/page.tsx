@@ -25,6 +25,11 @@ export interface userData {
   updatedAt: Date;
 }
 
+export interface searchedFriends {
+  username: string;
+  picture: string;
+}
+
 export default function Home() {
   const [userData, setUserData] = useState<userData | null>(null);
   const [userDataValue, setUserDataValue] = useRecoilState(userDataAtom);
@@ -34,6 +39,31 @@ export default function Home() {
   const router = useRouter();
   const session = useSession();
   const { friends, loading } = useFriends();
+  const [searchedFriends, setSearchedFriends] = useState<
+    searchedFriends[] | null
+  >(null);
+
+  async function searchFriends(name: string) {
+    
+    const friends = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/search`,
+      {
+        username: name,
+        selfUserName: userData?.username,
+      }
+    );
+    if (friends) {
+      console.log("====================================");
+      console.log("Friends searched");
+      console.log(friends.data);
+      console.log("====================================");
+      setSearchedFriends(friends.data);
+    }
+  }
+
+  useEffect(()=>{
+    searchFriends("");
+  },[])
 
   useEffect(() => {
     const updateLastActive = async () => {
@@ -96,9 +126,15 @@ export default function Home() {
     };
     getInfo();
   }, [session.data?.user?.email, setUserNameValue, setUserDataValue]);
+  
+
 
   if (session.data === undefined) {
-    return <div className="text-white flex h-screen w-full justify-center items-center">Loading...</div>;
+    return (
+      <div className="text-white flex h-screen w-full justify-center items-center">
+        Loading...
+      </div>
+    );
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
@@ -146,12 +182,13 @@ export default function Home() {
                 </div>
                 <div className="mt-6 ">
                   {loading ? (
-                    <div className="text-white flex justify-center items-center">Loading...</div>
+                    <div className="text-white flex justify-center items-center">
+                      Loading...
+                    </div>
                   ) : (
                     friends.map((friend: any, index: number) => (
                       <div key={index} onClick={() => openChat(friend)}>
                         <MessageCard
-                          
                           name={friend.username || "Unknown"}
                           location="Jaipur"
                           avatar={friend.picture}
@@ -189,7 +226,7 @@ export default function Home() {
                   <div>Loading...</div>
                 ) : (
                   friends.map((friend: any, index: number) => (
-                    <div key={index}  onClick={() => openChat(friend)}>
+                    <div key={index} onClick={() => openChat(friend)}>
                       <MessageCard
                         name={friend.username || "Unknown"}
                         location="Jaipur"
@@ -207,6 +244,12 @@ export default function Home() {
               <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
                 <input
                   type="text"
+                  onChange={(e) => {
+                    setTimeout(()=>{
+                      searchFriends(e.target.value as string);
+
+                    },3000);
+                  }}
                   placeholder="Add Friends"
                   className="w-full py-4  px-6 bg-transparent outline-none"
                 />
@@ -221,6 +264,20 @@ export default function Home() {
                 </button>
               </div>
               <div className="mt-6 overflow-y-scroll max-h-[27vh]">
+                {searchedFriends ? (
+                  searchedFriends.map((friend) => {
+                    return (
+                      <MessageCard
+                        name={friend.username}
+                        location="Delhi, India"
+                        avatar={friend.picture}
+                      />
+                    );
+                  })
+                ) : (
+                  <div>Loading....</div>
+                )}
+{/* 
                 <MessageCard
                   name="Mohit"
                   location="Delhi, India"
@@ -240,7 +297,7 @@ export default function Home() {
                   name="Dev"
                   location="Delhi, India"
                   avatar="/avatars/avatar_06.png"
-                />
+                /> */}
               </div>
             </div>
           </div>

@@ -34,6 +34,7 @@ const logger = winston_1.default.createLogger({
     ],
 });
 var cors = require("cors");
+// WebSocket Implementation
 const socket_io_1 = require("socket.io");
 const client_1 = require("@prisma/client");
 // Create an Express application
@@ -50,6 +51,7 @@ const io = new socket_io_1.Server(server, {
     },
 });
 const prisma = new client_1.PrismaClient();
+// user Authentication
 app.get("/user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userEmail = req.query.email;
     const userExists = yield prisma.user.findUnique({
@@ -194,9 +196,9 @@ app.post("/friend/accept", (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(500).send({ message: "Error accepting friend request" });
     }
 }));
-app.get("/users/search", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const username = req.query.username;
-    const selfUsername = req.query.selfUsername;
+app.post("/users/search", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const username = req.body.username;
+    const selfUsername = req.body.selfUsername;
     logger.info("username is " + username);
     logger.info("self username is " + selfUsername);
     try {
