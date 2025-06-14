@@ -265,9 +265,10 @@ export default function Home() {
               </div>
               <div className="mt-6 overflow-y-scroll max-h-[27vh]">
                 {searchedFriends ? (
-                  searchedFriends.map((friend) => {
+                  searchedFriends.map((friend,index) => {
                     return (
                       <MessageCard
+                      key={index}
                         name={friend.username}
                         location="Delhi, India"
                         avatar={friend.picture}
