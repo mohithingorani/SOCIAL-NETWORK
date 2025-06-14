@@ -14274,3 +14274,4 @@ Argument `userId` is missing.
 2025-06-14 21:12:31 [[32minfo[39m]: self username is undefined
 2025-06-14 21:12:31 [[32minfo[39m]: Users fetched successfully
 2025-06-14 21:12:33 [[32minfo[39m]: User details fetched successfully
+2025-06-15 01:01:53 [[32minfo[39m]: Server listening on port 3000
