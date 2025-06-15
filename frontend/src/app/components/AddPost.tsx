@@ -71,6 +71,7 @@ export const AddPost = ({
         <div className="ml-6 bg-[#161616] border text-sm md:text-lg border-white/20 rounded-[8px] w-full flex">
           <input
             onChange={(e) => setCaption(e.target.value)}
+            value={caption}
             type="text"
             placeholder="What is happening?"
             className="w-full py-3 px-4 md:py-3 md:px-6 bg-transparent outline-none"
