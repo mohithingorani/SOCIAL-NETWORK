@@ -3,56 +3,62 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
 
 export const AddPost = ({
   userId,
-  refreshPosts
-}:{
-  userId:number,
-  refreshPosts:()=>void
+  refreshPosts,
+}: {
+  userId: number;
+  refreshPosts: () => void;
 }) => {
   const { data: session } = useSession();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [caption, setCaption] = useState<string>("");
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleDivClick = () => {
     fileInputRef.current?.click();
   };
-  const [caption, setCaption] = useState<string>("");
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
 
-const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const selectedFile = e.target.files?.[0];
-  if (!selectedFile) return;
-  
-  // setPreview("loading");
+    try {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(selectedFile, options);
+      setFile(compressedFile);
+      const previewUrl = URL.createObjectURL(compressedFile);
+      setPreview(previewUrl);
+    } catch (error) {
+      console.error("Image compression failed:", error);
+    }
+  };
 
-  try {
-    const options = {
-      maxSizeMB: 1, // Maximum size in MB (adjust as needed)
-      maxWidthOrHeight: 1024, // Resize large images (optional)
-      useWebWorker: true, // For better performance
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
     };
-
-    const compressedFile = await imageCompression(selectedFile, options);
-    setFile(compressedFile); // Save compressed file to state
-    setPreview(URL.createObjectURL(compressedFile)); // Optional preview
-  } catch (error) {
-    console.error("Image compression failed:", error);
-  }
-};
-
+  }, [preview]);
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file && !caption.trim()) return;
+
     const formData = new FormData();
-    formData.append("userId",userId.toString());
-    formData.append("image", file);
+    formData.append("userId", userId.toString());
+    if (file) formData.append("image", file);
     formData.append("caption", caption);
 
     try {
+      setIsUploading(true);
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/upload`,
         formData,
@@ -63,15 +69,15 @@ const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         }
       );
 
+      console.log("Uploaded image:", res.data);
       refreshPosts();
-      const data = res.data;
-      console.log("Uploaded image:", data);
       setCaption("");
       setPreview(null);
       setFile(null);
-      
     } catch (error) {
       console.error("Upload failed:", error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -123,7 +129,6 @@ const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
               accept="image/*"
             />
             <Image
-              onClick={handleDivClick}
               src="/image_05.png"
               alt="media image"
               width={30}
@@ -157,17 +162,20 @@ const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         {/* Submit Button */}
         <button
           onClick={handleUpload}
-          className="bg-blue-400 md:bg-[#9B9B9B] rounded-[10px] px-4 py-1 hover:bg-blue-400"
+          disabled={!caption.trim() && !file}
+          className={`rounded-[10px] px-4 py-1 ${
+            caption.trim() || file
+              ? "bg-blue-400 hover:bg-blue-500"
+              : "bg-gray-500 cursor-not-allowed"
+          }`}
         >
-          Post
+          {isUploading ? "Posting..." : "Post"}
         </button>
       </div>
 
-      {/* {preview=="loading" && (
-        <div className="text-white">
-          Loading ...
-        </div>
-      )} */}
+      {/* Uploading State */}
+      {isUploading && <p className="text-sm mt-2 text-gray-400">Uploading...</p>}
+
       {/* Optional Preview */}
       {preview && (
         <div className="mt-4">
