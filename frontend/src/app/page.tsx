@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 
 import "./globals.css";
 import NavBar from "./components/AppBar";
@@ -44,7 +45,11 @@ export default function Home() {
     searchedFriends[] | null
   >(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
-  
+
+  const sortedPosts = useMemo(() => {
+    return posts && posts.sort((a, b) => b.postId - a.postId);
+  }, [posts]);
+
   async function getPosts() {
     try {
       const posts = await axios.get(
@@ -168,9 +173,17 @@ export default function Home() {
                 </div>
                 {/* Posts */}
                 <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
-                  {posts && posts.map((post, index) => {
-                    return <Post createdAt={post.createdAt} key={index} image={post.image} caption={post.caption} />;
-                  })}
+                  {sortedPosts &&
+                    sortedPosts.map((post, index) => {
+                      return (
+                        <Post
+                          createdAt={post.createdAt}
+                          key={post.postId}
+                          image={post.image}
+                          caption={post.caption}
+                        />
+                      );
+                    })}
                 </div>
               </div>
             )}
