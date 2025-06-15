@@ -14604,3 +14604,165 @@ Argument `userId` is missing.
 2025-06-15 16:57:56 [[32minfo[39m]: User details fetched successfully
 2025-06-15 16:57:56 [[32minfo[39m]: User details fetched successfully
 2025-06-15 16:59:06 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:11:48 [[32minfo[39m]: Server listening on port 3000
+2025-06-15 17:15:20 [[32minfo[39m]: Server listening on port 3000
+2025-06-15 17:16:30 [[32minfo[39m]: username is 
+2025-06-15 17:16:30 [[32minfo[39m]: self username is undefined
+2025-06-15 17:16:30 [[32minfo[39m]: username is 
+2025-06-15 17:16:30 [[32minfo[39m]: self username is undefined
+2025-06-15 17:16:31 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:16:31 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:16:36 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:16:36 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:16:36 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:16:50 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:19:28 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:21:16 [[32minfo[39m]: username is 
+2025-06-15 17:21:16 [[32minfo[39m]: self username is undefined
+2025-06-15 17:21:17 [[32minfo[39m]: username is 
+2025-06-15 17:21:17 [[32minfo[39m]: self username is undefined
+2025-06-15 17:21:17 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:21:17 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:21:21 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:21:21 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:21:35 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:21:40 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:21:50 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:22:04 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:22:06 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:22:26 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:23:30 [[32minfo[39m]: username is 
+2025-06-15 17:23:30 [[32minfo[39m]: self username is undefined
+2025-06-15 17:23:30 [[32minfo[39m]: username is 
+2025-06-15 17:23:30 [[32minfo[39m]: self username is undefined
+2025-06-15 17:23:30 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:23:30 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:23:37 [[32minfo[39m]: username is 
+2025-06-15 17:23:37 [[32minfo[39m]: self username is undefined
+2025-06-15 17:23:37 [[32minfo[39m]: username is 
+2025-06-15 17:23:37 [[32minfo[39m]: self username is undefined
+2025-06-15 17:23:37 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:23:37 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:24:17 [[32minfo[39m]: username is 
+2025-06-15 17:24:17 [[32minfo[39m]: self username is undefined
+2025-06-15 17:24:17 [[32minfo[39m]: username is 
+2025-06-15 17:24:17 [[32minfo[39m]: self username is undefined
+2025-06-15 17:24:17 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:24:18 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:24:39 [[32minfo[39m]: username is 
+2025-06-15 17:24:39 [[32minfo[39m]: self username is undefined
+2025-06-15 17:24:39 [[32minfo[39m]: username is 
+2025-06-15 17:24:39 [[32minfo[39m]: self username is undefined
+2025-06-15 17:24:39 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:24:39 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:24:40 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:24:40 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:25:36 [[32minfo[39m]: username is 
+2025-06-15 17:25:36 [[32minfo[39m]: self username is undefined
+2025-06-15 17:25:36 [[32minfo[39m]: username is 
+2025-06-15 17:25:36 [[32minfo[39m]: self username is undefined
+2025-06-15 17:25:36 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:25:36 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:25:37 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:25:37 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:25:37 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:25:49 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:26:06 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:28:36 [[32minfo[39m]: username is 
+2025-06-15 17:28:36 [[32minfo[39m]: self username is undefined
+2025-06-15 17:28:36 [[32minfo[39m]: username is 
+2025-06-15 17:28:36 [[32minfo[39m]: self username is undefined
+2025-06-15 17:28:37 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:28:37 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:28:46 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:28:46 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:28:47 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:28:49 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:28:52 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:29:29 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:29:33 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:29:57 [[32minfo[39m]: username is 
+2025-06-15 17:29:57 [[32minfo[39m]: self username is undefined
+2025-06-15 17:29:57 [[32minfo[39m]: username is 
+2025-06-15 17:29:57 [[32minfo[39m]: self username is undefined
+2025-06-15 17:29:57 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:29:57 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:30:01 [[32minfo[39m]: username is 
+2025-06-15 17:30:01 [[32minfo[39m]: self username is undefined
+2025-06-15 17:30:01 [[32minfo[39m]: username is 
+2025-06-15 17:30:01 [[32minfo[39m]: self username is undefined
+2025-06-15 17:30:01 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:30:01 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:30:01 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:30:01 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:30:02 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:30:52 [[32minfo[39m]: username is 
+2025-06-15 17:30:52 [[32minfo[39m]: self username is undefined
+2025-06-15 17:30:52 [[32minfo[39m]: username is 
+2025-06-15 17:30:52 [[32minfo[39m]: self username is undefined
+2025-06-15 17:30:52 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:30:52 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:30:57 [[32minfo[39m]: username is 
+2025-06-15 17:30:57 [[32minfo[39m]: self username is undefined
+2025-06-15 17:30:57 [[32minfo[39m]: username is 
+2025-06-15 17:30:57 [[32minfo[39m]: self username is undefined
+2025-06-15 17:30:57 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:30:57 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:03 [[32minfo[39m]: username is 
+2025-06-15 17:31:03 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:03 [[32minfo[39m]: username is 
+2025-06-15 17:31:03 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:03 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:03 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:09 [[32minfo[39m]: username is 
+2025-06-15 17:31:09 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:09 [[32minfo[39m]: username is 
+2025-06-15 17:31:09 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:09 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:09 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:09 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:31:09 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:31:15 [[32minfo[39m]: username is 
+2025-06-15 17:31:15 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:15 [[32minfo[39m]: username is 
+2025-06-15 17:31:15 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:15 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:15 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:19 [[32minfo[39m]: username is 
+2025-06-15 17:31:19 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:19 [[32minfo[39m]: username is 
+2025-06-15 17:31:19 [[32minfo[39m]: self username is undefined
+2025-06-15 17:31:19 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:19 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:31:20 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:31:20 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:34:01 [[32minfo[39m]: username is 
+2025-06-15 17:34:01 [[32minfo[39m]: self username is undefined
+2025-06-15 17:34:01 [[32minfo[39m]: username is 
+2025-06-15 17:34:01 [[32minfo[39m]: self username is undefined
+2025-06-15 17:34:02 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:34:02 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:34:02 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:34:03 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:34:03 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:36:50 [[32minfo[39m]: username is 
+2025-06-15 17:36:50 [[32minfo[39m]: self username is undefined
+2025-06-15 17:36:50 [[32minfo[39m]: username is 
+2025-06-15 17:36:50 [[32minfo[39m]: self username is undefined
+2025-06-15 17:36:50 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:36:50 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:37:30 [[32minfo[39m]: username is 
+2025-06-15 17:37:30 [[32minfo[39m]: self username is undefined
+2025-06-15 17:37:30 [[32minfo[39m]: username is 
+2025-06-15 17:37:30 [[32minfo[39m]: self username is undefined
+2025-06-15 17:37:30 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:37:30 [[32minfo[39m]: Users fetched successfully
+2025-06-15 17:37:34 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:37:34 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:37:34 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:37:52 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:37:54 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:38:55 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:39:19 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:39:52 [[32minfo[39m]: User details fetched successfully
+2025-06-15 17:39:53 [[32minfo[39m]: User details fetched successfully

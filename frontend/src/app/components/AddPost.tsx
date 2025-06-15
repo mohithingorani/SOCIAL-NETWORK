@@ -7,9 +7,11 @@ import { useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 export const AddPost = ({
-  userId
+  userId,
+  refreshPosts
 }:{
-  userId:number
+  userId:number,
+  refreshPosts:()=>void
 }) => {
   const { data: session } = useSession();
   const [file, setFile] = useState<File | null>(null);
@@ -45,11 +47,14 @@ export const AddPost = ({
           },
         }
       );
+
+      refreshPosts();
       const data = res.data;
       console.log("Uploaded image:", data);
       setCaption("");
       setPreview(null);
       setFile(null);
+      
     } catch (error) {
       console.error("Upload failed:", error);
     }

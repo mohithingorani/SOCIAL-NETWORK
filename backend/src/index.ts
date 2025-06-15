@@ -183,6 +183,23 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 
 
 
+// get Post
+app.get("/getposts",async(req,res)=>{
+  try{
+    const posts = await prisma.post.findMany({});
+    res.json({
+      message:"Get Posts Successfull",
+      posts:posts
+    }).status(200);
+  }catch(err){
+    console.log("Could not fetch posts.",err);
+    res.json(err).status(500);
+  }
+})
+
+
+
+
 //show friend requests
 app.get("/friend/requests", async (req, res) => {
   const username = req.query.username as string;

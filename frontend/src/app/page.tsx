@@ -14,6 +14,7 @@ import { AddPost } from "./components/AddPost";
 import { MessageCard } from "./components/MessageCard";
 import { StoriesCard } from "./components/StoriesCard";
 import { useFriends } from "@/hooks/useFriends";
+import { PostInterface } from "@/types/types";
 
 export interface userData {
   email: string;
@@ -42,8 +43,22 @@ export default function Home() {
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
- 
-
+  const [posts, setPosts] = useState<PostInterface[] | null>(null);
+  
+  async function getPosts() {
+    try {
+      const posts = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/getposts`
+      );
+      console.log(posts);
+      setPosts(posts.data.posts);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   async function searchFriends(name: string) {
     const friends = await axios.post(
@@ -149,15 +164,13 @@ export default function Home() {
                   <StoriesCard />
                 </div>
                 <div>
-                  <AddPost userId={userDataValue.id} />
-                 
-                  
+                  <AddPost userId={userDataValue.id} refreshPosts={getPosts} />
                 </div>
                 {/* Posts */}
                 <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
-                  <Post />
-                  <Post />
-                  <Post />
+                  {posts && posts.map((post, index) => {
+                    return <Post createdAt={post.createdAt} key={index} image={post.image} caption={post.caption} />;
+                  })}
                 </div>
               </div>
             )}

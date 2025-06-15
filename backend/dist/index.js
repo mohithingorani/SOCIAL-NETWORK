@@ -178,6 +178,20 @@ app.post("/upload", upload.single("image"), (req, res) => __awaiter(void 0, void
         res.status(500).json({ message: "Could not post!" });
     }
 }));
+// get Post
+app.get("/getposts", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const posts = yield prisma.post.findMany({});
+        res.json({
+            message: "Get Posts Successfull",
+            posts: posts
+        }).status(200);
+    }
+    catch (err) {
+        console.log("Could not fetch posts.", err);
+        res.json(err).status(500);
+    }
+}));
 //show friend requests
 app.get("/friend/requests", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.query.username;
