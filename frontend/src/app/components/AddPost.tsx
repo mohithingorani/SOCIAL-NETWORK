@@ -26,6 +26,8 @@ export const AddPost = ({
 const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
   const selectedFile = e.target.files?.[0];
   if (!selectedFile) return;
+  
+  setPreview("loading");
 
   try {
     const options = {
@@ -161,8 +163,13 @@ const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         </button>
       </div>
 
+      {preview=="loading" && (
+        <div className="text-white">
+          Loading ...
+        </div>
+      )}
       {/* Optional Preview */}
-      {preview && (
+      {preview!="loading" && preview && (
         <div className="mt-4">
           <Image
             src={preview}
