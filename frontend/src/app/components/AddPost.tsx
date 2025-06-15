@@ -4,7 +4,6 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import imageCompression from "browser-image-compression";
 
 export const AddPost = ({
   userId,
@@ -24,23 +23,13 @@ export const AddPost = ({
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    try {
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1024,
-        useWebWorker: true,
-      };
-      const compressedFile = await imageCompression(selectedFile, options);
-      setFile(compressedFile);
-      const previewUrl = URL.createObjectURL(compressedFile);
-      setPreview(previewUrl);
-    } catch (error) {
-      console.error("Image compression failed:", error);
-    }
+    setFile(selectedFile);
+    const previewUrl = URL.createObjectURL(selectedFile);
+    setPreview(previewUrl);
   };
 
   useEffect(() => {
