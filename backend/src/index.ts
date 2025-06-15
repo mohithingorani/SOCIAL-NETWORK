@@ -2,8 +2,10 @@
 require("dotenv").config();
 import express from "express";
 import http from "http";
-
+import multer from "multer";
 import winston from "winston";
+import path from "path";
+import fs from "fs";
 
 // Create a logger with multiple transports
 const logger = winston.createLogger({
@@ -26,7 +28,6 @@ const logger = winston.createLogger({
 });
 var cors = require("cors");
 
-
 // WebSocket Implementation
 import { Server as SocketIOServer, Socket } from "socket.io";
 import { PrismaClient } from "@prisma/client";
@@ -48,7 +49,6 @@ const io = new SocketIOServer(server, {
 });
 
 const prisma = new PrismaClient();
-
 
 // user Authentication
 app.get("/user", async (req, res) => {
@@ -114,6 +114,73 @@ app.post("/friend/request", async (req, res) => {
     }
   }
 });
+
+const uploadDir = "uploads";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+// Set up storage engine
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+  },
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowed = ["image/png", "image/jpeg", "image/jpg"];
+    if (allowed.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
+// Serve static files from uploads/
+app.use("/uploads", express.static("uploads"));
+
+// Add a post
+// Upload route
+app.post("/upload", upload.single("image"), async (req, res) => {
+  console.log("got image post request");
+
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+
+  const imageUrl = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
+  const caption = req.body.caption;
+  const userId = parseInt(req.body.userId);
+
+  try {
+    const post = await prisma.post.create({
+      data: {
+        image: imageUrl,
+        caption,
+        user: {
+          connect: { id: userId },
+        },
+      },
+    });
+    console.log(post);
+    res.status(200).json({
+      post,
+      url: imageUrl,
+      message: "Post uploaded!",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not post!" });
+  }
+});
+
 
 
 //show friend requests
@@ -202,8 +269,6 @@ app.post("/friend/accept", async (req, res) => {
     res.status(500).send({ message: "Error accepting friend request" });
   }
 });
-
-
 
 app.post("/users/search", async (req, res) => {
   const username = req.body.username as string;
@@ -351,28 +416,27 @@ app.post("/onlinestatus", (req, res) => {
   const date = new Date();
   const email = req.body.email;
 
-  try{
+  try {
     const lastActive = prisma.user.update({
       where: {
         email: email,
       },
       data: {
         lastOnline: date,
-        onlineStatus:true
+        onlineStatus: true,
       },
     });
-  
-    res.json({
-      lastActive
-    }).status(200);
-  }catch(error){
+
+    res
+      .json({
+        lastActive,
+      })
+      .status(200);
+  } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Error updating online status" });
   }
-  
 });
-
-
 
 app.get("/messages", async (req, res) => {
   const roomName = req.query.roomName as string;

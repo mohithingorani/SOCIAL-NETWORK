@@ -56,14 +56,22 @@ model Chat {
 model Post {
   postId   Int       @id @default(autoincrement())
   image    String
-  caption  String
-  Like     Int
-  user     User      @relation("UserPosts", fields: [postId], references: [id])
-  Captions Caption[] @relation(name: "UserCaptions")
+  caption  String    @default("")
+  Like     Int       @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId   Int
+  user     User      @relation("UserPosts", fields: [userId], references: [id])
+  comments Comment[] @relation(name: "UserCaptions")
 }
 
-model Caption {
-  captionId Int    @id @default(autoincrement())
+model Comment {
+  commentId Int       @id @default(autoincrement())
   text      String
-  post      Post   @relation("UserCaptions", fields: [captionId], references: [postId])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  postId    Int
+  post      Post      @relation("UserCaptions", fields: [postId], references: [postId])
 }

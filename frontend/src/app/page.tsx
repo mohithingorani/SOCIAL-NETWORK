@@ -42,9 +42,10 @@ export default function Home() {
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
+ 
+
 
   async function searchFriends(name: string) {
-    
     const friends = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/search`,
       {
@@ -61,9 +62,9 @@ export default function Home() {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     searchFriends("");
-  },[])
+  }, []);
 
   useEffect(() => {
     const updateLastActive = async () => {
@@ -126,8 +127,6 @@ export default function Home() {
     };
     getInfo();
   }, [session.data?.user?.email, setUserNameValue, setUserDataValue]);
-  
-
 
   if (session.data === undefined) {
     return (
@@ -150,7 +149,9 @@ export default function Home() {
                   <StoriesCard />
                 </div>
                 <div>
-                  <AddPost />
+                  <AddPost userId={userDataValue.id} />
+                 
+                  
                 </div>
                 {/* Posts */}
                 <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
@@ -245,10 +246,9 @@ export default function Home() {
                 <input
                   type="text"
                   onChange={(e) => {
-                    setTimeout(()=>{
+                    setTimeout(() => {
                       searchFriends(e.target.value as string);
-
-                    },3000);
+                    }, 3000);
                   }}
                   placeholder="Add Friends"
                   className="w-full py-4  px-6 bg-transparent outline-none"
@@ -265,10 +265,10 @@ export default function Home() {
               </div>
               <div className="mt-6 overflow-y-scroll max-h-[27vh]">
                 {searchedFriends ? (
-                  searchedFriends.map((friend,index) => {
+                  searchedFriends.map((friend, index) => {
                     return (
                       <MessageCard
-                      key={index}
+                        key={index}
                         name={friend.username}
                         location="Delhi, India"
                         avatar={friend.picture}
@@ -278,7 +278,7 @@ export default function Home() {
                 ) : (
                   <div>Loading....</div>
                 )}
-{/* 
+                {/* 
                 <MessageCard
                   name="Mohit"
                   location="Delhi, India"

@@ -16,7 +16,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http"));
+const multer_1 = __importDefault(require("multer"));
 const winston_1 = __importDefault(require("winston"));
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 // Create a logger with multiple transports
 const logger = winston_1.default.createLogger({
     level: "info",
@@ -112,6 +115,67 @@ app.post("/friend/request", (req, res) => __awaiter(void 0, void 0, void 0, func
                 .send({ message: "Friend request sent successfully", friendRequest })
                 .status(200);
         }
+    }
+}));
+const uploadDir = "uploads";
+if (!fs_1.default.existsSync(uploadDir)) {
+    fs_1.default.mkdirSync(uploadDir);
+}
+// Set up storage engine
+const storage = multer_1.default.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "uploads/");
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        const ext = path_1.default.extname(file.originalname);
+        cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+    },
+});
+const upload = (0, multer_1.default)({
+    storage,
+    fileFilter: (req, file, cb) => {
+        const allowed = ["image/png", "image/jpeg", "image/jpg"];
+        if (allowed.includes(file.mimetype)) {
+            cb(null, true);
+        }
+        else {
+            cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+        }
+    },
+});
+// Serve static files from uploads/
+app.use("/uploads", express_1.default.static("uploads"));
+// Add a post
+// Upload route
+app.post("/upload", upload.single("image"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("got image post request");
+    if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+    }
+    const imageUrl = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
+    const caption = req.body.caption;
+    const userId = parseInt(req.body.userId);
+    try {
+        const post = yield prisma.post.create({
+            data: {
+                image: imageUrl,
+                caption,
+                user: {
+                    connect: { id: userId },
+                },
+            },
+        });
+        console.log(post);
+        res.status(200).json({
+            post,
+            url: imageUrl,
+            message: "Post uploaded!",
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Could not post!" });
     }
 }));
 //show friend requests
@@ -340,12 +404,14 @@ app.post("/onlinestatus", (req, res) => {
             },
             data: {
                 lastOnline: date,
-                onlineStatus: true
+                onlineStatus: true,
             },
         });
-        res.json({
-            lastActive
-        }).status(200);
+        res
+            .json({
+            lastActive,
+        })
+            .status(200);
     }
     catch (error) {
         console.log(error);
