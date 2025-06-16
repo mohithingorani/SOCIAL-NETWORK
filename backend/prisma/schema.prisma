@@ -21,7 +21,7 @@ model User {
   friendOf         Friend[]        @relation("FriendOf")
   onlineStatus     Boolean         @default(false)
   lastOnline       DateTime        @default(now())
-  posts            Post[]          @relation("UserPosts") 
+  posts            Post[]          @relation("UserPosts")
 }
 
 model FriendRequest {
@@ -54,10 +54,10 @@ model Chat {
 }
 
 model Post {
-  postId   Int       @id @default(autoincrement())
-  image    String
-  caption  String    @default("")
-  Like     Int       @default(0)
+  postId    Int      @id @default(autoincrement())
+  image     String?
+  caption   String   @default("")
+  Like      Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -67,10 +67,10 @@ model Post {
 }
 
 model Comment {
-  commentId Int       @id @default(autoincrement())
+  commentId Int      @id @default(autoincrement())
   text      String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   postId    Int
-  post      Post      @relation("UserCaptions", fields: [postId], references: [postId], onDelete: Cascade)
+  post      Post     @relation("UserCaptions", fields: [postId], references: [postId], onDelete: Cascade)
 }

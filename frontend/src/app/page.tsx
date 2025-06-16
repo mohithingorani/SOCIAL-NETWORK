@@ -179,7 +179,7 @@ export default function Home() {
                         <Post
                           createdAt={post.createdAt}
                           key={post.postId}
-                          image={post.image}
+                          image={post.image || null}
                           caption={post.caption}
                         />
                       );

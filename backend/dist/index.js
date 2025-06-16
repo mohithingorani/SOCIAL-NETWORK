@@ -178,6 +178,34 @@ app.post("/upload", upload.single("image"), (req, res) => __awaiter(void 0, void
         res.status(500).json({ message: "Could not post!" });
     }
 }));
+app.post("/uploadWithoutImage", upload.single("image"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // if (!req.file) {
+    //   return res.status(400).json({ message: "No file uploaded" });
+    // }
+    // const imageUrl = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
+    const caption = req.body.caption;
+    const userId = parseInt(req.body.userId);
+    try {
+        const post = yield prisma.post.create({
+            data: {
+                caption,
+                user: {
+                    connect: { id: userId },
+                },
+            },
+        });
+        console.log(post);
+        res.status(200).json({
+            post,
+            // url: imageUrl,
+            message: "Post uploaded!",
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Could not post!" });
+    }
+}));
 // get Post
 app.get("/getposts", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -4,7 +4,7 @@ import { formatDate } from "../lib/formatDate";
 export default function Post({
   image,caption,Like,createdAt
 }:{
-  image: string;
+  image: string | null;
   caption: string;
   Like?: number;
   createdAt: string;
@@ -27,7 +27,7 @@ export default function Post({
           </div>
         </div>
       </button>
-      <div className="flex flex-col  justify-center items-center mt-6">
+      {image&&<div className="flex flex-col  justify-center items-center mt-6">
         <Image
           
           className="rounded-xl max-h-[500px] w-auto object-contain"
@@ -36,10 +36,14 @@ export default function Post({
           width={"500"}
           height={"500"}
         />
-      </div>
-        <div className=" mt-4 text-sm w-fit flex justify-start">
+      </div>}
+        {image?<div className=" mt-4 text-sm w-fit flex justify-start">
+          {caption}
+        </div>:(
+          <div className=" mt-4 text-lg w-fit flex justify-start">
           {caption}
         </div>
+        )}
       <div className="text-blue-400">#blender #render #design</div>
     </div>
   );

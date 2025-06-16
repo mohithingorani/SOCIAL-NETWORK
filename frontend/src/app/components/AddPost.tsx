@@ -26,7 +26,6 @@ export const AddPost = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
-
     setFile(selectedFile);
     const previewUrl = URL.createObjectURL(selectedFile);
     setPreview(previewUrl);
@@ -39,34 +38,55 @@ export const AddPost = ({
   }, [preview]);
 
   const handleUpload = async () => {
-    if (!file && !caption.trim()) return;
+    if (!file) {
+      try {
+        setIsUploading(true);
+        const post = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploadWithoutImage`,
+          {
+            caption,
+            userId: userId,
+          }
+        );
+        return post;
+      } catch (err) {
+        console.log(err);
+        return;
+      } finally {
+        setIsUploading(false);
+        refreshPosts();
+        setCaption("");
+        return;
+      }
+    }
+    if (file) {
+      const formData = new FormData();
+      formData.append("userId", userId.toString());
+      if (file) formData.append("image", file);
+      formData.append("caption", caption);
 
-    const formData = new FormData();
-    formData.append("userId", userId.toString());
-    if (file) formData.append("image", file);
-    formData.append("caption", caption);
+      try {
+        setIsUploading(true);
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/upload`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-    try {
-      setIsUploading(true);
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/upload`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      console.log("Uploaded image:", res.data);
-      refreshPosts();
-      setCaption("");
-      setPreview(null);
-      setFile(null);
-    } catch (error) {
-      console.error("Upload failed:", error);
-    } finally {
-      setIsUploading(false);
+        console.log("Uploaded image:", res.data);
+        refreshPosts();
+        setCaption("");
+        setPreview(null);
+        setFile(null);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
 
@@ -163,7 +183,9 @@ export const AddPost = ({
       </div>
 
       {/* Uploading State */}
-      {isUploading && <p className="text-sm mt-2 text-gray-400">Uploading...</p>}
+      {isUploading && (
+        <p className="text-sm mt-2 text-gray-400">Uploading...</p>
+      )}
 
       {/* Optional Preview */}
       {preview && (

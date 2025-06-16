@@ -1,6 +1,6 @@
 export interface PostInterface {
   postId: number;
-  image: string;
+  image?: string;
   caption: string;
   Like: number;
   createdAt: string;
