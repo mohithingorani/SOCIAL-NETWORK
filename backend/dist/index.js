@@ -135,7 +135,7 @@ const storage = multer_1.default.diskStorage({
 const upload = (0, multer_1.default)({
     storage,
     fileFilter: (req, file, cb) => {
-        const allowed = ["image/png", "image/jpeg", "image/jpg",];
+        const allowed = ["image/png", "image/jpeg", "image/jpg"];
         if (allowed.includes(file.mimetype)) {
             cb(null, true);
         }
@@ -209,11 +209,22 @@ app.post("/uploadWithoutImage", upload.single("image"), (req, res) => __awaiter(
 // get Post
 app.get("/getposts", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const posts = yield prisma.post.findMany({});
-        res.json({
+        const posts = yield prisma.post.findMany({
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        picture: true,
+                    },
+                },
+            },
+        });
+        res
+            .json({
             message: "Get Posts Successfull",
-            posts: posts
-        }).status(200);
+            posts: posts,
+        })
+            .status(200);
     }
     catch (err) {
         console.log("Could not fetch posts.", err);
