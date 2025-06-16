@@ -105,6 +105,11 @@ export const AddPost = ({
         )}
         <div className="ml-6 bg-[#161616] border text-sm md:text-lg border-white/20 rounded-[8px] w-full flex">
           <input
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleUpload();
+              }
+            }}
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
             type="text"
@@ -147,7 +152,7 @@ export const AddPost = ({
             <div className="hidden lg:block">Media Content</div>
           </div>
 
-          <div className="flex items-center gap-1 opacity-70 hover:opacity-100 cursor-pointer">
+          {/* <div className="flex items-center gap-1 opacity-70 hover:opacity-100 cursor-pointer">
             <Image
               src="/hashtag_05.png"
               alt="hashtag image"
@@ -165,7 +170,7 @@ export const AddPost = ({
               height={30}
             />
             <div className="hidden lg:block">Schedule</div>
-          </div>
+          </div> */}
         </div>
 
         {/* Submit Button */}
