@@ -177,6 +177,8 @@ export default function Home() {
                     sortedPosts.map((post, index) => {
                       return (
                         <Post
+                          username={post.user.username}
+                          picture={post.user.picture}
                           createdAt={post.createdAt}
                           key={post.postId}
                           image={post.image || null}

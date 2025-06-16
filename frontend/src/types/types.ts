@@ -6,4 +6,8 @@ export interface PostInterface {
   createdAt: string;
   updatedAt: string;
   userId: number;
+  user:{
+    username:string,
+    picture:string
+  }
 }
