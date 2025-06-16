@@ -11,7 +11,7 @@ export default function Post({
   updatedAt?: string;
 }) {
   return (
-    <div className="bg-[#101010] max-w-lg p-6 rounded-3xl">
+    <div className="bg-[#101010]  p-6 rounded-3xl">
       <button className="flex w-full  rounded-xl">
         <Image
           className="rounded-full "
@@ -29,10 +29,8 @@ export default function Post({
       </button>
       <div className="flex flex-col  justify-center items-center mt-6">
         <Image
-          style={{
-            backgroundSize: "cover",
-          }}
-          className="rounded-xl"
+          
+          className="rounded-xl max-h-[500px] w-auto object-contain"
           src={image}
           alt="Loading..."
           width={"500"}
