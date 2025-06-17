@@ -53,6 +53,21 @@ export default function Post({
         <div className=" mt-4 text-lg w-fit flex justify-start">{caption}</div>
       )}
       <div className="text-blue-400">#blender #render #design</div>
+      <div className="mt-4 flex border gap-2 border-x-0 border-b-0 border-t-1 border-white/20 pt-2">
+        <div className="flex items-center ">
+          <Image src={"/post/like_white.png"} width={"35"} height={"35"} alt="Like Logo"/>
+          <div>1.6k</div>
+        </div>
+        <div className="flex items-center ">
+          <Image src={"/post/comment.png"} width={"35"} height={"35"} alt="Like Logo"/>
+          <div>2.3k</div>
+        </div>
+        <div className="flex items-center ">
+          <Image src={"/post/share.png"} width={"35"} height={"35"} alt="Like Logo"/>
+          <div>300</div>
+        </div>
+      </div>
+
     </div>
   );
 }
