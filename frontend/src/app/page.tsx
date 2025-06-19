@@ -16,6 +16,7 @@ import { MessageCard } from "./components/MessageCard";
 import { StoriesCard } from "./components/StoriesCard";
 import { useFriends } from "@/hooks/useFriends";
 import { PostInterface } from "@/types/types";
+import { ToastContainer, toast } from "react-toastify";
 
 export interface userData {
   email: string;
@@ -30,7 +31,7 @@ export interface userData {
 export interface searchedFriends {
   username: string;
   picture: string;
-  id:number
+  id: number;
 }
 
 export default function Home() {
@@ -180,20 +181,41 @@ export default function Home() {
   //   return dislike;
   // };
 
-  async function sendFriendRequest(friendId:number){
-    const friendRequest = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/request`,{
-      fromUserId : userDataValue.id,
-      toUserId :  friendId
-    });
+  // <button onClick={notify}>Notify!</button>
+  async function sendFriendRequest(friendId: number) {
+    const friendRequest = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/request`,
+      {
+        fromUserId: userDataValue.id,
+        toUserId: friendId,
+      }
+    );
+    const notify = () => toast(friendRequest.data.message);
+
+    notify();
     return friendRequest;
-    
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
+     
       <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
       <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
+         <ToastContainer
+        // className="absolute top-0 right-0"
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        // transition={Bounce}
+      />
         <div className="w-full grid grid-cols-3 rounded-3xl">
           <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
             {currPage === "home" && (
@@ -219,17 +241,23 @@ export default function Home() {
                           likePost={async () => {
                             try {
                               if (post.isLikedByUser) {
-                                await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost` , {
-                                  userId: userDataValue.id, // or session?.user?.id
-                                  postId: post.id,
-                                });
+                                await axios.post(
+                                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost`,
+                                  {
+                                    userId: userDataValue.id, // or session?.user?.id
+                                    postId: post.id,
+                                  }
+                                );
                                 console.log("Unliked post " + post.id);
                               } else {
-                                await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`, {
-                                  username: userDataValue.id,
-                                  postId: post.id,
-                                });
-                                console.log("Like Post " +post.id );
+                                await axios.post(
+                                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`,
+                                  {
+                                    username: userDataValue.id,
+                                    postId: post.id,
+                                  }
+                                );
+                                console.log("Like Post " + post.id);
                               }
 
                               getPosts(); // refresh state from backend if needed
@@ -277,10 +305,13 @@ export default function Home() {
                     </div>
                   ) : (
                     friends.map((friend: any, index: number) => (
-                      <div className="cursor-pointer" key={index} onClick={() => openChat(friend)}>
+                      <div
+                        className="cursor-pointer"
+                        key={index}
+                        onClick={() => openChat(friend)}
+                      >
                         <MessageCard
-                        
-                        sendRequest={()=>sendFriendRequest(friend.id)}
+                          sendRequest={() => sendFriendRequest(friend.id)}
                           name={friend.username || "Unknown"}
                           location="Jaipur"
                           suggesttions={false}
@@ -319,10 +350,13 @@ export default function Home() {
                   <div>Loading...</div>
                 ) : (
                   friends.map((friend: any, index: number) => (
-                    <div className="cursor-pointer" key={index} onClick={() => openChat(friend)}>
+                    <div
+                      className="cursor-pointer"
+                      key={index}
+                      onClick={() => openChat(friend)}
+                    >
                       <MessageCard
-                      
-                      suggesttions={false}
+                        suggesttions={false}
                         name={friend.username || "Unknown"}
                         location="Jaipur"
                         avatar={friend.picture}
@@ -362,8 +396,8 @@ export default function Home() {
                   searchedFriends.map((friend, index) => {
                     return (
                       <MessageCard
-                      sendRequest={()=>sendFriendRequest(friend.id)}
-                      suggesttions={true}
+                        sendRequest={() => sendFriendRequest(friend.id)}
+                        suggesttions={true}
                         key={index}
                         name={friend.username}
                         location="Delhi, India"
