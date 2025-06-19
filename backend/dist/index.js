@@ -20,8 +20,6 @@ const multer_1 = __importDefault(require("multer"));
 const winston_1 = __importDefault(require("winston"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const cors_1 = __importDefault(require("cors"));
-const allowedOrigins = ['http://localhost:3001', 'https://wavy-mavy.vercel.app/'];
 // Create a logger with multiple transports
 const logger = winston_1.default.createLogger({
     level: "info",
@@ -38,28 +36,19 @@ const logger = winston_1.default.createLogger({
         new winston_1.default.transports.File({ filename: "logs/app.log" }), // For file logs
     ],
 });
+var cors = require("cors");
 // WebSocket Implementation
 const socket_io_1 = require("socket.io");
 const client_1 = require("@prisma/client");
 // Create an Express application
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        }
-        else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true // only if you're using cookies/sessions
-}));
+app.use(cors());
 app.use(express_1.default.json());
 const server = http_1.default.createServer(app);
 // Create a new instance of Socket.IO and pass the server instance
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: [`${process.env.CORS_DOMAIN}`],
+        origin: "*",
         methods: ["GET", "POST", "OPTIONS"],
         optionsSuccessStatus: 200,
     },

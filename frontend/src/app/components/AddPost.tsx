@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export const AddPost = ({
   userId,
@@ -48,12 +49,17 @@ export const AddPost = ({
             userId: userId,
           }
         );
+
+        const notify = () => toast("Uploaded successfully!");
+        notify();
+
         return post;
       } catch (err) {
         console.log(err);
         return;
       } finally {
         setIsUploading(false);
+
         refreshPosts();
         setCaption("");
         return;
@@ -78,6 +84,9 @@ export const AddPost = ({
         );
 
         console.log("Uploaded image:", res.data);
+        const notify = () => toast(res.data.message);
+
+        notify();
         refreshPosts();
         setCaption("");
         setPreview(null);
@@ -93,6 +102,7 @@ export const AddPost = ({
   return (
     <div className="bg-[#101010] p-6 rounded-3xl shadow-md w-full text-white">
       {/* Profile and Input */}
+
       <div className="flex justify-start items-center w-full">
         {session?.user?.image && (
           <Image
@@ -103,6 +113,7 @@ export const AddPost = ({
             className="rounded-full"
           />
         )}
+
         <div className="ml-6 bg-[#161616] border text-sm md:text-lg border-white/20 rounded-[8px] w-full flex">
           <input
             onKeyDown={(e) => {

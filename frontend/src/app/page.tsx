@@ -202,7 +202,7 @@ export default function Home() {
         <NavBar userName={userNameValue} />
       </div>
       <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
-         <ToastContainer
+         {/* <ToastContainer
         // className="absolute top-0 right-0"
         position="top-center"
         autoClose={3000}
@@ -215,7 +215,7 @@ export default function Home() {
         pauseOnHover
         theme="dark"
         // transition={Bounce}
-      />
+      /> */}
         <div className="w-full grid grid-cols-3 rounded-3xl">
           <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
             {currPage === "home" && (
