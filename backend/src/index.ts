@@ -213,6 +213,12 @@ app.post("/uploadWithoutImage", upload.single("image"), async (req, res) => {
 
 // get Post
 app.get("/getposts", async (req, res) => {
+  const userId = parseInt(req.query.userId as string); // e.g., /getposts?userId=1
+
+  if (!userId) {
+    return res.status(400).json({ message: "Missing or invalid userId" });
+  }
+
   try {
     const posts = await prisma.post.findMany({
       include: {
@@ -222,19 +228,141 @@ app.get("/getposts", async (req, res) => {
             picture: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+        likes: {
+          where: {
+            userId: userId,
+          },
+          select: {
+            userId: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
-    res
-      .json({
-        message: "Get Posts Successfull",
-        posts: posts,
-      })
-      .status(200);
+
+    const updatedPosts = posts.map((post) => {
+      return {
+        ...post,
+        isLikedByUser: post.likes.length > 0,
+        likes: undefined, // remove likes array, only use _count and boolean
+      };
+    });
+
+    res.status(200).json({
+      message: "Get Posts Successful",
+      posts: updatedPosts,
+    });
   } catch (err) {
-    console.log("Could not fetch posts.", err);
-    res.json(err).status(500);
+    console.error("Could not fetch posts.", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
+
+app.post("/likePost", async (req, res) => {
+  const username = req.body.username;
+  const postId = req.body.postId;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: username },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // ✅ Check if already liked
+    const existingLike = await prisma.like.findUnique({
+      where: {
+        userId_postId: {
+          userId: user.id,
+          postId: postId,
+        },
+      },
+    });
+
+    if (existingLike) {
+      return res
+        .status(409)
+        .json({ message: "User already liked this post" });
+    }
+
+    const like = await prisma.like.create({
+      data: {
+        userId: user.id,
+        postId: postId,
+      },
+    });
+
+    res.json({
+      like,
+      message: `Liked the post with id ${postId}`,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
+
+app.post("/deletePost",async (req,res)=>{
+  const postId = req.body.postId;
+  const post = await prisma.post.delete({
+    where:{
+      id:postId
+    }
+  });
+  res.json({
+    message:"Deleted Post with PostId"+postId,
+    post
+  });
+})
+
+app.post("/unlikePost", async (req, res) => {
+  const { userId, postId } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await prisma.like.delete({
+      where: {
+        userId_postId: {
+          userId: user.id,
+          postId: postId,
+        },
+      },
+    });
+
+    res.status(200).json({
+      message: `Unliked the post with id ${postId}`,
+    });
+  } catch (error: any) {
+    if (error.code === "P2025") {
+      return res
+        .status(404)
+        .json({ message: "Like not found for this user and post" });
+    }
+
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
 
 //show friend requests
 app.get("/friend/requests", async (req, res) => {

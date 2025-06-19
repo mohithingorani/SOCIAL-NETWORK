@@ -1,13 +1,17 @@
 export interface PostInterface {
-  postId: number;
+  id: number;
   image?: string;
   caption: string;
   Like: number;
   createdAt: string;
   updatedAt: string;
   userId: number;
-  user:{
-    username:string,
-    picture:string
-  }
+  user: {
+    username: string;
+    picture: string;
+  };
+  _count: {
+    likes: number;
+  };
+  isLikedByUser:boolean
 }

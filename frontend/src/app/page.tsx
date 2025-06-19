@@ -33,37 +33,60 @@ export interface searchedFriends {
 }
 
 export default function Home() {
+  const session = useSession();
   const [userData, setUserData] = useState<userData | null>(null);
   const [userDataValue, setUserDataValue] = useRecoilState(userDataAtom);
   const [userNameValue, setUserNameValue] = useRecoilState(userNameAtom);
   const [isOnline, setIsOnline] = useRecoilState(isOnlineAtom);
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
   const router = useRouter();
-  const session = useSession();
   const { friends, loading } = useFriends();
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
 
-  const sortedPosts = useMemo(() => {
-    return posts && posts.sort((a, b) => b.postId - a.postId);
-  }, [posts]);
+  useEffect(() => {
+    const getInfo = async () => {
+      try {
+        console.log("Searching for user Data");
+        if (session.data?.user?.email) {
+          const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/details?email=${session.data.user.email}`
+          );
+          console.log("API response:", data);
+          setUserData(data);
+          setUserDataValue(data);
+          if (data?.username) {
+            setUserNameValue(data.username);
+          } else {
+            console.error("Username not found in API response.");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    getInfo();
+  }, [session.data?.user?.email, setUserNameValue, setUserDataValue]);
 
   async function getPosts() {
     try {
-      const posts = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/getposts`
-      );
-      console.log(posts);
-      setPosts(posts.data.posts);
+      if (userDataValue.id != 0) {
+        const posts = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/getposts?userId=${userDataValue?.id}`
+        );
+
+        console.log(posts);
+        setPosts(posts.data.posts);
+      }
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [userDataValue]);
 
   async function searchFriends(name: string) {
     const friends = await axios.post(
@@ -109,11 +132,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [userData?.email]);
 
-  function openChat(friend: any) {
-    const room = [userDataValue.username, friend.username].sort().join("-");
-    router.push(`/chat/?room=${room}&name=${userDataValue.username}`);
-  }
-
   useEffect(() => {
     if (session.status === "loading") {
     } else if (session.data?.user) {
@@ -123,38 +141,43 @@ export default function Home() {
       router.push("/signin");
     }
   }, [session, router]);
-
-  useEffect(() => {
-    const getInfo = async () => {
-      try {
-        console.log("Searching for user Data");
-        if (session.data?.user?.email) {
-          const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/details?email=${session.data.user.email}`
-          );
-          console.log("API response:", data);
-          setUserData(data);
-          setUserDataValue(data);
-          if (data?.username) {
-            setUserNameValue(data.username);
-          } else {
-            console.error("Username not found in API response.");
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    getInfo();
-  }, [session.data?.user?.email, setUserNameValue, setUserDataValue]);
-
-  if (session.data === undefined) {
+  if (session.status === "loading" || !userDataValue) {
     return (
       <div className="text-white flex h-screen w-full justify-center items-center">
         Loading...
       </div>
     );
   }
+  function openChat(friend: any) {
+    const room = [userDataValue.username, friend.username].sort().join("-");
+    router.push(`/chat/?room=${room}&name=${userDataValue.username}`);
+  }
+
+  // const likePost = async (postId: number) => {
+  //   const like = await axios.post(
+  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`,
+  //     {
+  //       postId,
+  //       username: userDataValue.id,
+  //     }
+  //   );
+  //   console.log(like);
+  //   console.log("Like post");
+  //   return like;
+  // };
+
+  // const unlikePost = async (postId: number) => {
+  //   const dislike = await axios.post(
+  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost`,
+  //     {
+  //       userId: userDataValue.id,
+  //       postId,
+  //     }
+  //   );
+
+  //   console.log(dislike);
+  //   return dislike;
+  // };
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
       <div className="col-span-1">
@@ -169,18 +192,46 @@ export default function Home() {
                   <StoriesCard />
                 </div>
                 <div>
-                  <AddPost userId={userDataValue.id} refreshPosts={getPosts} />
+                  {userDataValue.id != 0 && (
+                    <AddPost
+                      userId={userDataValue.id}
+                      refreshPosts={getPosts}
+                    />
+                  )}
                 </div>
                 {/* Posts */}
                 <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
-                  {sortedPosts &&
-                    sortedPosts.map((post, index) => {
+                  {posts &&
+                    posts.map((post, index) => {
                       return (
                         <Post
+                          isLikedByUser={post.isLikedByUser}
+                          likePost={async () => {
+                            try {
+                              if (post.isLikedByUser) {
+                                await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost` , {
+                                  userId: userDataValue.id, // or session?.user?.id
+                                  postId: post.id,
+                                });
+                                console.log("Unliked post " + post.id);
+                              } else {
+                                await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`, {
+                                  username: userDataValue.id,
+                                  postId: post.id,
+                                });
+                                console.log("Like Post " +post.id );
+                              }
+
+                              getPosts(); // refresh state from backend if needed
+                            } catch (error) {
+                              console.error("Like/unlike failed:", error);
+                            }
+                          }}
+                          likesCount={post._count.likes}
                           username={post.user.username}
                           picture={post.user.picture}
                           createdAt={post.createdAt}
-                          key={post.postId}
+                          key={post.id}
                           image={post.image || null}
                           caption={post.caption}
                         />
