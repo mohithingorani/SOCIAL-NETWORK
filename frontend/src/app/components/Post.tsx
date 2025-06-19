@@ -52,7 +52,7 @@ export default function Post({
   return (
     <div className="bg-[#101010] p-6 rounded-3xl">
       <button className="flex w-full object-contain rounded-xl">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center ">
           <Image
             className="rounded-full"
             src={picture}

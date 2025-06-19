@@ -30,6 +30,7 @@ export interface userData {
 export interface searchedFriends {
   username: string;
   picture: string;
+  id:number
 }
 
 export default function Home() {
@@ -178,6 +179,15 @@ export default function Home() {
   //   console.log(dislike);
   //   return dislike;
   // };
+
+  async function sendFriendRequest(friendId:number){
+    const friendRequest = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/request`,{
+      fromUserId : userDataValue.id,
+      toUserId :  friendId
+    });
+    return friendRequest;
+    
+  }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
       <div className="col-span-1">
@@ -267,10 +277,13 @@ export default function Home() {
                     </div>
                   ) : (
                     friends.map((friend: any, index: number) => (
-                      <div key={index} onClick={() => openChat(friend)}>
+                      <div className="cursor-pointer" key={index} onClick={() => openChat(friend)}>
                         <MessageCard
+                        
+                        sendRequest={()=>sendFriendRequest(friend.id)}
                           name={friend.username || "Unknown"}
                           location="Jaipur"
+                          suggesttions={false}
                           avatar={friend.picture}
                           // avatar={`avatar_0${(index % 6) + 1}`} // Just an example to rotate avatars
                         />
@@ -285,7 +298,7 @@ export default function Home() {
           <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
             <div className="row-span-1">
               <div className="font-medium text-xl ">Friends</div>
-              <div className=" bg-[#161616] border border-white/20 rounded-[8px] w-full flex mt-4">
+              <div className=" bg-[#161616] border border-white/20  rounded-[8px] w-full flex mt-4">
                 <input
                   type="text"
                   placeholder="Search...."
@@ -306,8 +319,10 @@ export default function Home() {
                   <div>Loading...</div>
                 ) : (
                   friends.map((friend: any, index: number) => (
-                    <div key={index} onClick={() => openChat(friend)}>
+                    <div className="cursor-pointer" key={index} onClick={() => openChat(friend)}>
                       <MessageCard
+                      
+                      suggesttions={false}
                         name={friend.username || "Unknown"}
                         location="Jaipur"
                         avatar={friend.picture}
@@ -347,6 +362,8 @@ export default function Home() {
                   searchedFriends.map((friend, index) => {
                     return (
                       <MessageCard
+                      sendRequest={()=>sendFriendRequest(friend.id)}
+                      suggesttions={true}
                         key={index}
                         name={friend.username}
                         location="Delhi, India"

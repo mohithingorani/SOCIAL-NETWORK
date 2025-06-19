@@ -7,6 +7,15 @@ import winston from "winston";
 import path from "path";
 import fs from "fs";
 
+import cors from "cors"
+
+const allowedOrigins = ['http://localhost:3001','https://wavy-mavy.vercel.app/'];
+
+
+
+
+
+
 // Create a logger with multiple transports
 const logger = winston.createLogger({
   level: "info",
@@ -26,14 +35,29 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: "logs/app.log" }), // For file logs
   ],
 });
-var cors = require("cors");
 
 // WebSocket Implementation
 import { Server as SocketIOServer, Socket } from "socket.io";
 import { PrismaClient } from "@prisma/client";
 // Create an Express application
 const app = express();
-app.use(cors());
+
+
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // only if you're using cookies/sessions
+}));
+
+
+
+
 
 app.use(express.json());
 
@@ -42,7 +66,7 @@ const server = http.createServer(app);
 // Create a new instance of Socket.IO and pass the server instance
 const io = new SocketIOServer(server, {
   cors: {
-    origin: "*",
+    origin: [`${process.env.CORS_DOMAIN}`],
     methods: ["GET", "POST", "OPTIONS"],
     optionsSuccessStatus: 200,
   },
@@ -70,12 +94,13 @@ app.get("/user", async (req, res) => {
 
 //add friend
 app.post("/friend/request", async (req, res) => {
-  const { fromUserName, toUserName } = req.body;
+  const fromUserId = parseInt(req.body.fromUserId);
+  const toUserId = parseInt(req.body.toUserId);
   const fromUser = await prisma.user.findFirst({
-    where: { username: fromUserName },
+    where: { id:fromUserId },
   });
   const toUser = await prisma.user.findFirst({
-    where: { username: toUserName },
+    where: { id: toUserId },
   });
 
   const friendRequestExists = await prisma.friendRequest.findFirst({
@@ -83,12 +108,12 @@ app.post("/friend/request", async (req, res) => {
       AND: [
         {
           sender: {
-            username: fromUserName,
+            id:fromUserId,
           },
         },
         {
           receiver: {
-            username: toUserName,
+            id: toUserId,
           },
         },
       ],
@@ -470,6 +495,7 @@ app.post("/users/search", async (req, res) => {
       select: {
         username: true,
         picture: true,
+        id:true
       },
     });
 
