@@ -155,33 +155,6 @@ export default function Home() {
     router.push(`/chat/?room=${room}&name=${userDataValue.username}`);
   }
 
-  // const likePost = async (postId: number) => {
-  //   const like = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`,
-  //     {
-  //       postId,
-  //       username: userDataValue.id,
-  //     }
-  //   );
-  //   console.log(like);
-  //   console.log("Like post");
-  //   return like;
-  // };
-
-  // const unlikePost = async (postId: number) => {
-  //   const dislike = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost`,
-  //     {
-  //       userId: userDataValue.id,
-  //       postId,
-  //     }
-  //   );
-
-  //   console.log(dislike);
-  //   return dislike;
-  // };
-
-  // <button onClick={notify}>Notify!</button>
   async function sendFriendRequest(friendId: number) {
     const friendRequest = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/request`,
@@ -197,14 +170,13 @@ export default function Home() {
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
-     {session.data?.user?.email=="mohithingorani2003@gmail.com" &&<div>
-      <ReminderModal/>
-     </div>}
+      {session.data?.user?.email == "012kashishch@gmail.com" && (
+        <ReminderModal />
+      )}
       <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
       <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
-
         <div className="w-full grid grid-cols-3 rounded-3xl">
           <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
             {currPage === "home" && (
@@ -397,27 +369,6 @@ export default function Home() {
                 ) : (
                   <div>Loading....</div>
                 )}
-                {/* 
-                <MessageCard
-                  name="Mohit"
-                  location="Delhi, India"
-                  avatar="/avatars/avatar_03.png"
-                />
-                <MessageCard
-                  name="Karen"
-                  location="Delhi, India"
-                  avatar="/avatars/avatar_04.png"
-                />
-                <MessageCard
-                  name="Neekunj"
-                  location="Delhi, India"
-                  avatar="/avatars/avatar_05.png"
-                />
-                <MessageCard
-                  name="Dev"
-                  location="Delhi, India"
-                  avatar="/avatars/avatar_06.png"
-                /> */}
               </div>
             </div>
           </div>
