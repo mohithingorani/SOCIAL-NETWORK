@@ -16,6 +16,7 @@ import { StoriesCard } from "./components/StoriesCard";
 import { useFriends } from "@/hooks/useFriends";
 import { PostInterface } from "@/types/types";
 import { toast } from "react-toastify";
+import ReminderModal from "./components/ReminderModal";
 
 export interface userData {
   email: string;
@@ -196,7 +197,9 @@ export default function Home() {
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
-     
+     {session.data?.user?.email=="mohithingorani2003@gmail.com" &&<div>
+      <ReminderModal/>
+     </div>}
       <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
