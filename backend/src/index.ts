@@ -366,15 +366,16 @@ app.post("/unlikePost", async (req, res) => {
 
 
 //show friend requests
-app.get("/friend/requests", async (req, res) => {
-  const username = req.query.username as string;
-  logger.info("username is " + username);
+app.post("/friend/requests", async (req, res) => {
+  const userId = parseInt(req.body.userId);
+  // logger.info("username is " + username);
   try {
     const users = await prisma.friendRequest.findMany({
       where: {
         receiver: {
-          username,
+          id:userId,
         },
+        status:"pending"
       },
       select: {
         status: true,
@@ -443,7 +444,7 @@ app.post("/friend/accept", async (req, res) => {
     }
 
     res.status(200).send({
-      message: "Friend request accepted and friends added",
+      message: "Accepted Friend Request",
       friendRequest,
     });
   } catch (e) {

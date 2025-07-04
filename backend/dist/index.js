@@ -339,15 +339,16 @@ app.post("/unlikePost", (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 }));
 //show friend requests
-app.get("/friend/requests", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const username = req.query.username;
-    logger.info("username is " + username);
+app.post("/friend/requests", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = parseInt(req.body.userId);
+    // logger.info("username is " + username);
     try {
         const users = yield prisma.friendRequest.findMany({
             where: {
                 receiver: {
-                    username,
+                    id: userId,
                 },
+                status: "pending"
             },
             select: {
                 status: true,
@@ -411,7 +412,7 @@ app.post("/friend/accept", (req, res) => __awaiter(void 0, void 0, void 0, funct
             });
         }
         res.status(200).send({
-            message: "Friend request accepted and friends added",
+            message: "Accepted Friend Request",
             friendRequest,
         });
     }
