@@ -39,7 +39,6 @@ enum showFriendsMenu {
   showRequests = 1,
 }
 
-
 export default function Home() {
   const session = useSession();
   const [userData, setUserData] = useState<userData | null>(null);
@@ -50,15 +49,11 @@ export default function Home() {
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
   const router = useRouter();
   const { friends, loading } = useFriends();
-  const [friendRequests, setFriendRequests] = useState<[any] |null>(null);
+  const [friendRequests, setFriendRequests] = useState<[any] | null>(null);
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
-
-
-
-  
 
   useEffect(() => {
     const getInfo = async () => {
@@ -124,18 +119,21 @@ export default function Home() {
   }, []);
 
   async function getFriendRequests() {
-    const friendRequests = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/requests`,
-      {
-        userId: userDataValue.id,
-      }
-    );
-    setFriendRequests(friendRequests.data.requests);
+    if (userDataValue.id != 0) {
+      const friendRequests = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/requests`,
+        {
+          userId: userDataValue.id,
+        }
+      );
+      setFriendRequests(friendRequests.data.requests);
+    }
   }
 
   useEffect(() => {
-    getFriendRequests();
-  }, []);
+      getFriendRequests();
+  }, [userDataValue]);
+
 
   useEffect(() => {
     const updateLastActive = async () => {
@@ -195,14 +193,16 @@ export default function Home() {
     return friendRequest;
   }
 
-
-  async function acceptFriendRequest(receiverId:number,requestId:number){
-    const request =await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/accept`,{
-      senderId:userDataValue.id,
-      receiverId,
-      requestId
-    });
-    const notify = ()=>toast(request.data.message);
+  async function acceptFriendRequest(receiverId: number, requestId: number) {
+    const request = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/accept`,
+      {
+        senderId: userDataValue.id,
+        receiverId,
+        requestId,
+      }
+    );
+    const notify = () => toast(request.data.message);
     getFriendRequests();
     notify();
     return acceptFriendRequest;
@@ -327,13 +327,7 @@ export default function Home() {
           <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
             <div className="row-span-1">
               <div className="flex justify-between items-end">
-                <div
-                  
-                  className={`font-medium text-xl`}
-                >
-                  Friends
-                </div>
-                
+                <div className={`font-medium text-xl`}>Friends</div>
               </div>
               <div className=" bg-[#161616] border border-white/20  rounded-[8px] w-full flex mt-4">
                 <input
@@ -352,26 +346,28 @@ export default function Home() {
                 </button>
               </div>
               <div className="flex justify-between mt-4">
-              <button
-                onClick={() => {
-                  setMenuOpen(showFriendsMenu.showFriends);
-                }}
-                className={`text-white h-8  text-lg ${menuOpen ==showFriendsMenu.showFriends && "underline"} hover:underline`}
-              >
-                Primary
-              </button>
-              <button
-                onClick={() => {
-                  setMenuOpen(showFriendsMenu.showRequests);
-                }}
-                className={`text-sm text-[#EDAD2C] ${
-                  menuOpen == showFriendsMenu.showRequests && "underline"
-                } hover:underline h-8`}
-              >
-                Requests ({friendRequests&&(friendRequests.length || 0)})
-              </button>
+                <button
+                  onClick={() => {
+                    setMenuOpen(showFriendsMenu.showFriends);
+                  }}
+                  className={`text-white h-8  text-lg ${
+                    menuOpen == showFriendsMenu.showFriends && "underline"
+                  } hover:underline`}
+                >
+                  Primary
+                </button>
+                <button
+                  onClick={() => {
+                    setMenuOpen(showFriendsMenu.showRequests);
+                  }}
+                  className={`text-sm text-[#EDAD2C] ${
+                    menuOpen == showFriendsMenu.showRequests && "underline"
+                  } hover:underline h-8`}
+                >
+                  Requests ({friendRequests && (friendRequests.length || 0)})
+                </button>
               </div>
-              
+
               {menuOpen == showFriendsMenu.showFriends && (
                 <div className="mt-1 overflow-y-scroll h-max max-h-[27vh]">
                   {loading ? (
@@ -402,7 +398,9 @@ export default function Home() {
                     friendRequests?.map((request: any, index: number) => (
                       <div className="cursor-pointer" key={index}>
                         <MessageCardForRequests
-                        acceptRequest={()=>acceptFriendRequest(request.receiver.id,request.id)}
+                          acceptRequest={() =>
+                            acceptFriendRequest(request.receiver.id, request.id)
+                          }
                           name={request.sender.username || "Unknown"}
                           location="Jaipur"
                           avatar={request.sender.picture}
