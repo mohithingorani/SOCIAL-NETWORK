@@ -48,7 +48,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState<number>(showFriendsMenu.showFriends);
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
   const router = useRouter();
-  const { friends, loading } = useFriends();
+  const { friends, loading,refetch } = useFriends();
   const [friendRequests, setFriendRequests] = useState<[any] | null>(null);
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
@@ -152,6 +152,7 @@ export default function Home() {
     };
     updateLastActive();
     const interval = setInterval(() => {
+      console.log(friends);
       updateLastActive();
     }, 2500);
 
@@ -193,18 +194,19 @@ export default function Home() {
     return friendRequest;
   }
 
-  async function acceptFriendRequest(receiverId: number, requestId: number) {
+  async function acceptFriendRequest(senderId: number, requestId: number) {
     const request = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/accept`,
       {
-        senderId: userDataValue.id,
-        receiverId,
+        senderId,
+        receiverId:userDataValue.id,
         requestId,
       }
     );
     const notify = () => toast(request.data.message);
     getFriendRequests();
     notify();
+    refetch();
     return acceptFriendRequest;
   }
 
@@ -314,7 +316,6 @@ export default function Home() {
                           location="Jaipur"
                           suggesttions={false}
                           avatar={friend.picture}
-                          // avatar={`avatar_0${(index % 6) + 1}`} // Just an example to rotate avatars
                         />
                       </div>
                     ))
@@ -399,7 +400,7 @@ export default function Home() {
                       <div className="cursor-pointer" key={index}>
                         <MessageCardForRequests
                           acceptRequest={() =>
-                            acceptFriendRequest(request.receiver.id, request.id)
+                            acceptFriendRequest(request.sender.id, request.id)
                           }
                           name={request.sender.username || "Unknown"}
                           location="Jaipur"
