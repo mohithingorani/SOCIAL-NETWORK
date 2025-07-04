@@ -127,7 +127,7 @@ export default function Home() {
     const friendRequests = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/requests`,
       {
-        userId: 12,
+        userId: userDataValue.id,
       }
     );
     setFriendRequests(friendRequests.data.requests);
