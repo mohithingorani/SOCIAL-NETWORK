@@ -83,7 +83,7 @@ export default function Post({
         {caption}
       </div>
 
-      <div className="text-blue-400">#blender #render #design</div>
+      {/* <div className="text-blue-400">#blender #render #design</div> */}
 
       <div className="mt-4 flex border-t border-white/20 pt-2 gap-4">
         <div className="flex items-center gap-2">

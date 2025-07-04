@@ -16,7 +16,7 @@ import { StoriesCard } from "./components/StoriesCard";
 import { useFriends } from "@/hooks/useFriends";
 import { PostInterface } from "@/types/types";
 import { toast } from "react-toastify";
-import ReminderModal from "./components/ReminderModal";
+import { MessageCardForRequests } from "./components/MessageCardForRequests";
 
 export interface userData {
   email: string;
@@ -34,15 +34,22 @@ export interface searchedFriends {
   id: number;
 }
 
+enum showFriendsMenu {
+  showFriends = 0,
+  showRequests = 1,
+}
+
 export default function Home() {
   const session = useSession();
   const [userData, setUserData] = useState<userData | null>(null);
   const [userDataValue, setUserDataValue] = useRecoilState(userDataAtom);
   const [userNameValue, setUserNameValue] = useRecoilState(userNameAtom);
   const [isOnline, setIsOnline] = useRecoilState(isOnlineAtom);
+  const [menuOpen, setMenuOpen] = useState<number>(showFriendsMenu.showFriends);
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
   const router = useRouter();
   const { friends, loading } = useFriends();
+  const [friendRequests, setFriendRequests] = useState<[any] |null>(null);
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
@@ -111,6 +118,20 @@ export default function Home() {
     searchFriends("");
   }, []);
 
+  async function getFriendRequests() {
+    const friendRequests = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/requests`,
+      {
+        userId: 12,
+      }
+    );
+    setFriendRequests(friendRequests.data.requests);
+  }
+
+  useEffect(() => {
+    getFriendRequests();
+  }, []);
+
   useEffect(() => {
     const updateLastActive = async () => {
       try {
@@ -170,9 +191,6 @@ export default function Home() {
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
-      {session.data?.user?.email == "012kashishch@gmail.com" && (
-        <ReminderModal />
-      )}
       <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
@@ -289,7 +307,15 @@ export default function Home() {
 
           <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
             <div className="row-span-1">
-              <div className="font-medium text-xl ">Friends</div>
+              <div className="flex justify-between items-end">
+                <div
+                  
+                  className={`font-medium text-xl`}
+                >
+                  Friends
+                </div>
+                
+              </div>
               <div className=" bg-[#161616] border border-white/20  rounded-[8px] w-full flex mt-4">
                 <input
                   type="text"
@@ -306,27 +332,67 @@ export default function Home() {
                   />
                 </button>
               </div>
-              <div className="mt-6 overflow-y-scroll max-h-[27vh]">
-                {loading ? (
-                  <div>Loading...</div>
-                ) : (
-                  friends.map((friend: any, index: number) => (
-                    <div
-                      className="cursor-pointer"
-                      key={index}
-                      onClick={() => openChat(friend)}
-                    >
-                      <MessageCard
-                        suggesttions={false}
-                        name={friend.username || "Unknown"}
-                        location="Jaipur"
-                        avatar={friend.picture}
-                        // avatar={`avatar_0${(index % 6) + 1}`} // Just an example to rotate avatars
-                      />
-                    </div>
-                  ))
-                )}
+              <div className="flex justify-between mt-4">
+              <button
+                onClick={() => {
+                  setMenuOpen(showFriendsMenu.showFriends);
+                }}
+                className={`text-white h-8  text-lg ${menuOpen ==showFriendsMenu.showFriends && "underline"} hover:underline`}
+              >
+                Primary
+              </button>
+              <button
+                onClick={() => {
+                  setMenuOpen(showFriendsMenu.showRequests);
+                }}
+                className={`text-sm text-[#EDAD2C] ${
+                  menuOpen == showFriendsMenu.showRequests && "underline"
+                } hover:underline h-8`}
+              >
+                Requests ({friendRequests&&friendRequests.length})
+              </button>
               </div>
+              
+              {menuOpen == showFriendsMenu.showFriends && (
+                <div className="mt-1 overflow-y-scroll h-max max-h-[27vh]">
+                  {loading ? (
+                    <div>Loading...</div>
+                  ) : (
+                    friends.map((friend: any, index: number) => (
+                      <div
+                        className="cursor-pointer"
+                        key={index}
+                        onClick={() => openChat(friend)}
+                      >
+                        <MessageCard
+                          suggesttions={false}
+                          name={friend.username || "Unknown"}
+                          location="Jaipur"
+                          avatar={friend.picture}
+                        />
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+              {menuOpen == showFriendsMenu.showRequests && (
+                <div className="mt-6 overflow-y-scroll h-max max-h-[27vh]">
+                  {loading ? (
+                    <div>Loading...</div>
+                  ) : (
+                    friendRequests?.map((request: any, index: number) => (
+                      <div className="cursor-pointer" key={index}>
+                        <MessageCardForRequests
+                          suggesttions={false}
+                          name={request.sender.username || "Unknown"}
+                          location="Jaipur"
+                          avatar={request.sender.picture}
+                        />
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="row-span-1 pt-4">
