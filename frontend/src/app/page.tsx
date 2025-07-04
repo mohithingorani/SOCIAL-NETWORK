@@ -49,12 +49,24 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState<number>(showFriendsMenu.showFriends);
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
   const router = useRouter();
-  const { friends, loading,refetch } = useFriends();
+  const { friends, loading, refetch } = useFriends();
   const [friendRequests, setFriendRequests] = useState<[any] | null>(null);
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
+
+  const [searchFriendsInput, setSearchFriendsInput] = useState<string>("");
+
+  const[suggestedFriendsInput, setSuggestedFriendsInput] = useState("");
+  // const [friendsList, setFriendsList] = useState<any>();
+  const filteredFriends = friends?.filter((f: any) =>
+  f.username?.toLowerCase().includes(searchFriendsInput.toLowerCase())
+);
+
+const filteredSuggestFriends = searchedFriends?.filter((f:any)=>{
+  return f.username?.toLowerCase().includes(suggestedFriendsInput.toLocaleLowerCase());
+})
 
   useEffect(() => {
     const getInfo = async () => {
@@ -119,6 +131,28 @@ export default function Home() {
     searchFriends("");
   }, []);
 
+  async function searchSuggestedFriends(name: string) {
+    const friends = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/suggestions`,
+      {
+        username: name,
+        selfUserName: userData?.username,
+        userId: userDataValue.id,
+      }
+    );
+    if (friends) {
+      console.log("====================================");
+      console.log("Friends searched");
+      console.log(friends.data);
+      console.log("====================================");
+      setSearchedFriends(friends.data);
+    }
+  }
+
+  useEffect(() => {
+    if (userDataValue.id != 0) searchSuggestedFriends("");
+  }, [userDataValue]);
+
   async function getFriendRequests() {
     if (userDataValue.id != 0) {
       const friendRequests = await axios.post(
@@ -132,9 +166,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-      getFriendRequests();
+    getFriendRequests();
   }, [userDataValue]);
-
 
   useEffect(() => {
     const updateLastActive = async () => {
@@ -160,6 +193,9 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [userData?.email]);
 
+
+
+
   useEffect(() => {
     if (session.status === "loading") {
     } else if (session.data?.user) {
@@ -172,7 +208,7 @@ export default function Home() {
   if (session.status === "loading" || !userDataValue) {
     return (
       <div className="text-white flex h-screen w-full justify-center items-center">
-        <Spinner/>
+        <Spinner />
       </div>
     );
   }
@@ -200,7 +236,7 @@ export default function Home() {
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/accept`,
       {
         senderId,
-        receiverId:userDataValue.id,
+        receiverId: userDataValue.id,
         requestId,
       }
     );
@@ -211,8 +247,9 @@ export default function Home() {
     return acceptFriendRequest;
   }
 
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-6">
+    <div className="grid grid-cols-1 md:grid-cols-6 ">
       <div className="col-span-1">
         <NavBar userName={userNameValue} />
       </div>
@@ -305,7 +342,7 @@ export default function Home() {
                       Loading...
                     </div>
                   ) : (
-                    friends.map((friend: any, index: number) => (
+                    filteredFriends.map((friend: any, index: number) => (
                       <div
                         className="cursor-pointer"
                         key={index}
@@ -315,7 +352,7 @@ export default function Home() {
                           sendRequest={() => sendFriendRequest(friend.id)}
                           name={friend.username || "Unknown"}
                           location="Jaipur"
-                          suggestion ={false}
+                          suggestion={false}
                           avatar={friend.picture}
                         />
                       </div>
@@ -335,6 +372,8 @@ export default function Home() {
                 <input
                   type="text"
                   placeholder="Search...."
+                  value={searchFriendsInput}
+                  onChange={(e)=>setSearchFriendsInput(e.target.value)}
                   className="w-full py-4  px-6 bg-transparent outline-none"
                 />
                 <button>
@@ -375,7 +414,7 @@ export default function Home() {
                   {loading ? (
                     <div>Loading...</div>
                   ) : (
-                    friends.map((friend: any, index: number) => (
+                    filteredFriends.map((friend: any, index: number) => (
                       <div
                         className="cursor-pointer"
                         key={index}
@@ -419,10 +458,9 @@ export default function Home() {
               <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
                 <input
                   type="text"
+                  value={suggestedFriendsInput}
                   onChange={(e) => {
-                    setTimeout(() => {
-                      searchFriends(e.target.value as string);
-                    }, 3000);
+                    setSuggestedFriendsInput(e.target.value as string);
                   }}
                   placeholder="Add Friends"
                   className="w-full py-4  px-6 bg-transparent outline-none"
@@ -439,7 +477,7 @@ export default function Home() {
               </div>
               <div className="mt-6 overflow-y-scroll max-h-[27vh]">
                 {searchedFriends ? (
-                  searchedFriends.map((friend, index) => {
+                  filteredSuggestFriends?.map((friend, index) => {
                     return (
                       <MessageCard
                         sendRequest={() => sendFriendRequest(friend.id)}
