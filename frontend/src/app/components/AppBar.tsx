@@ -7,6 +7,7 @@ import { ContactCard } from "./ContactCard";
 import { Menu, X } from "lucide-react";
 import { pageAtom } from "../atoms";
 import { useRecoilState } from "recoil";
+import { useFriends } from "@/hooks/useFriends";
 
 export default function NavBar({ userName }: { userName: string }) {
   const [searchFriend, setSearchFriend] = useState("");
@@ -14,7 +15,7 @@ export default function NavBar({ userName }: { userName: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const session = useSession();
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
-
+  const {friends} = useFriends();
   const[currKey, setCurrKey] = useState(0);
   // Debounce search input (if used later – you can keep original logic)
   useEffect(() => {
@@ -86,7 +87,7 @@ export default function NavBar({ userName }: { userName: string }) {
                 <div>Followers</div>
               </div> */}
               <div className="text-center">
-                <div className="font-bold text-xl">56</div>
+                <div className="font-bold text-xl">{friends.length}</div>
                 <div>Friends</div>
               </div>
             </div>
