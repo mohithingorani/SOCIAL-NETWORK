@@ -17,6 +17,7 @@ import { useFriends } from "@/hooks/useFriends";
 import { PostInterface } from "@/types/types";
 import { toast } from "react-toastify";
 import { MessageCardForRequests } from "./components/MessageCardForRequests";
+import Spinner from "./components/Spinner";
 
 export interface userData {
   email: string;
@@ -171,7 +172,7 @@ export default function Home() {
   if (session.status === "loading" || !userDataValue) {
     return (
       <div className="text-white flex h-screen w-full justify-center items-center">
-        Loading...
+        <Spinner/>
       </div>
     );
   }
