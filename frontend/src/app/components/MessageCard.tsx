@@ -4,13 +4,13 @@ export const MessageCard = ({
   name,
   avatar,
   location,
-  suggesttions,
+  suggestion ,
   sendRequest
 }: {
   name: string;
   avatar: string;
   location: string;
-  suggesttions?: boolean;
+  suggestion ?: boolean;
   sendRequest?:()=>void
 }) => {
   return (
@@ -30,7 +30,7 @@ export const MessageCard = ({
           </div>
         </div>
       </div>
-      {suggesttions&& (
+      {suggestion && (
         <button onClick={sendRequest} className="hover:scale-90">
           <Image src={"/addFriendWhite.png"} width={"50"} height={"50"} alt="add friend"/>
         </button >

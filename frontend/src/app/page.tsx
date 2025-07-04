@@ -314,7 +314,7 @@ export default function Home() {
                           sendRequest={() => sendFriendRequest(friend.id)}
                           name={friend.username || "Unknown"}
                           location="Jaipur"
-                          suggesttions={false}
+                          suggestion ={false}
                           avatar={friend.picture}
                         />
                       </div>
@@ -381,7 +381,7 @@ export default function Home() {
                         onClick={() => openChat(friend)}
                       >
                         <MessageCard
-                          suggesttions={false}
+                          suggestion={false}
                           name={friend.username || "Unknown"}
                           location="Jaipur"
                           avatar={friend.picture}
@@ -442,7 +442,7 @@ export default function Home() {
                     return (
                       <MessageCard
                         sendRequest={() => sendFriendRequest(friend.id)}
-                        suggesttions={true}
+                        suggestion={true}
                         key={index}
                         name={friend.username}
                         location="Delhi, India"
