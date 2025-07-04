@@ -100,12 +100,12 @@ export default function Post({
 
         <div className="flex items-center gap-2">
           <Image src="/post/comment.png" width={35} height={35} alt="Comment" />
-          <span>2.3k</span>
+          <span>0</span>
         </div>
 
         <div className="flex items-center gap-2">
           <Image src="/post/share.png" width={35} height={35} alt="Share" />
-          <span>300</span>
+          <span>0</span>
         </div>
       </div>
     </div>

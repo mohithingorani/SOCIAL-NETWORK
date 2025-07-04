@@ -39,6 +39,7 @@ enum showFriendsMenu {
   showRequests = 1,
 }
 
+
 export default function Home() {
   const session = useSession();
   const [userData, setUserData] = useState<userData | null>(null);
@@ -54,6 +55,10 @@ export default function Home() {
     searchedFriends[] | null
   >(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
+
+
+
+  
 
   useEffect(() => {
     const getInfo = async () => {
@@ -189,6 +194,20 @@ export default function Home() {
     notify();
     return friendRequest;
   }
+
+
+  async function acceptFriendRequest(receiverId:number,requestId:number){
+    const request =await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/friend/accept`,{
+      senderId:userDataValue.id,
+      receiverId,
+      requestId
+    });
+    const notify = ()=>toast(request.data.message);
+    getFriendRequests();
+    notify();
+    return acceptFriendRequest;
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-6">
       <div className="col-span-1">
@@ -349,7 +368,7 @@ export default function Home() {
                   menuOpen == showFriendsMenu.showRequests && "underline"
                 } hover:underline h-8`}
               >
-                Requests ({friendRequests&&friendRequests.length})
+                Requests ({friendRequests&&(friendRequests.length || 0)})
               </button>
               </div>
               
@@ -383,7 +402,7 @@ export default function Home() {
                     friendRequests?.map((request: any, index: number) => (
                       <div className="cursor-pointer" key={index}>
                         <MessageCardForRequests
-                          suggesttions={false}
+                        acceptRequest={()=>acceptFriendRequest(request.receiver.id,request.id)}
                           name={request.sender.username || "Unknown"}
                           location="Jaipur"
                           avatar={request.sender.picture}

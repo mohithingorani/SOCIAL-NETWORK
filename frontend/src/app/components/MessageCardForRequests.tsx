@@ -3,12 +3,12 @@ export const MessageCardForRequests = ({
   name,
   avatar,
   location,
-  suggesttions,
+  acceptRequest
 }: {
   name: string;
   avatar: string;
   location: string;
-  suggesttions?: boolean;
+  acceptRequest:()=>any
 }) => {
   return (
     <div className="flex border justify-between  border-x-0 border-y-1 border-gray-300/10  hover:bg-[#242627] w-full px-2 py-3 rounded-xl">
@@ -32,9 +32,9 @@ export const MessageCardForRequests = ({
         </div>{" "}
       </div>{" "}
       <div className="gap-4 flex justify-end h-full">
-        <button className="hover:scale-110"><Image src={"/requests/accept.png"} alt="accept" width={"40"} height={"40"}/></button>
+        <button className="hover:scale-110"><Image src={"/requests/accept.png"} onClick={acceptRequest} alt="accept" width={"40"} height={"40"}/></button>
         <button className="hover:scale-110"><Image src={"/requests/reject.png"} alt="accept" width={"40"} height={"40"}/></button>
-        <button></button>
+        
       </div>
     </div>
   );
