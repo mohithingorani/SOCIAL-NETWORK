@@ -484,6 +484,71 @@ app.post("/users/search", async (req, res) => {
   }
 });
 
+
+
+app.post("/suggestions", async (req, res) => {
+  const username = req.body.username as string;
+  const selfUsername = req.body.selfUsername as string;
+  const userId = parseInt(req.body.userId);
+  logger.info("username is " + username);
+  logger.info("self username is " + selfUsername);
+
+  try {
+    const self = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!self) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Get all friends (both directions)
+    const friendsList = await prisma.friend.findMany({
+      where: {
+        OR: [
+          { userId: userId },
+          { friendId: userId },
+        ],
+      },
+    });
+
+    // Properly extract the friend IDs
+    const friendIds = friendsList.map(f =>
+      f.userId === userId ? f.friendId : f.userId
+    );
+
+    // Find users matching username, excluding self and friends
+    const users = await prisma.user.findMany({
+      where: {
+        username: {
+          contains: username,
+          mode: "insensitive",
+        },
+        NOT: {
+          id: {
+            in: [userId, ...friendIds], // Exclude self + friends
+          },
+        },
+      },
+      select: {
+        id: true,
+        username: true,
+        picture: true,
+      },
+    });
+
+    logger.info("Users fetched successfully");
+    res.status(200).send(users);
+  } catch (err) {
+    logger.error(err);
+    res.status(500).send({ message: "Error fetching users" });
+  }
+});
+
+
+
 //show friends
 app.get("/user/friends", async (req, res) => {
   const userId = req.query.userId;

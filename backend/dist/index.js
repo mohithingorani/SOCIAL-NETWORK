@@ -451,6 +451,59 @@ app.post("/users/search", (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(500).send({ message: "Error fetching users" });
     }
 }));
+app.post("/suggestions", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const username = req.body.username;
+    const selfUsername = req.body.selfUsername;
+    const userId = parseInt(req.body.userId);
+    logger.info("username is " + username);
+    logger.info("self username is " + selfUsername);
+    try {
+        const self = yield prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+        });
+        if (!self) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        // Get all friends (both directions)
+        const friendsList = yield prisma.friend.findMany({
+            where: {
+                OR: [
+                    { userId: userId },
+                    { friendId: userId },
+                ],
+            },
+        });
+        // Properly extract the friend IDs
+        const friendIds = friendsList.map(f => f.userId === userId ? f.friendId : f.userId);
+        // Find users matching username, excluding self and friends
+        const users = yield prisma.user.findMany({
+            where: {
+                username: {
+                    contains: username,
+                    mode: "insensitive",
+                },
+                NOT: {
+                    id: {
+                        in: [userId, ...friendIds], // Exclude self + friends
+                    },
+                },
+            },
+            select: {
+                id: true,
+                username: true,
+                picture: true,
+            },
+        });
+        logger.info("Users fetched successfully");
+        res.status(200).send(users);
+    }
+    catch (err) {
+        logger.error(err);
+        res.status(500).send({ message: "Error fetching users" });
+    }
+}));
 //show friends
 app.get("/user/friends", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.query.userId;
