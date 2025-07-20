@@ -17,12 +17,14 @@ export default function Post({
   username,
   picture,
   likePost,
+  commentButtonOnClick,
   isLikedByUser,
 }: {
   image: string | null;
   caption: string;
   likesCount?: number;
   createdAt: string;
+  commentButtonOnClick:()=>void;
   username: string;
   picture: string;
   likePost: () => Promise<void>;
@@ -99,7 +101,7 @@ export default function Post({
         </div>
 
         <div className="flex items-center gap-2">
-          <button className="hover:opacity-70">
+          <button onClick={commentButtonOnClick} className="hover:opacity-70">
             <Image
               src="/post/comment.png"
               width={35}

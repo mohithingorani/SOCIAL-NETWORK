@@ -694,22 +694,66 @@ app.post("/friend/remove", (req, res) => __awaiter(void 0, void 0, void 0, funct
         logger.info("Error deleting friend", err);
     }
 }));
+// Add a comment
 app.post("/comment/add", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.body.userId;
     const text = req.body.text;
-    const postId = req.body.id;
-    const comment = yield prisma.comment.create({
-        data: {
-            text,
-            postId,
-            userId
-        },
-    });
-    logger.info(comment);
-    res.json({
-        message: "Comment added successfully",
-        comment
-    });
+    const postId = req.body.postId;
+    try {
+        const comment = yield prisma.comment.create({
+            data: {
+                text,
+                postId,
+                userId,
+            },
+        });
+        logger.info(comment);
+        res
+            .json({
+            message: "Comment added successfully",
+            comment,
+        })
+            .status(200);
+    }
+    catch (err) {
+        logger.info(err);
+        res
+            .json({
+            err,
+            message: "Cannot add comment",
+        })
+            .status(500);
+    }
+}));
+// Show all comments
+app.post("/comments/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const postId = req.body.postId;
+    try {
+        const comments = yield prisma.comment.findMany({
+            where: {
+                postId,
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        username: true,
+                        picture: true,
+                    }
+                }
+            }
+        });
+        res
+            .json({
+            comments,
+            message: "Successfully fetched comments",
+        })
+            .status(200);
+    }
+    catch (error) {
+        logger.error(error);
+        res.json({ message: "Cannot fetch comments", error }).status(500);
+    }
 }));
 // Start the server
 const PORT = parseInt(process.env.PORT) || 3000;

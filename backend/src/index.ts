@@ -756,23 +756,66 @@ app.post("/friend/remove", async (req, res) => {
   }
 });
 
+// Add a comment
 app.post("/comment/add", async (req, res) => {
   const userId = req.body.userId as number;
   const text = req.body.text as string;
-  const postId = req.body.id as number;
-  const comment = await prisma.comment.create({
-    data: {
-      text,
-      postId,
-      userId
-    },
-  });
-  logger.info(comment);
-  
-  res.json({
-    message:"Comment added successfully",
-    comment
-  })
+  const postId = req.body.postId as number;
+  try {
+    const comment = await prisma.comment.create({
+      data: {
+        text,
+        postId,
+        userId,
+      },
+    });
+    logger.info(comment);
+    res
+      .json({
+        message: "Comment added successfully",
+        comment,
+      })
+      .status(200);
+  } catch (err) {
+    logger.info(err);
+    res
+      .json({
+        err,
+        message: "Cannot add comment",
+      })
+      .status(500);
+  }
+});
+
+// Show all comments
+app.post("/comments/all", async (req, res) => {
+  const postId = req.body.postId;
+
+  try {
+    const comments = await prisma.comment.findMany({
+      where: {
+        postId,
+      },
+      include:{
+        user:{
+          select:{
+            id:true,
+            username:true,
+            picture:true,
+          }
+        }
+      }
+    });
+    res
+      .json({
+        comments,
+        message: "Successfully fetched comments",
+      })
+      .status(200);
+  } catch (error) {
+    logger.error(error);
+    res.json({ message: "Cannot fetch comments", error }).status(500);
+  }
 });
 
 // Start the server

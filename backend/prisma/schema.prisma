@@ -23,7 +23,7 @@ model User {
   lastOnline       DateTime        @default(now())
   posts            Post[]          @relation("UserPosts")
   likes            Like[]
-  comments         Comment[]   @relation("UserComments")
+  comments         Comment[]       @relation("UserComments")
 }
 
 model FriendRequest {
@@ -56,22 +56,22 @@ model Chat {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   image     String?
-  caption   String   @default("")
+  caption   String    @default("")
   likes     Like[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId   Int
-  user     User      @relation("UserPosts", fields: [userId], references: [id], onDelete: Cascade)
-  comments Comment[] @relation(name: "UserCaptions")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    Int
+  user      User      @relation("UserPosts", fields: [userId], references: [id], onDelete: Cascade)
+  comments  Comment[] @relation(name: "UserCaptions")
 }
 
 model Comment {
   commentId Int      @id @default(autoincrement())
   text      String
-  userId   Int
-  user     User @relation("UserComments",fields: [userId],references: [id])
+  userId    Int
+  user      User     @relation("UserComments", fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   postId    Int
@@ -86,5 +86,4 @@ model Like {
   postId Int
 
   @@unique([userId, postId]) // Ensures one like per user per post
-
 }

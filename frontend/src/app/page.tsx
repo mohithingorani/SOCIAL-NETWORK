@@ -18,7 +18,7 @@ import { PostInterface } from "@/types/types";
 import { toast } from "react-toastify";
 import { MessageCardForRequests } from "./components/MessageCardForRequests";
 import Spinner from "./components/Spinner";
-import CommentModal from "./components/CommentsModal";
+import CommentsModal from "./components/CommentsModal";
 // import ReminderModal from "./components/Surprise";
 // import ChickShower from "./components/surprise";
 // import ChickShower from "./components/surprise";
@@ -59,8 +59,10 @@ export default function Home() {
   const [searchedFriends, setSearchedFriends] = useState<
     searchedFriends[] | null
   >(null);
+  const [commentsPostId, setCommentsPostId] = useState<number | null>(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
-
+  const [showComments, setShowComments] = useState<boolean>(false);
+  const [currentPostImage, setCurrentPostImage] = useState<string|null>(null);
   const [searchFriendsInput, setSearchFriendsInput] = useState<string>("");
 
   const [suggestedFriendsInput, setSuggestedFriendsInput] = useState("");
@@ -138,6 +140,13 @@ export default function Home() {
     searchFriends("");
   }, []);
 
+
+  function showCommentsModal(postId:number,image?:string){
+    setShowComments(true);
+    setCommentsPostId(postId);
+    
+    if(image)setCurrentPostImage(image);
+  }
   async function searchSuggestedFriends(name: string) {
     const friends = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/suggestions`,
@@ -253,52 +262,11 @@ export default function Home() {
 
   return (
     <>
-      {
-        <CommentModal
+      {showComments&&
+        <CommentsModal
+        currentPostImage={currentPostImage}
+        postId={commentsPostId}
           username="mohit69"
-          comments={[
-            {
-              user: "jane_doe",
-              comment: "This is super helpful, thanks for sharing!",
-            },
-            {
-              user: "mohit_23",
-              comment:
-                "I think there’s a better way to handle this logic, what do you think?",
-            },
-            {
-              user: "mohit_23",
-              comment:
-                "I think there’s a better way to handle this logic, what do you think?",
-            },
-            {
-              user: "mohit_23",
-              comment:
-                "I think there’s a better way to handle this logic, what do you think?",
-            },
-            {
-              user: "mohit_23",
-              comment:
-                "I think there’s a better way to handle this logic, what do you think?",
-            },
-            {
-              user: "mohit_23",
-              comment:
-                "I think there’s a better way to handle this logic, what do you think?",
-            },
-            {
-              user: "code_master",
-              comment: "🔥🔥🔥 this is clean!",
-            },
-            {
-              user: "dev_chick",
-              comment: "Can you explain how this would scale with more data?",
-            },
-            {
-              user: "random_user99",
-              comment: "Nice, but it breaks on mobile view. Just FYI!",
-            },
-          ]}
         />
       }{" "}
       <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
@@ -327,6 +295,10 @@ export default function Home() {
                       posts.map((post, index) => {
                         return (
                           <Post
+                          commentButtonOnClick={()=>{
+                            showCommentsModal(post.id, post?.image)
+                            
+                          }}
                             isLikedByUser={post.isLikedByUser}
                             likePost={async () => {
                               try {
