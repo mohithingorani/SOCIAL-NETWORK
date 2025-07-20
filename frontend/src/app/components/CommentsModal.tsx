@@ -2,8 +2,8 @@
 import Image from "next/image";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-
+import { useRecoilState } from "recoil";
+import { modalOpenAtom } from "../atoms";
 
 export interface User {
   id: number;
@@ -15,26 +15,27 @@ export interface Comment {
   commentId: number;
   text: string;
   userId: number;
-  createdAt: string; 
-  updatedAt: string; 
+  createdAt: string;
+  updatedAt: string;
   postId: number;
   user: User;
 }
 
-
 export default function CommentsModal({
   username,
   postId,
-  currentPostImage
+  userId,
+  currentPostImage,
 }: {
   username: string;
   postId: number | null;
-  currentPostImage:string|null
+  userId: number;
+  currentPostImage: string | null;
 }) {
-
   const [comments, setComments] = useState<Comment[] | null>(null);
-
-   async function getCommentsByPostId(postId: number) {
+  const [showCommentsModal, setShowCommentsModal] = useRecoilState(modalOpenAtom);
+  const [text, setText] = useState<string >("");
+  async function getCommentsByPostId(postId: number) {
     const comments = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/comments/all`,
       {
@@ -44,14 +45,37 @@ export default function CommentsModal({
     setComments(comments.data.comments);
     return comments;
   }
+
+  async function postComment() {
+    if(text==="") return;
+    const comment = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/comment/add`,
+      {
+        userId,
+        text,
+        postId,
+      }
+    );
+    console.log(comment);
+    if(comment.status==200){
+      console.log("Comment posted");
+      if(postId) getCommentsByPostId(postId);
+    }
+    setText("");
+    return comment;
+  }
   useEffect(() => {
     if (postId) getCommentsByPostId(postId);
   }, []);
   useEffect(() => {
     if (postId) getCommentsByPostId(postId);
   }, [postId]);
-  
-
+ 
+  document.addEventListener("keydown",(e)=>{
+    if(e.key=="Escape"){
+      setShowCommentsModal(false);
+    }
+  })
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center ">
       <div className="bg-[#101010] text-white border border-white/20   rounded-[24px] shadow-lg p-6 w-[90%] grid grid-cols-2 max-w-3xl">
@@ -69,35 +93,49 @@ export default function CommentsModal({
         <div className="pl-4">
           <div className="text-md font-semibold mb-4">{username}</div>
           <div className="space-y-4  h-[40vh]  overflow-y-auto">
-            
-            {comments ?comments.map((comment, index) => (
-              <div key={index} className="flex justify-start items-start gap-2">
-                <Image
-                  className="rounded-full"
-                  src={comment.user.picture}
-                  alt="avatar image"
-                  width={"40"}
-                  height={"40"}
-                />
-                <p
+            {comments ? (
+              comments.map((comment, index) => (
+                <div
                   key={index}
-                  className="text-sm pt-1  leading-snug break-words"
+                  className="flex justify-start items-start gap-2"
                 >
-                  <span className="font-semibold">{comment.user.username}</span>{" "}
-                  {comment.text}
-                </p>
-              </div>
-            )):<div>
-              Loading...
-              </div>}
+                  <Image
+                    className="rounded-full"
+                    src={comment.user.picture}
+                    alt="avatar image"
+                    width={"40"}
+                    height={"40"}
+                  />
+                  <p
+                    key={index}
+                    className="text-sm pt-1  leading-snug break-words"
+                  >
+                    <span className="font-semibold">
+                      {comment.user.username}
+                    </span>{" "}
+                    {comment.text}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div>Loading...</div>
+            )}
           </div>
           <div className="flex justify-start iteme-center  border-t pt-3 border-white/20">
             <input
+              onChange={(e) => setText(e.target.value)}
               type="text"
+              autoFocus
+              value={text}
+              onKeyDown={(e)=>{
+                if(e.key==="Enter"){
+                  postComment();
+                }
+              }}
               className="bg-transparent hover:ring-0 w-full hover:outline-none border-none outline-none"
               placeholder="Add a comment..."
             />
-            <button>Post</button>
+            <button onClick={postComment} className={`text-gray-300 hover:text-white ${text==="" && "cursor-not-allowed"}`}>Post</button>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { isOnlineAtom, pageAtom, userDataAtom, userNameAtom } from "./atoms";
+import { isOnlineAtom, modalOpenAtom, pageAtom, userDataAtom, userNameAtom } from "./atoms";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Post from "./components/Post";
@@ -61,7 +61,8 @@ export default function Home() {
   >(null);
   const [commentsPostId, setCommentsPostId] = useState<number | null>(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
-  const [showComments, setShowComments] = useState<boolean>(false);
+  // const [showComments, setShowComments] = useState<boolean>(false);
+  const [showComments, setShowComments] = useRecoilState(modalOpenAtom);
   const [currentPostImage, setCurrentPostImage] = useState<string|null>(null);
   const [searchFriendsInput, setSearchFriendsInput] = useState<string>("");
 
@@ -264,6 +265,7 @@ export default function Home() {
     <>
       {showComments&&
         <CommentsModal
+        userId = {userDataValue.id}
         currentPostImage={currentPostImage}
         postId={commentsPostId}
           username="mohit69"

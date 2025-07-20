@@ -24,6 +24,9 @@ export const AddPost = ({
     fileInputRef.current?.click();
   };
 
+ 
+  
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;

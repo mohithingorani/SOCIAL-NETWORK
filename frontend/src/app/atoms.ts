@@ -16,6 +16,11 @@ export const pageAtom = atom({
 });
 
 
+export const modalOpenAtom = atom({
+  key:"modalOpen",
+  default:false
+})
+
 
 export const userDataAtom = atom({
   key: 'userData', // Updated to a unique key
