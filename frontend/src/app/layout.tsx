@@ -26,7 +26,11 @@ export default function RootLayout({
         <body
           className={`${inter.className} ${poppins_init.className} h-screen  bg-gradient-to-b from-[#161616] to-[#101010]`}
         >
-          <Providers>{children}</Providers>
+          <Providers>
+
+                {children}
+                </Providers>
+                
                 <ToastContainer
         // className="absolute top-0 right-0"
         position="top-center"

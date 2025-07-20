@@ -18,6 +18,11 @@ import { PostInterface } from "@/types/types";
 import { toast } from "react-toastify";
 import { MessageCardForRequests } from "./components/MessageCardForRequests";
 import Spinner from "./components/Spinner";
+import ReminderModal from "./components/surprise";
+// import ReminderModal from "./components/Surprise";
+// import ChickShower from "./components/surprise";
+// import ChickShower from "./components/surprise";
+// import ReminderModal from "./components/surprise";
 
 export interface userData {
   email: string;
@@ -58,15 +63,17 @@ export default function Home() {
 
   const [searchFriendsInput, setSearchFriendsInput] = useState<string>("");
 
-  const[suggestedFriendsInput, setSuggestedFriendsInput] = useState("");
+  const [suggestedFriendsInput, setSuggestedFriendsInput] = useState("");
   // const [friendsList, setFriendsList] = useState<any>();
   const filteredFriends = friends?.filter((f: any) =>
-  f.username?.toLowerCase().includes(searchFriendsInput.toLowerCase())
-);
+    f.username?.toLowerCase().includes(searchFriendsInput.toLowerCase())
+  );
 
-const filteredSuggestFriends = searchedFriends?.filter((f:any)=>{
-  return f.username?.toLowerCase().includes(suggestedFriendsInput.toLocaleLowerCase());
-})
+  const filteredSuggestFriends = searchedFriends?.filter((f: any) => {
+    return f.username
+      ?.toLowerCase()
+      .includes(suggestedFriendsInput.toLocaleLowerCase());
+  });
 
   useEffect(() => {
     const getInfo = async () => {
@@ -193,9 +200,6 @@ const filteredSuggestFriends = searchedFriends?.filter((f:any)=>{
     return () => clearInterval(interval);
   }, [userData?.email]);
 
-
-
-
   useEffect(() => {
     if (session.status === "loading") {
     } else if (session.data?.user) {
@@ -247,256 +251,261 @@ const filteredSuggestFriends = searchedFriends?.filter((f:any)=>{
     return acceptFriendRequest;
   }
 
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-6 ">
-      <div className="col-span-1">
-        <NavBar userName={userNameValue} />
-      </div>
-      <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
-        <div className="w-full grid grid-cols-3 rounded-3xl">
-          <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
-            {currPage === "home" && (
-              <div>
-                <div className="mb-8">
-                  <StoriesCard />
-                </div>
+    <>
+     {session.data?.user?.email == "012kashishch@gmail.com" && (
+        <ReminderModal />        
+      )}
+      {" "}
+      <div className="grid grid-cols-1 md:grid-cols-6 ">
+        <div className="col-span-1">
+          <NavBar userName={userNameValue} />
+        </div>
+        <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
+          <div className="w-full grid grid-cols-3 rounded-3xl">
+            <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
+              {currPage === "home" && (
                 <div>
-                  {userDataValue.id != 0 && (
-                    <AddPost
-                      userId={userDataValue.id}
-                      refreshPosts={getPosts}
-                    />
-                  )}
-                </div>
-                {/* Posts */}
-                <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
-                  {posts &&
-                    posts.map((post, index) => {
-                      return (
-                        <Post
-                          isLikedByUser={post.isLikedByUser}
-                          likePost={async () => {
-                            try {
-                              if (post.isLikedByUser) {
-                                await axios.post(
-                                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost`,
-                                  {
-                                    userId: userDataValue.id, // or session?.user?.id
-                                    postId: post.id,
-                                  }
-                                );
-                                console.log("Unliked post " + post.id);
-                              } else {
-                                await axios.post(
-                                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`,
-                                  {
-                                    username: userDataValue.id,
-                                    postId: post.id,
-                                  }
-                                );
-                                console.log("Like Post " + post.id);
-                              }
-
-                              getPosts(); // refresh state from backend if needed
-                            } catch (error) {
-                              console.error("Like/unlike failed:", error);
-                            }
-                          }}
-                          likesCount={post._count.likes}
-                          username={post.user.username}
-                          picture={post.user.picture}
-                          createdAt={post.createdAt}
-                          key={post.id}
-                          image={post.image || null}
-                          caption={post.caption}
-                        />
-                      );
-                    })}
-                </div>
-              </div>
-            )}
-            {currPage === "messages" && (
-              <>
-                <div>
-                  <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
-                    <input
-                      type="text"
-                      placeholder="Search Friends"
-                      className="w-full py-4  px-6 bg-transparent outline-none"
-                    />
-                    <button>
-                      <Image
-                        src={"/mic_logo.png"}
-                        className=" mr-4 opacity-50 hover:opacity-100"
-                        width={"22"}
-                        height={"22"}
-                        alt="mic"
+                  <div className="mb-8">
+                    <StoriesCard />
+                  </div>
+                  <div>
+                    {userDataValue.id != 0 && (
+                      <AddPost
+                        userId={userDataValue.id}
+                        refreshPosts={getPosts}
                       />
-                    </button>
+                    )}
+                  </div>
+                  {/* Posts */}
+                  <div className="mt-6 md:overflow-y-scroll flex flex-col gap-6">
+                    {posts &&
+                      posts.map((post, index) => {
+                        return (
+                          <Post
+                            isLikedByUser={post.isLikedByUser}
+                            likePost={async () => {
+                              try {
+                                if (post.isLikedByUser) {
+                                  await axios.post(
+                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/unlikePost`,
+                                    {
+                                      userId: userDataValue.id, // or session?.user?.id
+                                      postId: post.id,
+                                    }
+                                  );
+                                  console.log("Unliked post " + post.id);
+                                } else {
+                                  await axios.post(
+                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/likePost`,
+                                    {
+                                      username: userDataValue.id,
+                                      postId: post.id,
+                                    }
+                                  );
+                                  console.log("Like Post " + post.id);
+                                }
+
+                                getPosts(); // refresh state from backend if needed
+                              } catch (error) {
+                                console.error("Like/unlike failed:", error);
+                              }
+                            }}
+                            likesCount={post._count.likes}
+                            username={post.user.username}
+                            picture={post.user.picture}
+                            createdAt={post.createdAt}
+                            key={post.id}
+                            image={post.image || null}
+                            caption={post.caption}
+                          />
+                        );
+                      })}
                   </div>
                 </div>
-                <div className="mt-6 ">
-                  {loading ? (
-                    <div className="text-white flex justify-center items-center">
-                      Loading...
-                    </div>
-                  ) : (
-                    filteredFriends.map((friend: any, index: number) => (
-                      <div
-                        className="cursor-pointer"
-                        key={index}
-                        onClick={() => openChat(friend)}
-                      >
-                        <MessageCard
-                          sendRequest={() => sendFriendRequest(friend.id)}
-                          name={friend.username || "Unknown"}
-                          location="Jaipur"
-                          suggestion={false}
-                          avatar={friend.picture}
-                        />
-                      </div>
-                    ))
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
-            <div className="row-span-1">
-              <div className="flex justify-between items-end">
-                <div className={`font-medium text-xl`}>Friends</div>
-              </div>
-              <div className=" bg-[#161616] border border-white/20  rounded-[8px] w-full flex mt-4">
-                <input
-                  type="text"
-                  placeholder="Search...."
-                  value={searchFriendsInput}
-                  onChange={(e)=>setSearchFriendsInput(e.target.value)}
-                  className="w-full py-4  px-6 bg-transparent outline-none"
-                />
-                <button>
-                  <Image
-                    src={"/mic_logo.png"}
-                    className=" mr-4 opacity-50 hover:opacity-100"
-                    width={"22"}
-                    height={"22"}
-                    alt="mic"
-                  />
-                </button>
-              </div>
-              <div className="flex justify-between mt-4">
-                <button
-                  onClick={() => {
-                    setMenuOpen(showFriendsMenu.showFriends);
-                  }}
-                  className={`text-white h-8  text-lg ${
-                    menuOpen == showFriendsMenu.showFriends && "underline"
-                  } hover:underline`}
-                >
-                  Primary
-                </button>
-                <button
-                  onClick={() => {
-                    setMenuOpen(showFriendsMenu.showRequests);
-                  }}
-                  className={`text-sm text-[#EDAD2C] ${
-                    menuOpen == showFriendsMenu.showRequests && "underline"
-                  } hover:underline h-8`}
-                >
-                  Requests ({friendRequests && (friendRequests.length || 0)})
-                </button>
-              </div>
-
-              {menuOpen == showFriendsMenu.showFriends && (
-                <div className="mt-1 overflow-y-scroll h-max max-h-[27vh]">
-                  {loading ? (
-                    <div>Loading...</div>
-                  ) : (
-                    filteredFriends.map((friend: any, index: number) => (
-                      <div
-                        className="cursor-pointer"
-                        key={index}
-                        onClick={() => openChat(friend)}
-                      >
-                        <MessageCard
-                          suggestion={false}
-                          name={friend.username || "Unknown"}
-                          location="Jaipur"
-                          avatar={friend.picture}
-                        />
-                      </div>
-                    ))
-                  )}
-                </div>
               )}
-              {menuOpen == showFriendsMenu.showRequests && (
-                <div className="mt-6 overflow-y-scroll h-max max-h-[27vh]">
-                  {loading ? (
-                    <div>Loading...</div>
-                  ) : (
-                    friendRequests?.map((request: any, index: number) => (
-                      <div className="cursor-pointer" key={index}>
-                        <MessageCardForRequests
-                          acceptRequest={() =>
-                            acceptFriendRequest(request.sender.id, request.id)
-                          }
-                          name={request.sender.username || "Unknown"}
-                          location="Jaipur"
-                          avatar={request.sender.picture}
+              {currPage === "messages" && (
+                <>
+                  <div>
+                    <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
+                      <input
+                        type="text"
+                        placeholder="Search Friends"
+                        className="w-full py-4  px-6 bg-transparent outline-none"
+                      />
+                      <button>
+                        <Image
+                          src={"/mic_logo.png"}
+                          className=" mr-4 opacity-50 hover:opacity-100"
+                          width={"22"}
+                          height={"22"}
+                          alt="mic"
                         />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-6 ">
+                    {loading ? (
+                      <div className="text-white flex justify-center items-center">
+                        Loading...
                       </div>
-                    ))
-                  )}
-                </div>
+                    ) : (
+                      filteredFriends.map((friend: any, index: number) => (
+                        <div
+                          className="cursor-pointer"
+                          key={index}
+                          onClick={() => openChat(friend)}
+                        >
+                          <MessageCard
+                            sendRequest={() => sendFriendRequest(friend.id)}
+                            name={friend.username || "Unknown"}
+                            location="Jaipur"
+                            suggestion={false}
+                            avatar={friend.picture}
+                          />
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </>
               )}
             </div>
 
-            <div className="row-span-1 pt-4">
-              <div className="font-medium text-xl">Suggestions</div>
-              <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
-                <input
-                  type="text"
-                  value={suggestedFriendsInput}
-                  onChange={(e) => {
-                    setSuggestedFriendsInput(e.target.value as string);
-                  }}
-                  placeholder="Add Friends"
-                  className="w-full py-4  px-6 bg-transparent outline-none"
-                />
-                <button>
-                  <Image
-                    src={"/mic_logo.png"}
-                    className=" mr-4 opacity-50 hover:opacity-100"
-                    width={"22"}
-                    height={"22"}
-                    alt="mic"
+            <div className=" md:col-span-1 hidden   rounded-r-3xl p-8  border border-l-white/20 border-y-0 border-r-0 md:grid grid-rows-2">
+              <div className="row-span-1">
+                <div className="flex justify-between items-end">
+                  <div className={`font-medium text-xl`}>Friends</div>
+                </div>
+                <div className=" bg-[#161616] border border-white/20  rounded-[8px] w-full flex mt-4">
+                  <input
+                    type="text"
+                    placeholder="Search...."
+                    value={searchFriendsInput}
+                    onChange={(e) => setSearchFriendsInput(e.target.value)}
+                    className="w-full py-4  px-6 bg-transparent outline-none"
                   />
-                </button>
-              </div>
-              <div className="mt-6 overflow-y-scroll max-h-[27vh]">
-                {searchedFriends ? (
-                  filteredSuggestFriends?.map((friend, index) => {
-                    return (
-                      <MessageCard
-                        sendRequest={() => sendFriendRequest(friend.id)}
-                        suggestion={true}
-                        key={index}
-                        name={friend.username}
-                        location="Delhi, India"
-                        avatar={friend.picture}
-                      />
-                    );
-                  })
-                ) : (
-                  <div>Loading....</div>
+                  <button>
+                    <Image
+                      src={"/mic_logo.png"}
+                      className=" mr-4 opacity-50 hover:opacity-100"
+                      width={"22"}
+                      height={"22"}
+                      alt="mic"
+                    />
+                  </button>
+                </div>
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={() => {
+                      setMenuOpen(showFriendsMenu.showFriends);
+                    }}
+                    className={`text-white h-8  text-lg ${
+                      menuOpen == showFriendsMenu.showFriends && "underline"
+                    } hover:underline`}
+                  >
+                    Primary
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMenuOpen(showFriendsMenu.showRequests);
+                    }}
+                    className={`text-sm text-[#EDAD2C] ${
+                      menuOpen == showFriendsMenu.showRequests && "underline"
+                    } hover:underline h-8`}
+                  >
+                    Requests ({friendRequests && (friendRequests.length || 0)})
+                  </button>
+                </div>
+
+                {menuOpen == showFriendsMenu.showFriends && (
+                  <div className="mt-2 overflow-y-auto  h-[27vh]">
+                    {loading ? (
+                      <div>Loading...</div>
+                    ) : (
+                      filteredFriends.map((friend: any, index: number) => (
+                        <div
+                          className="cursor-pointer"
+                          key={index}
+                          onClick={() => openChat(friend)}
+                        >
+                          <MessageCard
+                            suggestion={false}
+                            name={friend.username || "Unknown"}
+                            location="Jaipur"
+                            avatar={friend.picture}
+                          />
+                        </div>
+                      ))
+                    )}
+                  </div>
                 )}
+                {menuOpen == showFriendsMenu.showRequests && (
+                  <div className="mt-2 overflow-y-auto h-[27vh]">
+                    {loading ? (
+                      <div>Loading...</div>
+                    ) : (
+                      friendRequests?.map((request: any, index: number) => (
+                        <div className="cursor-pointer" key={index}>
+                          <MessageCardForRequests
+                            acceptRequest={() =>
+                              acceptFriendRequest(request.sender.id, request.id)
+                            }
+                            name={request.sender.username || "Unknown"}
+                            location="Jaipur"
+                            avatar={request.sender.picture}
+                          />
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className="row-span-1 pt-4">
+                <div className="font-medium text-xl">Suggestions</div>
+                <div className=" bg-[#161616] border border-white/20 rounded-[8px] mt-4 w-full flex ">
+                  <input
+                    type="text"
+                    value={suggestedFriendsInput}
+                    onChange={(e) => {
+                      setSuggestedFriendsInput(e.target.value as string);
+                    }}
+                    placeholder="Add Friends"
+                    className="w-full py-4  px-6 bg-transparent outline-none"
+                  />
+                  <button>
+                    <Image
+                      src={"/mic_logo.png"}
+                      className=" mr-4 opacity-50 hover:opacity-100"
+                      width={"22"}
+                      height={"22"}
+                      alt="mic"
+                    />
+                  </button>
+                </div>
+                <div className="mt-6 overflow-y-scroll max-h-[27vh]">
+                  {searchedFriends ? (
+                    filteredSuggestFriends?.map((friend, index) => {
+                      return (
+                        <MessageCard
+                          sendRequest={() => sendFriendRequest(friend.id)}
+                          suggestion={true}
+                          key={index}
+                          name={friend.username}
+                          location="Delhi, India"
+                          avatar={friend.picture}
+                        />
+                      );
+                    })
+                  ) : (
+                    <div>Loading....</div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
