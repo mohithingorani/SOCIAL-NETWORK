@@ -23,6 +23,7 @@ model User {
   lastOnline       DateTime        @default(now())
   posts            Post[]          @relation("UserPosts")
   likes            Like[]
+  comments         Comment[]   @relation("UserComments")
 }
 
 model FriendRequest {
@@ -69,6 +70,8 @@ model Post {
 model Comment {
   commentId Int      @id @default(autoincrement())
   text      String
+  userId   Int
+  user     User @relation("UserComments",fields: [userId],references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   postId    Int

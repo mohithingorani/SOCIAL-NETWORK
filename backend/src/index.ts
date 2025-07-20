@@ -73,7 +73,7 @@ app.post("/friend/request", async (req, res) => {
   const fromUserId = parseInt(req.body.fromUserId);
   const toUserId = parseInt(req.body.toUserId);
   const fromUser = await prisma.user.findFirst({
-    where: { id:fromUserId },
+    where: { id: fromUserId },
   });
   const toUser = await prisma.user.findFirst({
     where: { id: toUserId },
@@ -84,7 +84,7 @@ app.post("/friend/request", async (req, res) => {
       AND: [
         {
           sender: {
-            id:fromUserId,
+            id: fromUserId,
           },
         },
         {
@@ -150,7 +150,7 @@ app.use("/uploads", express.static("uploads"));
 // Add a post
 // Upload route
 app.post("/upload", upload.single("image"), async (req, res) => {
-  console.log("got image post request");
+  logger.info("got image post request");
 
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
@@ -170,7 +170,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
         },
       },
     });
-    console.log(post);
+    logger.info(post);
     res.status(200).json({
       post,
       url: imageUrl,
@@ -200,7 +200,7 @@ app.post("/uploadWithoutImage", upload.single("image"), async (req, res) => {
         },
       },
     });
-    console.log(post);
+    logger.info(post);
     res.status(200).json({
       post,
       // url: imageUrl,
@@ -291,9 +291,7 @@ app.post("/likePost", async (req, res) => {
     });
 
     if (existingLike) {
-      return res
-        .status(409)
-        .json({ message: "User already liked this post" });
+      return res.status(409).json({ message: "User already liked this post" });
     }
 
     const like = await prisma.like.create({
@@ -313,19 +311,18 @@ app.post("/likePost", async (req, res) => {
   }
 });
 
-
-app.post("/deletePost",async (req,res)=>{
+app.post("/deletePost", async (req, res) => {
   const postId = req.body.postId;
   const post = await prisma.post.delete({
-    where:{
-      id:postId
-    }
+    where: {
+      id: postId,
+    },
   });
   res.json({
-    message:"Deleted Post with PostId"+postId,
-    post
+    message: "Deleted Post with PostId" + postId,
+    post,
   });
-})
+});
 
 app.post("/unlikePost", async (req, res) => {
   const { userId, postId } = req.body;
@@ -364,7 +361,6 @@ app.post("/unlikePost", async (req, res) => {
   }
 });
 
-
 //show friend requests
 app.post("/friend/requests", async (req, res) => {
   const userId = parseInt(req.body.userId);
@@ -373,9 +369,9 @@ app.post("/friend/requests", async (req, res) => {
     const users = await prisma.friendRequest.findMany({
       where: {
         receiver: {
-          id:userId,
+          id: userId,
         },
-        status:"pending"
+        status: "pending",
       },
       select: {
         status: true,
@@ -472,7 +468,7 @@ app.post("/users/search", async (req, res) => {
       select: {
         username: true,
         picture: true,
-        id:true
+        id: true,
       },
     });
 
@@ -483,8 +479,6 @@ app.post("/users/search", async (req, res) => {
     res.status(500).send({ message: "Error fetching users" });
   }
 });
-
-
 
 app.post("/suggestions", async (req, res) => {
   const username = req.body.username as string;
@@ -507,15 +501,12 @@ app.post("/suggestions", async (req, res) => {
     // Get all friends (both directions)
     const friendsList = await prisma.friend.findMany({
       where: {
-        OR: [
-          { userId: userId },
-          { friendId: userId },
-        ],
+        OR: [{ userId: userId }, { friendId: userId }],
       },
     });
 
     // Properly extract the friend IDs
-    const friendIds = friendsList.map(f =>
+    const friendIds = friendsList.map((f) =>
       f.userId === userId ? f.friendId : f.userId
     );
 
@@ -546,8 +537,6 @@ app.post("/suggestions", async (req, res) => {
     res.status(500).send({ message: "Error fetching users" });
   }
 });
-
-
 
 //show friends
 app.get("/user/friends", async (req, res) => {
@@ -682,7 +671,7 @@ app.post("/onlinestatus", (req, res) => {
       })
       .status(200);
   } catch (error) {
-    console.log(error);
+    logger.info(error);
     res.status(500).send({ message: "Error updating online status" });
   }
 });
@@ -765,6 +754,25 @@ app.post("/friend/remove", async (req, res) => {
   } catch (err) {
     logger.info("Error deleting friend", err);
   }
+});
+
+app.post("/comment/add", async (req, res) => {
+  const userId = req.body.userId as number;
+  const text = req.body.text as string;
+  const postId = req.body.id as number;
+  const comment = await prisma.comment.create({
+    data: {
+      text,
+      postId,
+      userId
+    },
+  });
+  logger.info(comment);
+  
+  res.json({
+    message:"Comment added successfully",
+    comment
+  })
 });
 
 // Start the server

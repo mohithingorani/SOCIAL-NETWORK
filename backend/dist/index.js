@@ -150,7 +150,7 @@ app.use("/uploads", express_1.default.static("uploads"));
 // Add a post
 // Upload route
 app.post("/upload", upload.single("image"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("got image post request");
+    logger.info("got image post request");
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
     }
@@ -167,7 +167,7 @@ app.post("/upload", upload.single("image"), (req, res) => __awaiter(void 0, void
                 },
             },
         });
-        console.log(post);
+        logger.info(post);
         res.status(200).json({
             post,
             url: imageUrl,
@@ -195,7 +195,7 @@ app.post("/uploadWithoutImage", upload.single("image"), (req, res) => __awaiter(
                 },
             },
         });
-        console.log(post);
+        logger.info(post);
         res.status(200).json({
             post,
             // url: imageUrl,
@@ -274,9 +274,7 @@ app.post("/likePost", (req, res) => __awaiter(void 0, void 0, void 0, function* 
             },
         });
         if (existingLike) {
-            return res
-                .status(409)
-                .json({ message: "User already liked this post" });
+            return res.status(409).json({ message: "User already liked this post" });
         }
         const like = yield prisma.like.create({
             data: {
@@ -298,12 +296,12 @@ app.post("/deletePost", (req, res) => __awaiter(void 0, void 0, void 0, function
     const postId = req.body.postId;
     const post = yield prisma.post.delete({
         where: {
-            id: postId
-        }
+            id: postId,
+        },
     });
     res.json({
         message: "Deleted Post with PostId" + postId,
-        post
+        post,
     });
 }));
 app.post("/unlikePost", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -348,7 +346,7 @@ app.post("/friend/requests", (req, res) => __awaiter(void 0, void 0, void 0, fun
                 receiver: {
                     id: userId,
                 },
-                status: "pending"
+                status: "pending",
             },
             select: {
                 status: true,
@@ -440,7 +438,7 @@ app.post("/users/search", (req, res) => __awaiter(void 0, void 0, void 0, functi
             select: {
                 username: true,
                 picture: true,
-                id: true
+                id: true,
             },
         });
         logger.info("Users fetched successfully");
@@ -469,14 +467,11 @@ app.post("/suggestions", (req, res) => __awaiter(void 0, void 0, void 0, functio
         // Get all friends (both directions)
         const friendsList = yield prisma.friend.findMany({
             where: {
-                OR: [
-                    { userId: userId },
-                    { friendId: userId },
-                ],
+                OR: [{ userId: userId }, { friendId: userId }],
             },
         });
         // Properly extract the friend IDs
-        const friendIds = friendsList.map(f => f.userId === userId ? f.friendId : f.userId);
+        const friendIds = friendsList.map((f) => f.userId === userId ? f.friendId : f.userId);
         // Find users matching username, excluding self and friends
         const users = yield prisma.user.findMany({
             where: {
@@ -629,7 +624,7 @@ app.post("/onlinestatus", (req, res) => {
             .status(200);
     }
     catch (error) {
-        console.log(error);
+        logger.info(error);
         res.status(500).send({ message: "Error updating online status" });
     }
 });
@@ -698,6 +693,23 @@ app.post("/friend/remove", (req, res) => __awaiter(void 0, void 0, void 0, funct
     catch (err) {
         logger.info("Error deleting friend", err);
     }
+}));
+app.post("/comment/add", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.body.userId;
+    const text = req.body.text;
+    const postId = req.body.id;
+    const comment = yield prisma.comment.create({
+        data: {
+            text,
+            postId,
+            userId
+        },
+    });
+    logger.info(comment);
+    res.json({
+        message: "Comment added successfully",
+        comment
+    });
 }));
 // Start the server
 const PORT = parseInt(process.env.PORT) || 3000;

@@ -18,7 +18,7 @@ import { PostInterface } from "@/types/types";
 import { toast } from "react-toastify";
 import { MessageCardForRequests } from "./components/MessageCardForRequests";
 import Spinner from "./components/Spinner";
-import ReminderModal from "./components/surprise";
+import CommentModal from "./components/CommentsModal";
 // import ReminderModal from "./components/Surprise";
 // import ChickShower from "./components/surprise";
 // import ChickShower from "./components/surprise";
@@ -253,15 +253,59 @@ export default function Home() {
 
   return (
     <>
-     {session.data?.user?.email == "012kashishch@gmail.com" && (
-        <ReminderModal />        
-      )}
-      {" "}
-      <div className="grid grid-cols-1 md:grid-cols-6 ">
+      {
+        <CommentModal
+          username="mohit69"
+          comments={[
+            {
+              user: "jane_doe",
+              comment: "This is super helpful, thanks for sharing!",
+            },
+            {
+              user: "mohit_23",
+              comment:
+                "I think there’s a better way to handle this logic, what do you think?",
+            },
+            {
+              user: "mohit_23",
+              comment:
+                "I think there’s a better way to handle this logic, what do you think?",
+            },
+            {
+              user: "mohit_23",
+              comment:
+                "I think there’s a better way to handle this logic, what do you think?",
+            },
+            {
+              user: "mohit_23",
+              comment:
+                "I think there’s a better way to handle this logic, what do you think?",
+            },
+            {
+              user: "mohit_23",
+              comment:
+                "I think there’s a better way to handle this logic, what do you think?",
+            },
+            {
+              user: "code_master",
+              comment: "🔥🔥🔥 this is clean!",
+            },
+            {
+              user: "dev_chick",
+              comment: "Can you explain how this would scale with more data?",
+            },
+            {
+              user: "random_user99",
+              comment: "Nice, but it breaks on mobile view. Just FYI!",
+            },
+          ]}
+        />
+      }{" "}
+      <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
         <div className="col-span-1">
           <NavBar userName={userNameValue} />
         </div>
-        <div className="flex-grow col-span-5 m-3 md:m-6 border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
+        <div className="flex-grow col-span-5 m-3 md:m-6  border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">
           <div className="w-full grid grid-cols-3 rounded-3xl">
             <div className="col-span-3 md:col-span-2  rounded-l-3xl p-4 md:px-8 md:pt-8 md:pb-1 flex h-[92vh] flex-col overflow-y-scroll">
               {currPage === "home" && (
