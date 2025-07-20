@@ -71,7 +71,7 @@ export default function CommentsModal({
           <div className="space-y-4  h-[40vh]  overflow-y-auto">
             
             {comments ?comments.map((comment, index) => (
-              <div className="flex justify-start items-start gap-2">
+              <div key={index} className="flex justify-start items-start gap-2">
                 <Image
                   className="rounded-full"
                   src={comment.user.picture}
