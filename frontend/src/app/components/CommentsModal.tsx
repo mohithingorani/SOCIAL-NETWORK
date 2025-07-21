@@ -78,7 +78,12 @@ export default function CommentsModal({
   })
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center ">
-      <div className="bg-[#101010] text-white border border-white/20   rounded-[24px] shadow-lg p-6 w-[90%] grid grid-cols-2 max-w-3xl">
+      <div className="bg-[#101010] relative text-white border border-white/20   rounded-[24px] shadow-lg p-6 w-[90%] grid grid-cols-2 max-w-3xl">
+      <button onClick={()=>{
+        setShowCommentsModal(false);
+      }} className="absolute top-4 right-4">
+        <Image src="/cross.png" className="opacity-50 hover:opacity-100" alt="close" width={"20"} height={"20"}/>
+      </button>
         <div className=" border-r border-white/20">
           <div className="flex justify-center w-full items-center pr-6 ">
             <Image
