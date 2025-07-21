@@ -225,6 +225,7 @@ app.get("/getposts", (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 _count: {
                     select: {
                         likes: true,
+                        comments: true
                     },
                 },
                 likes: {

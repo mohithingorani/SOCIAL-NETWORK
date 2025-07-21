@@ -232,6 +232,7 @@ app.get("/getposts", async (req, res) => {
         _count: {
           select: {
             likes: true,
+            comments:true
           },
         },
         likes: {
