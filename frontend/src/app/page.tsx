@@ -142,11 +142,11 @@ export default function Home() {
   }, []);
 
 
-  function showCommentsModal(postId:number,image?:string){
+  function showCommentsModal(postId:number,image:string | null){
     setShowComments(true);
     setCommentsPostId(postId);
     
-    if(image)setCurrentPostImage(image);
+    setCurrentPostImage(image);
   }
   async function searchSuggestedFriends(name: string) {
     const friends = await axios.post(
@@ -298,7 +298,7 @@ export default function Home() {
                         return (
                           <Post
                           commentButtonOnClick={()=>{
-                            showCommentsModal(post.id, post?.image)
+                            showCommentsModal(post.id, post.image || null)
                             
                           }}
                             isLikedByUser={post.isLikedByUser}
