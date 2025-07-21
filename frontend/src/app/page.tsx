@@ -330,6 +330,7 @@ export default function Home() {
                               }
                             }}
                             likesCount={post._count.likes}
+                            commentsCount = {post._count.comments}
                             username={post.user.username}
                             picture={post.user.picture}
                             createdAt={post.createdAt}

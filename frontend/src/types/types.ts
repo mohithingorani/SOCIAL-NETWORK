@@ -12,6 +12,7 @@ export interface PostInterface {
   };
   _count: {
     likes: number;
+    comments:number
   };
   isLikedByUser:boolean
 }

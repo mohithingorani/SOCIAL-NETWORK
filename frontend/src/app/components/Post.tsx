@@ -13,6 +13,7 @@ export default function Post({
   image,
   caption,
   likesCount = 0,
+  commentsCount = 0,
   createdAt,
   username,
   picture,
@@ -24,6 +25,7 @@ export default function Post({
   caption: string;
   likesCount?: number;
   createdAt: string;
+  commentsCount:number
   commentButtonOnClick:()=>void;
   username: string;
   picture: string;
@@ -109,7 +111,7 @@ export default function Post({
               alt="Comment"
             />
           </button>
-          <span>0</span>
+          <span>{commentsCount}</span>
         </div>
 
         <div className="flex items-center gap-2">
