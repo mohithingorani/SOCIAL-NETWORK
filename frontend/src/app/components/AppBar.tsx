@@ -156,7 +156,7 @@ export default function NavBar({ userName }: { userName: string }) {
             {/* Contacts */}
             <div className="mt-6 ">
               <div className="font-bold text-lg mb-2 md:ml-2">Contacts</div>
-              <div className="space-y-3 max-h-[18vh] lg:max-h-[27vh] overflow-y-auto">
+              <div className="space-y-3 max-h-[17vh] lg:max-h-[25vh] overflow-y-auto">
                 <ContactCard avatar="avatar_01" time="3s" name="Jack Lozano" />
                 <ContactCard
                   avatar="avatar_09"
