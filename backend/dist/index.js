@@ -225,7 +225,7 @@ app.get("/getposts", (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 _count: {
                     select: {
                         likes: true,
-                        comments: true
+                        comments: true,
                     },
                 },
                 likes: {
@@ -252,6 +252,38 @@ app.get("/getposts", (req, res) => __awaiter(void 0, void 0, void 0, function* (
     catch (err) {
         console.error("Could not fetch posts.", err);
         res.status(500).json({ message: "Internal server error" });
+    }
+}));
+//total number of posts
+app.get("/posts/count", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.query.userId;
+    try {
+        if (!userId) {
+            logger.error("userid not sumbitted");
+            res
+                .json({
+                error: "Empty user id",
+            })
+                .status(500);
+        }
+        const numPosts = yield prisma.post.findMany({
+            where: {
+                userId: Number(userId)
+            }
+        });
+        res
+            .json({
+            count: numPosts.length,
+        })
+            .status(200);
+    }
+    catch (err) {
+        logger.error(err);
+        res
+            .json({
+            err,
+        })
+            .status(500);
     }
 }));
 app.post("/likePost", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -740,9 +772,9 @@ app.post("/comments/all", (req, res) => __awaiter(void 0, void 0, void 0, functi
                         id: true,
                         username: true,
                         picture: true,
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
         res
             .json({

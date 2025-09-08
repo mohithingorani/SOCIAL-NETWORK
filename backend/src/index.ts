@@ -232,7 +232,7 @@ app.get("/getposts", async (req, res) => {
         _count: {
           select: {
             likes: true,
-            comments:true
+            comments: true,
           },
         },
         likes: {
@@ -264,6 +264,38 @@ app.get("/getposts", async (req, res) => {
   } catch (err) {
     console.error("Could not fetch posts.", err);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+//total number of posts
+app.get("/posts/count", async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    if (!userId) {
+      logger.error("userid not sumbitted");
+      res
+        .json({
+          error: "Empty user id",
+        })
+        .status(500);
+    }
+    const numPosts = await prisma.post.findMany({
+      where:{
+        userId:Number(userId)
+      }
+    });
+    res
+      .json({
+        count: numPosts.length,
+      })
+      .status(200);
+  } catch (err) {
+    logger.error(err);
+    res
+      .json({
+        err,
+      })
+      .status(500);
   }
 });
 
@@ -797,15 +829,15 @@ app.post("/comments/all", async (req, res) => {
       where: {
         postId,
       },
-      include:{
-        user:{
-          select:{
-            id:true,
-            username:true,
-            picture:true,
-          }
-        }
-      }
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            picture: true,
+          },
+        },
+      },
     });
     res
       .json({

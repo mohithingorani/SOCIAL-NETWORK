@@ -24,25 +24,25 @@ export default function Signin() {
             <div className="w-10 h-10 md:w-full">
             <Image src="/newlogo.svg" width={50} height={50} alt="logo" />
 </div>
-            <div className="font-bold text-lg md:text-6xl mt-4 md:mt-8">Get started</div>
+            <div className="font-bold text-lg md:text-4xl mt-4 md:mt-8">Get started</div>
 
-            <div className="flex gap-1 text-sm md:text-lg text-gray-300 mt-2">
+            <div className="flex gap-1 text-sm md:text-lg text-gray-300 mt-1 lg:mt-2">
               {formState === "signup" ? (
                 <>
-                  <div>Already have an account?</div>
+                  <div className="text-sm">Already have an account?</div>
                   <button
                     onClick={() => setFormState("signin")}
-                    className="text-orange-400 hover:underline font-semibold"
+                    className="text-orange-400 text-sm hover:underline font-semibold"
                   >
                     Sign in
                   </button>
                 </>
               ) : (
                 <>
-                  <div>Create an account?</div>
+                  <div className=" text-sm">Create an account?</div>
                   <button
                     onClick={() => setFormState("signup")}
-                    className="text-orange-400 hover:underline font-semibold"
+                    className="text-orange-400 text-sm hover:underline font-semibold"
                   >
                     Sign up
                   </button>
@@ -50,7 +50,7 @@ export default function Signin() {
               )}
             </div>
 
-            <div className="mt-4 md:mt-8 flex flex-col pl-0 p-4 rounded-[10px] h-fit">
+            <div className="mt-4 lg:mt-3 3xl:mt-8 flex flex-col pl-0 p-4 rounded-[10px] h-fit">
               {/* Email Input */}
               <label className="mt-2">
                 <div>Email</div>

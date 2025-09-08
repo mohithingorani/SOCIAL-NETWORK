@@ -16,8 +16,8 @@ body {
 
 /* HTML: <div class="loader"></div> */
 .loader {
-  width: 50px;
-  padding: 8px;
+  width: 20px;
+  padding: 4px;
   aspect-ratio: 1;
   border-radius: 50%;
   background: white;

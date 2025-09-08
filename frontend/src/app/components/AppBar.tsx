@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { ContactCard } from "./ContactCard";
 import { Menu, X } from "lucide-react";
-import { pageAtom } from "../atoms";
-import { useRecoilState } from "recoil";
+import { pageAtom, userDataAtom } from "../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useFriends } from "@/hooks/useFriends";
+import axios from "axios";
 
 export default function NavBar({ userName }: { userName: string }) {
   const [searchFriend, setSearchFriend] = useState("");
@@ -15,13 +16,30 @@ export default function NavBar({ userName }: { userName: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const session = useSession();
   const [currPage, setCurrPage] = useRecoilState(pageAtom);
-  const {friends} = useFriends();
-  const[currKey, setCurrKey] = useState(0);
+  const { friends } = useFriends();
+  const [currKey, setCurrKey] = useState(0);
+  const [numPosts, setNumPosts] = useState<number | null>(null);
+  const userData = useRecoilValue(userDataAtom);
   // Debounce search input (if used later – you can keep original logic)
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearch(searchFriend), 1500);
     return () => clearTimeout(handler);
   }, [searchFriend]);
+
+  const getNumPosts = async () => {
+    if(userData.id!=0){
+
+      const id = userData.id;
+      const num = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/posts/count?userId=${id}`
+      );
+      setNumPosts(num.data.count);
+    }
+  };
+  useEffect(() => {
+    getNumPosts();
+  }, [userData]);
+  
 
   if (session.status === "loading") {
     return (
@@ -79,7 +97,7 @@ export default function NavBar({ userName }: { userName: string }) {
             {/* Stats */}
             <div className="flex justify-around text-sm  mt-6 mb-4">
               <div className="text-center">
-                <div className="font-bold text-xl">30</div>
+                <div className="font-bold text-xl">{numPosts}</div>
                 <div>Posts</div>
               </div>
               {/* <div className="text-center">
@@ -104,16 +122,16 @@ export default function NavBar({ userName }: { userName: string }) {
                   onClick={() => {
                     if (window.innerWidth < 768) setMenuOpen(false);
                     setCurrKey(key);
-                    if(key ==0){
+                    if (key == 0) {
                       setCurrPage("home");
                     }
-                    if(key== 2 ){
+                    if (key == 2) {
                       signOut();
                     }
-                    if(key==1){
+                    if (key == 1) {
                       setCurrPage("messages");
                     }
-                    if(key==3){
+                    if (key == 3) {
                       setCurrPage("settings");
                     }
                   }}
