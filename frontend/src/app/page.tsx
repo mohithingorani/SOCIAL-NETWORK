@@ -272,7 +272,7 @@ export default function Home() {
         />
       }{" "}
       <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
-        <div className="col-span-1 h-0">
+        <div className="col-span-1">
           <NavBar userName={userNameValue} />
         </div>
         <div className="flex-grow col-span-5 m-3 md:m-4  border border-white/20 max-h-max text-white rounded-3xl bg-gradient-to-t from-[#18181A]  to-[#202020]">

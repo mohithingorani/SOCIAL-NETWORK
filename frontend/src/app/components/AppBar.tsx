@@ -44,7 +44,7 @@ export default function NavBar({ userName }: { userName: string }) {
   if (session.status === "loading") {
     return (
       <div className="flex justify-center items-center w-full h-full bg-white/30 backdrop-blur-md rounded-md">
-        <svg /* spinner omitted for brevity */ />
+        <svg />
       </div>
     );
   }
@@ -56,7 +56,7 @@ export default function NavBar({ userName }: { userName: string }) {
   return (
     <>
       {/* Mobile header */}
-      <div className="md:hidden flex justify-between items-center p-4 text-white bg-[#18181A]">
+      <div className="md:hidden  flex justify-between items-center p-4 text-white bg-[#18181A]">
         <div className="font-semibold text-lg">{session.data?.user?.name}</div>
         <button onClick={() => setMenuOpen((o) => !o)}>
           {menuOpen ? (
