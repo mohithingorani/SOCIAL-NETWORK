@@ -65,7 +65,6 @@ export default function Home() {
   const [showComments, setShowComments] = useRecoilState(modalOpenAtom);
   const [currentPostImage, setCurrentPostImage] = useState<string|null>(null);
   const [searchFriendsInput, setSearchFriendsInput] = useState<string>("");
-
   const [suggestedFriendsInput, setSuggestedFriendsInput] = useState("");
   // const [friendsList, setFriendsList] = useState<any>();
   const filteredFriends = friends?.filter((f: any) =>
@@ -268,7 +267,7 @@ export default function Home() {
         userId = {userDataValue.id}
         currentPostImage={currentPostImage}
         postId={commentsPostId}
-          username="mohit69"
+          username={userDataValue.username}
         />
       }{" "}
       <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
