@@ -21,6 +21,11 @@ export const modalOpenAtom = atom({
   default:false
 })
 
+export const selectedFileAtom = atom<File | null>({
+  key: "selectedFile",
+  default: null,
+});
+
 
 export const userDataAtom = atom({
   key: 'userData', // Updated to a unique key

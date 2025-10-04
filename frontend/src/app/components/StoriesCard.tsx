@@ -1,16 +1,46 @@
+"use client";
 import { Stories } from "@/data/avatars";
 import Image from "next/image";
+import { useRef, useState } from "react";
+import StoryPage from "./StoryPage";
 
 export const StoriesCard = () => {
+  const fileInputRef = useRef(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const selectedFile = event.target.files[0];
+      setFile(selectedFile);
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setPreview(previewUrl);
+    }
+  };
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      (fileInputRef.current as HTMLInputElement).click();
+    }
+  };
+
   return (
     <>
       <div className="flex overflow-x-auto  flex-nowrap scrollbar-none">
-        <div className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12 shrink-0">
+        <input
+          type="file"
+          accept="image/*, video/*"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          className="hidden"
+        />
+        <button
+          onClick={handleButtonClick}
+          className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12 shrink-0"
+        >
           <div className="w-16 h-16 border text-center border-dashed bg-[#1E1E1D] border-white/50 rounded-full text-sm md:text-3xl text-white/50 flex justify-center items-center">
             +
           </div>
           <div className="text-xs text-center">Add Story</div>
-        </div>
+        </button>
         <div className="flex justify-start">
           {Stories.map((story) => {
             return (

@@ -5,11 +5,12 @@ import NavBar from "./components/AppBar";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   isOnlineAtom,
   modalOpenAtom,
   pageAtom,
+  selectedFileAtom,
   userDataAtom,
   userNameAtom,
 } from "./atoms";
@@ -25,6 +26,7 @@ import { toast } from "react-toastify";
 import { MessageCardForRequests } from "./components/MessageCardForRequests";
 import Spinner from "./components/Spinner";
 import CommentsModal from "./components/CommentsModal";
+import StoryPage from "./components/StoryPage";
 
 // import ReminderModal from "./components/Surprise";
 // import ChickShower from "./components/surprise";
@@ -267,6 +269,7 @@ export default function Home() {
     refetch();
     return acceptFriendRequest;
   }
+  // const selectedFile = useRecoilValue(selectedFileAtom)
 
   return (
     loggedIn && (
@@ -280,6 +283,8 @@ export default function Home() {
           />
         )}{" "}
         <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
+          {/* <StoryPage storyImage={selectedFile}/> */}
+
           <div className="col-span-1">
             <NavBar userName={userNameValue} />
           </div>
