@@ -11,6 +11,12 @@ export default function StoryPage({
   userImage: string;
   onClickClose : ()=>void
 }) {
+
+    document.addEventListener("keydown",(e)=>{
+    if(e.key=="Escape"){
+      onClickClose();
+    }
+  })
   return (
     <div className="absolute z-50 backdrop-blur-sm   flex justify-center items-center h-full w-full   ">
       <div className=" relative bg-gradient-to-t from-[#18181A] h-[800px] rounded-xl  to-[#202020] w-[500px]  border border-white ">

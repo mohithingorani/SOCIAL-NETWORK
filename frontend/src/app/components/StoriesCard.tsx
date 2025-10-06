@@ -46,7 +46,7 @@ export const StoriesCard = () => {
         />
         <button
           onClick={handleButtonClick}
-          className="flex justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12 shrink-0"
+          className="flex select-none justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12 shrink-0"
         >
           <div className="w-16 h-16 border text-center border-dashed bg-[#1E1E1D] border-white/50 rounded-full text-sm md:text-3xl text-white/50 flex justify-center items-center">
             +
