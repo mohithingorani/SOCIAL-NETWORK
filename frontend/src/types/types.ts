@@ -16,3 +16,6 @@ export interface PostInterface {
   };
   isLikedByUser:boolean
 }
+
+
+export type StoryPreview = undefined |  string

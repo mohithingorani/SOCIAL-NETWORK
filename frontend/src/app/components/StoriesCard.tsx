@@ -1,19 +1,23 @@
 "use client";
 import { Stories } from "@/data/avatars";
 import Image from "next/image";
-import { useRef, useState } from "react";
-import StoryPage from "./StoryPage";
+import { useEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { storyPreviewAtom } from "../atoms";
+// import StoryPage from "./StoryPage";
 
 export const StoriesCard = () => {
   const fileInputRef = useRef(null);
-  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [storyPreview,setStoryPreview] = useRecoilState(storyPreviewAtom);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
-      setFile(selectedFile);
       const previewUrl = URL.createObjectURL(selectedFile);
       setPreview(previewUrl);
+      setStoryPreview(previewUrl);
+      console.log("Preview URL : ",storyPreview);
     }
   };
   const handleButtonClick = () => {
@@ -21,6 +25,14 @@ export const StoriesCard = () => {
       (fileInputRef.current as HTMLInputElement).click();
     }
   };
+
+  useEffect(()=>{
+    return ()=>{
+      if(preview){
+        URL.revokeObjectURL(preview)
+      }
+    }
+  },[preview])
 
   return (
     <>

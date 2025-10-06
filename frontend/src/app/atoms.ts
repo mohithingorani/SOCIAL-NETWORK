@@ -1,3 +1,4 @@
+import { StoryPreview } from "@/types/types";
 import { atom } from "recoil";
 
 export const userNameAtom = atom({
@@ -44,3 +45,9 @@ export const pendingRequestsAtom = atom({
   key: 'pendingRequests',
   default: 0,
 });
+
+
+export const storyPreviewAtom = atom<StoryPreview>({
+  key : "storyPreview",
+  default:undefined
+})

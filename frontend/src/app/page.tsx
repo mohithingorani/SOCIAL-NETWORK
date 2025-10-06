@@ -11,6 +11,7 @@ import {
   modalOpenAtom,
   pageAtom,
   selectedFileAtom,
+  storyPreviewAtom,
   userDataAtom,
   userNameAtom,
 } from "./atoms";
@@ -66,7 +67,7 @@ export default function Home() {
   const { friends, loading, refetch } = useFriends();
   const [friendRequests, setFriendRequests] = useState<[any] | null>(null);
   const [searchedFriends, setSearchedFriends] = useState<
-    searchedFriends[] | null
+  searchedFriends[] | null
   >(null);
   const [commentsPostId, setCommentsPostId] = useState<number | null>(null);
   const [posts, setPosts] = useState<PostInterface[] | null>(null);
@@ -77,6 +78,7 @@ export default function Home() {
   const [suggestedFriendsInput, setSuggestedFriendsInput] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   // const [friendsList, setFriendsList] = useState<any>();
+  const [storyPreview, setStoryPreview] = useRecoilState(storyPreviewAtom);
   const filteredFriends = friends?.filter((f: any) =>
     f.username?.toLowerCase().includes(searchFriendsInput.toLowerCase())
   );
@@ -269,8 +271,6 @@ export default function Home() {
     refetch();
     return acceptFriendRequest;
   }
-  // const selectedFile = useRecoilValue(selectedFileAtom)
-
   return (
     loggedIn && (
       <>
@@ -283,8 +283,9 @@ export default function Home() {
           />
         )}{" "}
         <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
-          {/* <StoryPage storyImage={selectedFile}/> */}
-
+          {storyPreview &&<StoryPage onClickClose={()=>{
+            setStoryPreview(undefined)
+          }} userId={userDataValue.username} userImage={userDataValue.picture} storyImage={storyPreview}/>}
           <div className="col-span-1">
             <NavBar userName={userNameValue} />
           </div>
