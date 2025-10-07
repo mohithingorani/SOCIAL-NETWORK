@@ -24,9 +24,6 @@ export const AddPost = ({
     fileInputRef.current?.click();
   };
 
- 
-  
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
@@ -209,13 +206,28 @@ export const AddPost = ({
       {/* Optional Preview */}
       {preview && (
         <div className="mt-4">
-          <Image
-            src={preview}
-            alt="preview"
-            width={200}
-            height={200}
-            className="rounded-lg object-cover"
-          />
+          <div className="relative">
+            <Image
+              src={preview}
+              alt="preview"
+              width={200}
+              height={200}
+              className="rounded-lg object-cover"
+            />
+            <div className="absolute top-0 right-0">
+              <button onClick={()=>{
+                setPreview(null);
+              }}>
+              <Image
+                src="/cross.png"
+                className="opacity-50 hover:opacity-100"
+                alt="close"
+                width={"20"}
+                height={"20"}
+              />
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

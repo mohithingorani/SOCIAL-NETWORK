@@ -8,14 +8,14 @@ import { storyPreviewAtom } from "../atoms";
 
 export const StoriesCard = () => {
   const fileInputRef = useRef(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  // const [preview, setPreview] = useState<string | null>(null);
   const [storyPreview,setStoryPreview] = useRecoilState(storyPreviewAtom);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
       const previewUrl = URL.createObjectURL(selectedFile);
-      setPreview(previewUrl);
+      // setPreview(previewUrl);
       setStoryPreview(previewUrl);
       console.log("Preview URL : ",storyPreview);
     }
@@ -28,11 +28,11 @@ export const StoriesCard = () => {
 
   useEffect(()=>{
     return ()=>{
-      if(preview){
-        URL.revokeObjectURL(preview)
+      if(storyPreview){
+        URL.revokeObjectURL(storyPreview)
       }
     }
-  },[preview])
+  },[storyPreview])
 
   return (
     <>
@@ -46,7 +46,7 @@ export const StoriesCard = () => {
         />
         <button
           onClick={handleButtonClick}
-          className="flex select-none justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12 shrink-0"
+          className="flex focus:outline-none focus:ring-0 justify-center flex-col w-fit items-center gap-1 md:gap-2 text-sm mr-6 md:mr-12 shrink-0"
         >
           <div className="w-16 h-16 border text-center border-dashed bg-[#1E1E1D] border-white/50 rounded-full text-sm md:text-3xl text-white/50 flex justify-center items-center">
             +
