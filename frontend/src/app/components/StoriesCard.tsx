@@ -3,17 +3,17 @@ import { Stories } from "@/data/avatars";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { storyPreviewAtom } from "../atoms";
-// import StoryPage from "./StoryPage";
+import { selectedFileForStory, storyPreviewAtom } from "../atoms";
 
 export const StoriesCard = () => {
   const fileInputRef = useRef(null);
-  // const [preview, setPreview] = useState<string | null>(null);
   const [storyPreview,setStoryPreview] = useRecoilState(storyPreviewAtom);
-
+  const [selectedStoryFile, setSelectedStoryFile] = useRecoilState(selectedFileForStory);
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
+      setSelectedStoryFile(selectedFile);
+      
       const previewUrl = URL.createObjectURL(selectedFile);
       // setPreview(previewUrl);
       setStoryPreview(previewUrl);

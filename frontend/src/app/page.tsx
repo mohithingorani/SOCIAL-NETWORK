@@ -11,6 +11,7 @@ import {
   modalOpenAtom,
   pageAtom,
   selectedFileAtom,
+  selectedFileForStory,
   storyPreviewAtom,
   userDataAtom,
   userNameAtom,
@@ -82,6 +83,7 @@ export default function Home() {
   const filteredFriends = friends?.filter((f: any) =>
     f.username?.toLowerCase().includes(searchFriendsInput.toLowerCase())
   );
+  const [storyFile, setStoryFile]= useRecoilState(selectedFileForStory);
 
   const filteredSuggestFriends = searchedFriends?.filter((f: any) => {
     return f.username
@@ -283,7 +285,7 @@ export default function Home() {
           />
         )}{" "}
         <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
-          {storyPreview &&<StoryPage onClickClose={()=>{
+          {storyPreview && storyFile &&<StoryPage storyFile={storyFile} onClickClose={()=>{
             setStoryPreview(undefined)
           }} userId={userDataValue.username} userImage={userDataValue.picture} storyImage={storyPreview}/>}
           <div className="col-span-1">

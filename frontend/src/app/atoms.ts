@@ -1,4 +1,4 @@
-import { StoryPreview } from "@/types/types";
+import { StoryFile, StoryPreview } from "@/types/types";
 import { atom } from "recoil";
 
 export const userNameAtom = atom({
@@ -50,4 +50,10 @@ export const pendingRequestsAtom = atom({
 export const storyPreviewAtom = atom<StoryPreview>({
   key : "storyPreview",
   default:undefined
+})
+
+
+export const selectedFileForStory = atom<StoryFile>({
+  key : "storyFile",
+  default : undefined
 })

@@ -19,3 +19,5 @@ export interface PostInterface {
 
 
 export type StoryPreview = undefined |  string
+
+export type StoryFile = undefined | File
