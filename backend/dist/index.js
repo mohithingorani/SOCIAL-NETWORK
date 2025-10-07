@@ -268,8 +268,8 @@ app.get("/posts/count", (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         const numPosts = yield prisma.post.findMany({
             where: {
-                userId: Number(userId)
-            }
+                userId: Number(userId),
+            },
         });
         res
             .json({
@@ -787,6 +787,18 @@ app.post("/comments/all", (req, res) => __awaiter(void 0, void 0, void 0, functi
         logger.error(error);
         res.json({ message: "Cannot fetch comments", error }).status(500);
     }
+}));
+app.post("/story/add", upload.single("image"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.file) {
+        return res.json(400).json({
+            message: "No file uploaded",
+        });
+    }
+    const imageUrl = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
+    res.json({
+        message: "image upload successfully",
+        imageUrl
+    });
 }));
 // Start the server
 const PORT = parseInt(process.env.PORT) || 3000;

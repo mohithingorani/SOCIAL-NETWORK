@@ -22,9 +22,13 @@ model User {
   onlineStatus     Boolean         @default(false)
   lastOnline       DateTime        @default(now())
   posts            Post[]          @relation("UserPosts")
+  stories         Story[]         @relation("UserStories")
   likes            Like[]
   comments         Comment[]       @relation("UserComments")
+
 }
+
+
 
 model FriendRequest {
   id         Int      @id @default(autoincrement())
@@ -65,6 +69,15 @@ model Post {
   userId    Int
   user      User      @relation("UserPosts", fields: [userId], references: [id], onDelete: Cascade)
   comments  Comment[] @relation(name: "UserCaptions")
+}
+
+model Story {
+  id Int @id @default(autoincrement())
+  image String?
+  createdAt DateTime @default(now())
+  userId Int
+  user User @relation("UserStories",fields: [userId],references: [id],onDelete: Cascade)
+
 }
 
 model Comment {

@@ -280,9 +280,9 @@ app.get("/posts/count", async (req, res) => {
         .status(500);
     }
     const numPosts = await prisma.post.findMany({
-      where:{
-        userId:Number(userId)
-      }
+      where: {
+        userId: Number(userId),
+      },
     });
     res
       .json({
@@ -849,6 +849,20 @@ app.post("/comments/all", async (req, res) => {
     logger.error(error);
     res.json({ message: "Cannot fetch comments", error }).status(500);
   }
+});
+
+app.post("/story/add", upload.single("image"), async (req, res) => {
+  if (!req.file) {
+    return res.json(400).json({
+      message: "No file uploaded",
+    });
+  }
+  const imageUrl = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
+  
+  res.json({
+    message : "image upload successfully",
+    imageUrl
+  })
 });
 
 // Start the server
