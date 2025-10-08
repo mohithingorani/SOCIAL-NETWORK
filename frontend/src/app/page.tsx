@@ -113,7 +113,7 @@ export default function Home() {
       }
     };
     getInfo();
-  }, [session.data?.user?.email, setUserNameValue, setUserDataValue]);
+  }, [session.data?.user?.email]);
 
   async function getPosts() {
     try {
@@ -217,7 +217,7 @@ export default function Home() {
     const interval = setInterval(() => {
       console.log(friends);
       updateLastActive();
-    }, 2500);
+    }, 25000);
 
     return () => clearInterval(interval);
   }, [userData?.email]);
@@ -286,8 +286,9 @@ export default function Home() {
         )}{" "}
         <div className="grid grid-cols-1 md:grid-cols-6 overflow-hidden ">
           {storyPreview && storyFile &&<StoryPage storyFile={storyFile} onClickClose={()=>{
-            setStoryPreview(undefined)
-          }} userId={userDataValue.username} userImage={userDataValue.picture} storyImage={storyPreview}/>}
+            setStoryPreview(undefined);
+            setStoryFile(undefined);
+          }} userName={userDataValue.username} userId={userDataValue.id} userImage={userDataValue.picture} storyImage={storyPreview}/>}
           <div className="col-span-1">
             <NavBar userName={userNameValue} />
           </div>
@@ -297,7 +298,7 @@ export default function Home() {
                 {currPage === "home" && (
                   <div>
                     <div className="mb-8">
-                      <StoriesCard />
+                      <StoriesCard userId={userDataValue.id} />
                     </div>
                     <div>
                       {userDataValue.id != 0 && (
