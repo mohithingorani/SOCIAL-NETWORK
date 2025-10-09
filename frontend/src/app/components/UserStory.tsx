@@ -3,6 +3,7 @@ import { UserStoriesInterface } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
 import NextIcon from "./nextButton";
+import { TotalStories } from "./TotalStories";
 
 export default function UserStory({
  userStories,
@@ -64,8 +65,12 @@ export default function UserStory({
                 <div className="text-lg font-bold text-white">{userStories[0].user.username}</div>
               </div>
             </div>
-            <div className="absolute top-0 right-0  text-black">
+            {/* <div className="absolute top-0 right-0  text-black">
               Story Count:  {userStories.length}
+              
+            </div> */}
+            <div className="absolute top-0 w-full">
+              <TotalStories counter={counter} total={userStories.length-1}/>
 
             </div>
             <div className="absolute top-0 right-[-100px] h-full  flex justify-end items-center ">
