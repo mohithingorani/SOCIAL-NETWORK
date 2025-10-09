@@ -25,7 +25,7 @@ export interface StoryInterface {
   user: {
     id: number;
     name: string;
-    userName: string;
+    username: string;
     picture: string;
   };
 }
@@ -37,3 +37,15 @@ export interface GroupedStory {
 export type StoryPreview = undefined | string;
 
 export type StoryFile = undefined | File;
+export interface UserStoriesInterface {
+  id: number;
+  image: string;
+  createdAt: string;
+  userId: number;
+  user: {
+    id: number;
+    name: string;
+    username: string;
+    picture: string;
+  };
+}

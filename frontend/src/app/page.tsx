@@ -21,9 +21,9 @@ import Image from "next/image";
 import Post from "./components/Post";
 import { AddPost } from "./components/AddPost";
 import { MessageCard } from "./components/MessageCard";
-import { StoriesCard } from "./components/StoriesCard";
+import { StoriesCard } from "./components/CircleStoriesCard";
 import { useFriends } from "@/hooks/useFriends";
-import { PostInterface } from "@/types/types";
+import { PostInterface, StoryInterface } from "@/types/types";
 import { toast } from "react-toastify";
 import { MessageCardForRequests } from "./components/MessageCardForRequests";
 import Spinner from "./components/Spinner";
@@ -34,6 +34,9 @@ import StoryPage from "./components/StoryPage";
 // import ChickShower from "./components/surprise";
 // import ChickShower from "./components/surprise";
 // import ReminderModal from "./components/surprise";
+
+
+
 
 export interface userData {
   email: string;
@@ -84,7 +87,9 @@ export default function Home() {
     f.username?.toLowerCase().includes(searchFriendsInput.toLowerCase())
   );
   const [storyFile, setStoryFile]= useRecoilState(selectedFileForStory);
-
+  const [groupedStories, setGroupedStories] = useState<
+    Record<number, StoryInterface[]> | null
+  >(null);
   const filteredSuggestFriends = searchedFriends?.filter((f: any) => {
     return f.username
       ?.toLowerCase()
@@ -131,6 +136,7 @@ export default function Home() {
   }
   useEffect(() => {
     getPosts();
+    getStories();
   }, [userDataValue]);
 
   async function searchFriends(name: string) {
@@ -273,6 +279,34 @@ export default function Home() {
     refetch();
     return acceptFriendRequest;
   }
+
+
+async function getStories() {
+    if (!userDataValue) return;
+
+    const response = await axios.post<{ stories: StoryInterface[] }>(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/stories/all`,
+      { userId:userDataValue.id }
+    );
+
+    const storiesData: StoryInterface[] = response.data.stories;
+
+    const grouped = storiesData.reduce(
+      (acc: Record<number, StoryInterface[]>, story: StoryInterface) => {
+        if (!acc[story.userId]) acc[story.userId] = [];
+        acc[story.userId].push(story);
+        return acc;
+      },
+      {}
+    );
+
+    setGroupedStories(grouped);
+  }
+
+  
+
+
+
   return (
     loggedIn && (
       <>
@@ -298,7 +332,7 @@ export default function Home() {
                 {currPage === "home" && (
                   <div>
                     <div className="mb-8">
-                      <StoriesCard userId={userDataValue.id} />
+                      {groupedStories&&<StoriesCard groupedStories={groupedStories} />}
                     </div>
                     <div>
                       {userDataValue.id != 0 && (
