@@ -36430,3 +36430,370 @@ Please make sure your database server is running at `64.227.155.243:5432`.
 2025-10-13 03:04:47 [[32minfo[39m]: User details fetched successfully
 2025-10-13 03:04:58 [[32minfo[39m]: User details fetched successfully
 2025-10-13 03:04:58 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:05:29 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:05:29 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:05:53 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:05:53 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:04 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:04 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:55 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:55 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:06:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:16 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:16 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:30 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:30 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:34 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:34 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:37 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:37 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:47 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:47 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:51 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:51 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:07:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:08:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:08:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:08:45 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:08:45 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:08:46 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:08:47 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:11:07 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:11:07 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:11:49 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:11:49 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:12:16 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 03:12:59 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 03:13:06 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:13:06 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:13:38 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:13:38 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:14:00 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:14:00 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:14:06 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:14:06 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:15:26 [[32minfo[39m]: 0
+2025-10-13 03:15:26 [[32minfo[39m]: username is 
+2025-10-13 03:15:26 [[32minfo[39m]: self username is undefined
+2025-10-13 03:15:27 [[32minfo[39m]: 0
+2025-10-13 03:15:27 [[32minfo[39m]: username is 
+2025-10-13 03:15:27 [[32minfo[39m]: self username is undefined
+2025-10-13 03:15:27 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:15:27 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:15:27 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:15:27 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:15:27 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:15:27 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:15:32 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:15:33 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:15:33 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:15:33 [[32minfo[39m]: 2
+2025-10-13 03:15:33 [[32minfo[39m]: username is 
+2025-10-13 03:15:33 [[32minfo[39m]: self username is undefined
+2025-10-13 03:15:33 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:15:34 [[32minfo[39m]: 
+2025-10-13 03:15:34 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:15:34 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:15:34 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:15:35 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:15:35 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:16:01 [[32minfo[39m]: 0
+2025-10-13 03:16:01 [[32minfo[39m]: username is 
+2025-10-13 03:16:01 [[32minfo[39m]: self username is undefined
+2025-10-13 03:16:01 [[32minfo[39m]: 0
+2025-10-13 03:16:01 [[32minfo[39m]: username is 
+2025-10-13 03:16:01 [[32minfo[39m]: self username is undefined
+2025-10-13 03:16:01 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:16:01 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:16:01 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:16:01 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:16:01 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:16:02 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:16:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:16:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:16:02 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:16:02 [[32minfo[39m]: 2
+2025-10-13 03:16:03 [[32minfo[39m]: username is 
+2025-10-13 03:16:03 [[32minfo[39m]: self username is undefined
+2025-10-13 03:16:03 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:16:03 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:16:03 [[32minfo[39m]: 
+2025-10-13 03:16:03 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:16:03 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:16:03 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:16:04 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:11 [[32minfo[39m]: 0
+2025-10-13 03:17:11 [[32minfo[39m]: username is 
+2025-10-13 03:17:11 [[32minfo[39m]: self username is undefined
+2025-10-13 03:17:11 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:17:12 [[32minfo[39m]: username is 
+2025-10-13 03:17:12 [[32minfo[39m]: self username is undefined
+2025-10-13 03:17:12 [[32minfo[39m]: 0
+2025-10-13 03:17:12 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:17:12 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:17:12 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:17:12 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:17:12 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:17:14 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:14 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:15 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:15 [[32minfo[39m]: 2
+2025-10-13 03:17:15 [[32minfo[39m]: username is 
+2025-10-13 03:17:15 [[32minfo[39m]: self username is undefined
+2025-10-13 03:17:15 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:17:15 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:16 [[32minfo[39m]: 
+2025-10-13 03:17:16 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:16 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:17:16 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:17:16 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:49 [[32minfo[39m]: username is 
+2025-10-13 03:17:49 [[32minfo[39m]: self username is undefined
+2025-10-13 03:17:49 [[32minfo[39m]: 0
+2025-10-13 03:17:49 [[32minfo[39m]: 0
+2025-10-13 03:17:49 [[32minfo[39m]: username is 
+2025-10-13 03:17:49 [[32minfo[39m]: self username is undefined
+2025-10-13 03:17:49 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:17:49 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:17:49 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:17:49 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:17:49 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:17:49 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:17:49 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:50 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:50 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:50 [[32minfo[39m]: 2
+2025-10-13 03:17:50 [[32minfo[39m]: username is 
+2025-10-13 03:17:50 [[32minfo[39m]: self username is undefined
+2025-10-13 03:17:50 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:17:50 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:50 [[32minfo[39m]: 
+2025-10-13 03:17:50 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:17:50 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:17:50 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:17:50 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:18:31 [[32minfo[39m]: 0
+2025-10-13 03:18:31 [[32minfo[39m]: username is 
+2025-10-13 03:18:31 [[32minfo[39m]: self username is undefined
+2025-10-13 03:18:31 [[32minfo[39m]: 0
+2025-10-13 03:18:31 [[32minfo[39m]: username is 
+2025-10-13 03:18:31 [[32minfo[39m]: self username is undefined
+2025-10-13 03:18:31 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:18:31 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:18:31 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:18:31 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:18:31 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:18:31 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:18:32 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:18:32 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:18:32 [[32minfo[39m]: 2
+2025-10-13 03:18:32 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:18:32 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:18:32 [[32minfo[39m]: username is 
+2025-10-13 03:18:32 [[32minfo[39m]: self username is undefined
+2025-10-13 03:18:32 [[32minfo[39m]: 
+2025-10-13 03:18:33 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:18:33 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:18:33 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:18:33 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:18:34 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:19:54 [[32minfo[39m]: 0
+2025-10-13 03:19:54 [[32minfo[39m]: username is 
+2025-10-13 03:19:54 [[32minfo[39m]: self username is undefined
+2025-10-13 03:19:54 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:19:54 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:19:54 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:19:54 [[32minfo[39m]: 0
+2025-10-13 03:19:54 [[32minfo[39m]: username is 
+2025-10-13 03:19:54 [[32minfo[39m]: self username is undefined
+2025-10-13 03:19:54 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:19:54 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:19:54 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:19:56 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:19:56 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:19:56 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:19:56 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:19:56 [[32minfo[39m]: 2
+2025-10-13 03:19:56 [[32minfo[39m]: username is 
+2025-10-13 03:19:56 [[32minfo[39m]: self username is undefined
+2025-10-13 03:19:56 [[32minfo[39m]: 
+2025-10-13 03:19:57 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:19:57 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:19:57 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:19:58 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:19:58 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:03 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:03 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:37 [[32minfo[39m]: 0
+2025-10-13 03:20:37 [[32minfo[39m]: username is 
+2025-10-13 03:20:37 [[32minfo[39m]: self username is undefined
+2025-10-13 03:20:37 [[32minfo[39m]: 0
+2025-10-13 03:20:37 [[32minfo[39m]: username is 
+2025-10-13 03:20:37 [[32minfo[39m]: self username is undefined
+2025-10-13 03:20:37 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:20:37 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:20:37 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:20:37 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:20:38 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:38 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:20:38 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:20:38 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:38 [[32minfo[39m]: 2
+2025-10-13 03:20:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:39 [[32minfo[39m]: username is 
+2025-10-13 03:20:39 [[32minfo[39m]: self username is undefined
+2025-10-13 03:20:39 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:20:39 [[32minfo[39m]: 
+2025-10-13 03:20:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:39 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:20:39 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:20:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:20:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:21:18 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:21:18 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:17 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:17 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:21 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:21 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:35 [[32minfo[39m]: 0
+2025-10-13 03:22:35 [[32minfo[39m]: username is 
+2025-10-13 03:22:35 [[32minfo[39m]: self username is undefined
+2025-10-13 03:22:35 [[32minfo[39m]: 0
+2025-10-13 03:22:35 [[32minfo[39m]: username is 
+2025-10-13 03:22:35 [[32minfo[39m]: self username is undefined
+2025-10-13 03:22:35 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:22:35 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:22:35 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:22:35 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:22:35 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:22:35 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:22:35 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:35 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:35 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:36 [[32minfo[39m]: 2
+2025-10-13 03:22:36 [[32minfo[39m]: username is 
+2025-10-13 03:22:36 [[32minfo[39m]: self username is undefined
+2025-10-13 03:22:36 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:36 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:22:36 [[32minfo[39m]: 
+2025-10-13 03:22:36 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:36 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:22:36 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:36 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:22:38 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:38 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:39 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:45 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:46 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:51 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:51 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:58 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:22:59 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:00 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:01 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:01 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:01 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:09 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:09 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:13 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:13 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:15 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:15 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:18 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:23:19 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:24:20 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:24:20 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:48:56 [[32minfo[39m]: 0
+2025-10-13 03:48:56 [[32minfo[39m]: username is 
+2025-10-13 03:48:56 [[32minfo[39m]: self username is undefined
+2025-10-13 03:48:56 [[32minfo[39m]: 0
+2025-10-13 03:48:56 [[32minfo[39m]: username is 
+2025-10-13 03:48:56 [[32minfo[39m]: self username is undefined
+2025-10-13 03:48:56 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:48:56 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:48:56 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:48:56 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:48:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:48:57 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:48:57 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:48:57 [[32minfo[39m]: 2
+2025-10-13 03:48:57 [[32minfo[39m]: FriendshipIds
+2025-10-13 03:48:57 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:48:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:48:57 [[32minfo[39m]: username is 
+2025-10-13 03:48:57 [[32minfo[39m]: self username is undefined
+2025-10-13 03:48:57 [[32minfo[39m]: Stories sent successfully
+2025-10-13 03:48:57 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:48:57 [[32minfo[39m]: 
+2025-10-13 03:48:58 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:48:58 [[32minfo[39m]: Users fetched successfully
+2025-10-13 03:48:58 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:49:15 [[32minfo[39m]: User details fetched successfully
+2025-10-13 03:49:15 [[32minfo[39m]: User details fetched successfully
+2025-10-13 04:00:35 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 04:00:43 [[32minfo[39m]: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+2025-10-13 04:01:11 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 04:05:36 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 04:07:01 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 20:37:11 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 20:37:45 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 20:43:06 [[32minfo[39m]: Server listening on port 3000
+2025-10-13 21:29:49 [[32minfo[39m]: 0
+2025-10-13 21:29:49 [[32minfo[39m]: username is 
+2025-10-13 21:29:49 [[32minfo[39m]: self username is undefined
+2025-10-13 21:29:49 [[32minfo[39m]: 0
+2025-10-13 21:29:49 [[32minfo[39m]: username is 
+2025-10-13 21:29:49 [[32minfo[39m]: self username is undefined
+2025-10-13 21:29:49 [[32minfo[39m]: Users fetched successfully
+2025-10-13 21:29:49 [[32minfo[39m]: FriendshipIds
+2025-10-13 21:29:49 [[32minfo[39m]: Users fetched successfully
+2025-10-13 21:29:49 [[32minfo[39m]: FriendshipIds
+2025-10-13 21:29:49 [[32minfo[39m]: Stories sent successfully
+2025-10-13 21:29:50 [[32minfo[39m]: Stories sent successfully
+2025-10-13 21:29:52 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:52 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:53 [[32minfo[39m]: 2
+2025-10-13 21:29:53 [[32minfo[39m]: username is 
+2025-10-13 21:29:53 [[32minfo[39m]: self username is undefined
+2025-10-13 21:29:53 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:53 [[32minfo[39m]: FriendshipIds
+2025-10-13 21:29:53 [[32minfo[39m]: 
+2025-10-13 21:29:53 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:53 [[32minfo[39m]: Stories sent successfully
+2025-10-13 21:29:53 [[32minfo[39m]: Users fetched successfully
+2025-10-13 21:29:53 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:54 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:54 [[32minfo[39m]: User details fetched successfully
+2025-10-13 21:29:55 [[32minfo[39m]: User details fetched successfully
+2025-10-13 22:25:27 [[32minfo[39m]: Server listening on port 3000
+2025-10-14 00:35:31 [[32minfo[39m]: Server listening on port 3000
+2025-10-14 05:44:16 [[32minfo[39m]: 0
+2025-10-14 05:44:16 [[32minfo[39m]: username is 
+2025-10-14 05:44:16 [[32minfo[39m]: self username is undefined
+2025-10-14 05:44:16 [[32minfo[39m]: 0
+2025-10-14 05:44:16 [[32minfo[39m]: username is 
+2025-10-14 05:44:16 [[32minfo[39m]: self username is undefined
+2025-10-14 05:44:16 [[32minfo[39m]: FriendshipIds
+2025-10-14 05:44:16 [[32minfo[39m]: Users fetched successfully
+2025-10-14 05:44:16 [[32minfo[39m]: FriendshipIds
+2025-10-14 05:44:16 [[32minfo[39m]: Users fetched successfully
+2025-10-14 05:44:16 [[32minfo[39m]: Stories sent successfully
+2025-10-14 05:44:16 [[32minfo[39m]: Stories sent successfully
+2025-10-14 05:44:17 [[32minfo[39m]: User details fetched successfully
+2025-10-14 05:44:17 [[32minfo[39m]: User details fetched successfully
+2025-10-14 05:44:20 [[32minfo[39m]: User details fetched successfully
+2025-10-14 05:44:20 [[32minfo[39m]: 1
+2025-10-14 05:44:20 [[32minfo[39m]: username is 
+2025-10-14 05:44:20 [[32minfo[39m]: self username is undefined
+2025-10-14 05:44:20 [[32minfo[39m]: User details fetched successfully
+2025-10-14 05:44:20 [[32minfo[39m]: 
+2025-10-14 05:44:20 [[32minfo[39m]: Users fetched successfully
+2025-10-14 05:44:20 [[32minfo[39m]: FriendshipIds
+2025-10-14 05:44:20 [[32minfo[39m]: Stories sent successfully

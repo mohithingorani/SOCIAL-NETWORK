@@ -12,11 +12,11 @@ interface GraphData {
 }
 
 interface Node{
-data: { id: string; label: string }
+    data: { id: string; label: string }
 }
 
 interface Edge{
-     data: { id: string; source: string; target: string }
+    data: { id: string; source: string; target: string }
 }
 
 export default function Graph() {
@@ -33,7 +33,7 @@ function createCyInstance(graphData:GraphData) {
       animate: true,
       fit: true,
     } as any,
-    style: [
+    style: [    
       {
         selector: "grid",
         style: {

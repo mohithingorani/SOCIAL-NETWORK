@@ -864,21 +864,25 @@ app.post("/story/add", upload.single("image"), async (req, res) => {
     const story = await prisma.story.create({
       data: {
         image: imageUrl,
-        userId:parseInt(userId),
+        userId: parseInt(userId),
       },
     });
 
     logger.info("Story uploaded");
-    res.json({
-      message: "Story upload successfully",
-      story,
-    }).status(200);
+    res
+      .json({
+        message: "Story upload successfully",
+        story,
+      })
+      .status(200);
   } catch (err) {
     logger.error(err);
-    res.json({
-      message: "Error uploading story",
-      err,
-    }).status(500);
+    res
+      .json({
+        message: "Error uploading story",
+        err,
+      })
+      .status(500);
   }
 });
 
@@ -893,12 +897,12 @@ app.post("/stories/all", async (req, res) => {
         OR: [{ userId }, { friendId: userId }],
       },
     });
-    
+
     // Extracting all friendIds
     const friendIds = friendShips.map((f) =>
       f.userId === userId ? f.friendId : f.userId
-  );
-  logger.info("FriendshipIds",friendIds)
+    );
+    logger.info("FriendshipIds", friendIds);
 
     // Get all stories from friends
     const stories = await prisma.story.findMany({
@@ -933,6 +937,49 @@ app.post("/stories/all", async (req, res) => {
     });
   }
 });
+
+app.post("/graph", async (req, res) => {
+  try {
+    const usernames = await prisma.user.findMany({
+      select: { username: true },
+    });
+
+    const nodes = usernames.map((u) => ({
+      data: { id: u.username, label: u.username },
+    }));
+
+    const friends = await prisma.friend.findMany({
+      select: {
+        user: { select: { username: true } },
+        friend: { select: { username: true } },
+      },
+    });
+
+    //  edge list, avoiding duplicates
+    const edges:{data:{id:string,source:string,target:string}}[] = [];
+    const addedPairs = new Set();
+
+    friends.forEach(({ user, friend }) => {
+      const pairKey = [user.username, friend.username].sort().join("-");
+      if (!addedPairs.has(pairKey)) {
+        edges.push({
+          data: {
+            id: pairKey,
+            source: user.username,
+            target: friend.username,
+          },
+        });
+        addedPairs.add(pairKey);
+      }
+    });
+
+    res.json({ nodes, edges });
+  } catch (err) {
+    console.error("Error building graph:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 // Start the server
 const PORT: number = parseInt(process.env.PORT as string) || 3000;

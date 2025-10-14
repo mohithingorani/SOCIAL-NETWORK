@@ -804,17 +804,21 @@ app.post("/story/add", upload.single("image"), (req, res) => __awaiter(void 0, v
             },
         });
         logger.info("Story uploaded");
-        res.json({
+        res
+            .json({
             message: "Story upload successfully",
             story,
-        }).status(200);
+        })
+            .status(200);
     }
     catch (err) {
         logger.error(err);
-        res.json({
+        res
+            .json({
             message: "Error uploading story",
             err,
-        }).status(500);
+        })
+            .status(500);
     }
 }));
 app.post("/stories/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -862,6 +866,43 @@ app.post("/stories/all", (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.json({
             message: "Error extracting stories",
         });
+    }
+}));
+app.post("/graph", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const usernames = yield prisma.user.findMany({
+            select: { username: true },
+        });
+        const nodes = usernames.map((u) => ({
+            data: { id: u.username, label: u.username },
+        }));
+        const friends = yield prisma.friend.findMany({
+            select: {
+                user: { select: { username: true } },
+                friend: { select: { username: true } },
+            },
+        });
+        //  edge list, avoiding duplicates
+        const edges = [];
+        const addedPairs = new Set();
+        friends.forEach(({ user, friend }) => {
+            const pairKey = [user.username, friend.username].sort().join("-");
+            if (!addedPairs.has(pairKey)) {
+                edges.push({
+                    data: {
+                        id: pairKey,
+                        source: user.username,
+                        target: friend.username,
+                    },
+                });
+                addedPairs.add(pairKey);
+            }
+        });
+        res.json({ nodes, edges });
+    }
+    catch (err) {
+        console.error("Error building graph:", err);
+        res.status(500).json({ error: "Internal server error" });
     }
 }));
 // Start the server
