@@ -332,7 +332,7 @@ async function getStories() {
                 {currPage === "home" && (
                   <div>
                     <div className="mb-8">
-                      {groupedStories&&<StoriesCard groupedStories={groupedStories} />}
+                      {/* {groupedStories&&<StoriesCard groupedStories={groupedStories} />} */}
                     </div>
                     <div>
                       {userDataValue.id != 0 && (
@@ -468,7 +468,7 @@ async function getStories() {
                       onClick={() => {
                         setMenuOpen(showFriendsMenu.showFriends);
                       }}
-                      className={`text-white h-8  text-lg ${
+                      className={`text-white h-8  text-sm ${
                         menuOpen == showFriendsMenu.showFriends && "underline"
                       } hover:underline`}
                     >
